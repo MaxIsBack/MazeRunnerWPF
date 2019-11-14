@@ -2,6 +2,7 @@
 using MazeRunnerWPF;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace MazeTesting
 {
@@ -14,9 +15,15 @@ namespace MazeTesting
         {
 
             QuestionFactory q = new QuestionFactory();
-            string [] fakeArgs = null;
+            string [] fakeArgs = new string[] {"1"};
 
-            q.getQuestions(fakeArgs, 20);
+            
+            Queue<Question> questions =q.getQuestions(fakeArgs, 20);
+
+            foreach(Question question in questions)
+            {
+                Console.WriteLine($"Category: {question.Category} | Difficulty: {question.Difficulty}");
+            }
 
         }
 

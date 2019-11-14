@@ -34,7 +34,7 @@ namespace MazeRunnerWPF
 
         public Queue<Question> getQuestions(string[] questionArgs, int numberOfQuestionsToReturn)
         {
-            Console.WriteLine(_Database);
+            
             bool getRandomQuestionsBasedOnLevel = false;
 
 
@@ -140,12 +140,13 @@ namespace MazeRunnerWPF
                             int ID = Convert.ToInt32(reader["ID"]);
                             string type = (reader["Type"].ToString());
                             string category = (reader["Category"].ToString());
+                            Console.WriteLine(category);
                             string difficulty = (reader["Difficulty"].ToString());
                             string question = (System.Web.HttpUtility.HtmlDecode(reader["Question"].ToString()));
                             string correctAnswer = (reader["CorrectAnswer"].ToString());
                             string[] incorrectAnswers = reader["IncorrectAnswers"].ToString().Split('|');
-                            Console.WriteLine(difficulty);
-                            //Console.WriteLine(correctAnswer);
+                           
+                           
                             questions.Enqueue(new Question(difficulty, category, type, question, correctAnswer, incorrectAnswers));
 
                         }

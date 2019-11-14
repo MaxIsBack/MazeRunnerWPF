@@ -16,7 +16,7 @@ namespace MazeRunnerWPF
 
         public Question(string difficulty, string category, string type, string questionPrompt, string correctAnswer, string [] incorrectAnswers) {
             Difficulty = difficulty;
-            Category = Category;
+            Category = category;
             Type = type;
             QuestionPrompt = questionPrompt;
             CorrectAnswer = correctAnswer;
