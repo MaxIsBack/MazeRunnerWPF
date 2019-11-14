@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MazeComponents
+namespace MazeRunnerWPF
 {
 
     public class MazeStructure

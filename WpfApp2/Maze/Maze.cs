@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MazeComponents
+namespace MazeRunnerWPF
 {
     public class Maze
     {
