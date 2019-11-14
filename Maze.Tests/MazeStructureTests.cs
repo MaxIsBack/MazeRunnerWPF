@@ -8,8 +8,6 @@ namespace MazeTesting
     public class MazeStructureTests
     {
 
-
-
         [TestMethod]
         public void PrintTestMaze()
         {
@@ -40,9 +38,9 @@ namespace MazeTesting
                     {
                         if (!maze.NorthWall[i, j])
                         {
-                            Console.WriteLine($"({i},{j}) north question {maze._QuestionsList[maze.NorthQuestion[i, j]].number} matches south question {maze._QuestionsList[maze.SouthQuestion[i - 1, j]].number} of ({i - 1},{j})");
+                            Console.WriteLine($"({i},{j}) north question {maze._QuestionsList[maze.NorthQuestion[i, j]].CorrectAnswer} matches south question {maze._QuestionsList[maze.SouthQuestion[i - 1, j]].CorrectAnswer} of ({i - 1},{j})");
                             Assert.IsTrue(ReferenceEquals(maze._QuestionsList[maze.NorthQuestion[i, j]], maze._QuestionsList[maze.SouthQuestion[i - 1, j]]));
-                           
+
                         }
                     }
                 }
@@ -76,9 +74,9 @@ namespace MazeTesting
                     {
                         if (!maze.EastWall[i, j])
                         {
-                            Console.WriteLine($"({i},{j}) east question {maze._QuestionsList[maze.EastQuestion[i, j]].number} matches west question {maze._QuestionsList[maze.WestQuestion[i, j + 1]].number} of ({i},{j + 1})");
+                            Console.WriteLine($"({i},{j}) east question {maze._QuestionsList[maze.EastQuestion[i, j]].CorrectAnswer} matches west question {maze._QuestionsList[maze.WestQuestion[i, j + 1]].CorrectAnswer} of ({i},{j + 1})");
                             Assert.IsTrue(ReferenceEquals(maze._QuestionsList[maze.EastQuestion[i, j]], maze._QuestionsList[maze.WestQuestion[i, j + 1]]));
-                           
+
                         }
                     }
                 }
@@ -89,7 +87,6 @@ namespace MazeTesting
 
 
         }
-
 
 
 
