@@ -140,7 +140,6 @@ namespace MazeRunnerWPF
                             int ID = Convert.ToInt32(reader["ID"]);
                             string type = (reader["Type"].ToString());
                             string category = (reader["Category"].ToString());
-                            Console.WriteLine(category);
                             string difficulty = (reader["Difficulty"].ToString());
                             string question = (System.Web.HttpUtility.HtmlDecode(reader["Question"].ToString()));
                             string correctAnswer = (reader["CorrectAnswer"].ToString());
