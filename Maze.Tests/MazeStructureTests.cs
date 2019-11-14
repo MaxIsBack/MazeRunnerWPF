@@ -1,8 +1,8 @@
-using MazeComponents;
+using MazeRunnerWPF;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace MazeTests
+namespace MazeTesting
 {
     [TestClass]
     public class MazeStructureTests

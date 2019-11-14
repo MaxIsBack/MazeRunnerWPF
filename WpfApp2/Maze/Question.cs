@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MazeComponents
+namespace MazeRunnerWPF
 {
     public class Question
     {
