@@ -23,13 +23,7 @@ namespace MazeRunnerWPF
         }
 
 
-        // for testing.
-        string _Database = @"Data Source=C:\Users\saffron\Source\Repos\MazeRunnerWPF\WpfApp2\QuestionDatabase\QuestionsForMazeRunner.db; Version=3;";
-
-        //for the app
-        //private string _Database = Path.Combine("Data Source=", System.AppDomain.CurrentDomain.BaseDirectory, @"QuestionDatabase\QuestionsForMazeRunner.db", "; Version=3;");
-        
-        
+        string _Database = @"Data Source=QuestionDatabase\QuestionsForMazeRunner.db; Version=3;";
 
 
         public Queue<Question> getQuestions(string[] questionArgs, int numberOfQuestionsToReturn)
