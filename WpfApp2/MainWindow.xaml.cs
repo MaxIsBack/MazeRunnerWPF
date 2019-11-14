@@ -71,7 +71,7 @@ namespace WpfApp2
                 rect.Width = DR_LONG;
                 rect.Height = DR_SKINNY;
                 Canvas.SetLeft(rect, x + RM_SIZE / 2 - rect.Width / 2);
-                Canvas.SetTop(rect, y - rect.Height / 2);
+                Canvas.SetTop(rect, y - rect.Height);
                 mainCanvas.Children.Add(rect);
             }
 
@@ -82,7 +82,7 @@ namespace WpfApp2
                 rect.Width = DR_LONG;
                 rect.Height = DR_SKINNY;
                 Canvas.SetLeft(rect, x + RM_SIZE / 2 - rect.Width / 2);
-                Canvas.SetTop(rect, y + RM_SIZE - rect.Height / 2);
+                Canvas.SetTop(rect, y + RM_SIZE);
                 mainCanvas.Children.Add(rect);
             }
 
@@ -92,7 +92,7 @@ namespace WpfApp2
                 rect = ColoredRectInit(Colors.DarkOrange, Colors.Orange);
                 rect.Width = DR_SKINNY;
                 rect.Height = DR_LONG;
-                Canvas.SetLeft(rect, x + RM_SIZE - rect.Width / 2);
+                Canvas.SetLeft(rect, x + RM_SIZE);
                 Canvas.SetTop(rect, y + RM_SIZE / 2 - rect.Height / 2);
                 mainCanvas.Children.Add(rect);
             }
@@ -103,7 +103,7 @@ namespace WpfApp2
                 rect = ColoredRectInit(Colors.DarkOrange, Colors.Orange);
                 rect.Width = DR_SKINNY;
                 rect.Height = DR_LONG;
-                Canvas.SetLeft(rect, x - rect.Width / 2);
+                Canvas.SetLeft(rect, x - rect.Width);
                 Canvas.SetTop(rect, y + RM_SIZE / 2 - rect.Height / 2);
                 mainCanvas.Children.Add(rect);
             }
