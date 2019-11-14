@@ -17,7 +17,7 @@ namespace WpfApp2
 {
     struct _Room
     {
-        bool NorthDoor, SouthDoor, EastDoor, WestDoor;
+        public bool NorthDoor, SouthDoor, EastDoor, WestDoor;
         public _Room(bool northD, bool southD, bool eastD, bool westD)
         {
             NorthDoor = northD;
@@ -64,37 +64,49 @@ namespace WpfApp2
             mainCanvas.Children.Add(rect);
 
 
-            // Create door (N)
-            rect = ColoredRectInit(Colors.DarkOrange, Colors.Orange);
-            rect.Width = DR_LONG;
-            rect.Height = DR_SKINNY;
-            Canvas.SetLeft(rect, x + RM_SIZE / 2 - rect.Width / 2);
-            Canvas.SetTop(rect, y - rect.Height / 2);
-            mainCanvas.Children.Add(rect);
+            if (room.NorthDoor)
+            {
+                // Create door (N)
+                rect = ColoredRectInit(Colors.DarkOrange, Colors.Orange);
+                rect.Width = DR_LONG;
+                rect.Height = DR_SKINNY;
+                Canvas.SetLeft(rect, x + RM_SIZE / 2 - rect.Width / 2);
+                Canvas.SetTop(rect, y - rect.Height / 2);
+                mainCanvas.Children.Add(rect);
+            }
 
-            // Create door (S)
-            rect = ColoredRectInit(Colors.DarkOrange, Colors.Orange);
-            rect.Width = DR_LONG;
-            rect.Height = DR_SKINNY;
-            Canvas.SetLeft(rect, x + RM_SIZE / 2 - rect.Width / 2);
-            Canvas.SetTop(rect, y + RM_SIZE - rect.Height / 2);
-            mainCanvas.Children.Add(rect);
+            if (room.SouthDoor)
+            {
+                // Create door (S)
+                rect = ColoredRectInit(Colors.DarkOrange, Colors.Orange);
+                rect.Width = DR_LONG;
+                rect.Height = DR_SKINNY;
+                Canvas.SetLeft(rect, x + RM_SIZE / 2 - rect.Width / 2);
+                Canvas.SetTop(rect, y + RM_SIZE - rect.Height / 2);
+                mainCanvas.Children.Add(rect);
+            }
 
-            // Create door (E)
-            rect = ColoredRectInit(Colors.DarkOrange, Colors.Orange);
-            rect.Width = DR_SKINNY;
-            rect.Height = DR_LONG;
-            Canvas.SetLeft(rect, x + RM_SIZE - rect.Width / 2);
-            Canvas.SetTop(rect, y + RM_SIZE / 2 - rect.Height / 2);
-            mainCanvas.Children.Add(rect);
+            if (room.EastDoor)
+            {
+                // Create door (E)
+                rect = ColoredRectInit(Colors.DarkOrange, Colors.Orange);
+                rect.Width = DR_SKINNY;
+                rect.Height = DR_LONG;
+                Canvas.SetLeft(rect, x + RM_SIZE - rect.Width / 2);
+                Canvas.SetTop(rect, y + RM_SIZE / 2 - rect.Height / 2);
+                mainCanvas.Children.Add(rect);
+            }
 
-            // Create door (W)
-            rect = ColoredRectInit(Colors.DarkOrange, Colors.Orange);
-            rect.Width = DR_SKINNY;
-            rect.Height = DR_LONG;
-            Canvas.SetLeft(rect, x - rect.Width / 2);
-            Canvas.SetTop(rect, y + RM_SIZE / 2 - rect.Height / 2);
-            mainCanvas.Children.Add(rect);
+            if (room.WestDoor)
+            {
+                // Create door (W)
+                rect = ColoredRectInit(Colors.DarkOrange, Colors.Orange);
+                rect.Width = DR_SKINNY;
+                rect.Height = DR_LONG;
+                Canvas.SetLeft(rect, x - rect.Width / 2);
+                Canvas.SetTop(rect, y + RM_SIZE / 2 - rect.Height / 2);
+                mainCanvas.Children.Add(rect);
+            }
         }
     }
 }
