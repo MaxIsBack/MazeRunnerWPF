@@ -87,6 +87,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Maze\GamePlay.cs" />
+    <Compile Include="Maze\Trebek.cs" />
     <Compile Include="Maze\Maze.cs" />
     <Compile Include="Maze\MazeStructure.cs" />
     <Compile Include="Maze\Question.cs" />
