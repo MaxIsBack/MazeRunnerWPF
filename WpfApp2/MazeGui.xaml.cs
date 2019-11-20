@@ -29,11 +29,13 @@ namespace MazeRunnerWPF
 
         private void btnTurnLeft_Click(object sender, RoutedEventArgs e) { TurnLeft(); }
         private void btnTurnRight_Click(object sender, RoutedEventArgs e) { TurnRight(); }
+        private void btnAction_Click(object sender, RoutedEventArgs e) { DoAction(); }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Left) TurnLeft();
             else if (e.Key == Key.Right) TurnRight();
+            else if (e.Key == Key.Up) DoAction();
         }
 
 
@@ -48,6 +50,15 @@ namespace MazeRunnerWPF
         {
             Turn(90);
         }
+
+        private void DoAction()
+        {
+            MoveToZ(1);
+        }
+
+
+
+
 
         private double targetAngle;
         private void Turn(double angle)
@@ -77,12 +88,61 @@ namespace MazeRunnerWPF
             {
                 Thread.Sleep(1000 / 60);
                 CurrentAngle += turnDelta;
-                Console.WriteLine(CurrentAngle);
                 Dispatcher.Invoke(
                     new UpdateSetLookRotation(this.SetLookRotation),
                     new object[] { CurrentAngle }
                 );
             }
+        }
+
+
+        private double targetZ, currentZ;
+        private void MoveToZ(double newZ)
+        {
+            targetZ = newZ;
+            currentZ = camMain.Position.Z;
+            new Thread(new ThreadStart(MoveAnimateAsync)).Start();
+        }
+
+        private void MoveAnimateAsync()
+        {
+            int ticks = 30;
+            double moveDelta = (targetZ - currentZ) / ticks;
+            for (int i = 0; i < ticks; i++)
+            {
+                Thread.Sleep(1000 / 60);
+                currentZ += moveDelta;
+                Dispatcher.Invoke(
+                    new UpdateSetZPos(this.SetZPos),
+                    new object[] { currentZ }
+                );
+            }
+
+            targetZ = -2;
+            currentZ = -5;
+            Dispatcher.Invoke(
+                new UpdateSetZPos(this.SetZPos),
+                new object[] { currentZ }
+            );
+
+            moveDelta = (targetZ - currentZ) / ticks;
+            for (int i = 0; i < ticks; i++)
+            {
+                Thread.Sleep(1000 / 60);
+                currentZ += moveDelta;
+                Dispatcher.Invoke(
+                    new UpdateSetZPos(this.SetZPos),
+                    new object[] { currentZ }
+                );
+            }
+        }
+
+        private delegate void UpdateSetZPos(double z);
+        private void SetZPos(double z)
+        {
+            var pt = camMain.Position;
+            pt.Z = z;
+            camMain.Position = pt;
         }
     }
 }
