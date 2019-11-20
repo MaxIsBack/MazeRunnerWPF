@@ -22,10 +22,14 @@ namespace MazeRunnerWPF
     public partial class MainWindow : Window
     {
         public const int THREAD_SLEEP = 1000 / 90;  // 90 fps for removing stuttering
+        private MazeGui.MazeGuiBuilder mazeBuilder;
 
         public MainWindow()
         {
             InitializeComponent();
+            //mazeBuilder = new MazeGui.MazeGuiBuilder(3);
+            Maze maze = new Maze(3);
+            Console.WriteLine();
             CurrentAngle = targetAngle = GetLookRotation();
         }
 
