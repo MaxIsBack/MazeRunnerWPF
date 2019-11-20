@@ -5,13 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeRunnerWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        KeyDown="Window_KeyDown">
     <Grid>
         <Viewport3D Name="viewport3D1">
 
             <Viewport3D.Camera>
-                <!--<PerspectiveCamera x:Name = "camMain" Position = "0 0 0" LookDirection = "0 0 1">-->
-                <!--<PerspectiveCamera x:Name = "camMain" Position = "-6 0.5 -4" LookDirection = "6 0.5 4">-->
                 <PerspectiveCamera x:Name = "camMain" Position = "0 0 -2" LookDirection = "0 0 1">
                 </PerspectiveCamera>
             </Viewport3D.Camera>
@@ -114,7 +113,6 @@
                         <GeometryModel3D.Material>
                             <DiffuseMaterial x:Name = "matDiffuseMain">
                                 <DiffuseMaterial.Brush>
-                                    <!--<SolidColorBrush Color = "Bisque"/>-->
                                     <ImageBrush ImageSource="Assets/tex.png"/>
                                 </DiffuseMaterial.Brush>
                             </DiffuseMaterial>
@@ -133,19 +131,16 @@
                 <ModelVisual3D.Transform>
                     <RotateTransform3D>
                         <RotateTransform3D.Rotation>
-                            <AxisAngleRotation3D x:Name = "rotate" Axis = "0 2 0"/>
+                            <AxisAngleRotation3D x:Name="lookRotation" Axis = "0 2 0"/>
                         </RotateTransform3D.Rotation>
                     </RotateTransform3D>
                 </ModelVisual3D.Transform>
 
             </ModelVisual3D>
         </Viewport3D>
-
-        <Slider Height = "23" HorizontalAlignment = "Left"  
-         Margin = "145,271,0,0" Name = "slider1" 
-         VerticalAlignment = "Top" Width = "269"  
-         Maximum = "360" 
-         Value = "{Binding ElementName = rotate, Path=Angle}" />
+        
+        <Button x:Name="btnTurnLeft" Content="Left" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="150" Height="40" Click="btnTurnLeft_Click"/>
+        <Button x:Name="btnTurnRight" Content="Right" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="150" Height="40" Click="btnTurnRight_Click"/>
     </Grid>
 </Window>
 
