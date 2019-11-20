@@ -21,6 +21,8 @@ namespace MazeRunnerWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        public const int THREAD_SLEEP = 1000 / 90;  // 90 fps for removing stuttering
+
         public MainWindow()
         {
             InitializeComponent();
@@ -86,7 +88,7 @@ namespace MazeRunnerWPF
             double turnDelta = (targetAngle - CurrentAngle) / ticks;
             for (int i = 0; i < ticks; i++)
             {
-                Thread.Sleep(1000 / 60);
+                Thread.Sleep(THREAD_SLEEP);
                 CurrentAngle += turnDelta;
                 Dispatcher.Invoke(
                     new UpdateSetLookRotation(this.SetLookRotation),
@@ -110,7 +112,7 @@ namespace MazeRunnerWPF
             double moveDelta = (targetZ - currentZ) / ticks;
             for (int i = 0; i < ticks; i++)
             {
-                Thread.Sleep(1000 / 60);
+                Thread.Sleep(THREAD_SLEEP);
                 currentZ += moveDelta;
                 Dispatcher.Invoke(
                     new UpdateSetZPos(this.SetZPos),
@@ -128,7 +130,7 @@ namespace MazeRunnerWPF
             moveDelta = (targetZ - currentZ) / ticks;
             for (int i = 0; i < ticks; i++)
             {
-                Thread.Sleep(1000 / 60);
+                Thread.Sleep(THREAD_SLEEP);
                 currentZ += moveDelta;
                 Dispatcher.Invoke(
                     new UpdateSetZPos(this.SetZPos),
