@@ -29,6 +29,13 @@ namespace MazeRunnerWPF
 
         private QuestionFactory _QuestionFactory = new QuestionFactory();
 
+        internal void UnlockQuestion(int questionIndex)
+        {
+            Question temp = MazeQuestions[questionIndex];
+            temp.Unlock();
+            MazeQuestions[questionIndex]=temp;
+        }
+
         public List<Question> MazeQuestions { get; private set; } = new List<Question>();
 
 
@@ -56,7 +63,11 @@ namespace MazeRunnerWPF
 
         }
 
-        
+        //returns true if locked false if not
+        internal bool QuestionStatus(int questionIndex)
+        {
+            return MazeQuestions[questionIndex].Locked();
+        }
 
         private void CopyMazeStructure(MazeStructure mazeStructure)
         {
@@ -268,8 +279,8 @@ namespace MazeRunnerWPF
     {
         public const int East = 0;
         public const int West = 1;
-        public const int North = 3;
-        public const int South = 4;
+        public const int North = 2;
+        public const int South = 3;
         
     }
 

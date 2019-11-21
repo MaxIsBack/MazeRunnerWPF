@@ -41,7 +41,7 @@ namespace MazeRunnerWPF
 
         internal void Unlock()
         {
-            _Locked = true;
+            _Locked = false;
         }
     }
 }

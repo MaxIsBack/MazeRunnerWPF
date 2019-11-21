@@ -3,13 +3,13 @@
 namespace MazeRunnerWPF
 {
 
-    class GamePlay
+    public class GamePlay
     {
         public static Maze TheMaze { get; private set; }
         static int MazeSize { get; set; } = 4;
 
 
-        static void MazeRunnerMain(string[] args)
+        public static void MazeRunnerMain(string[] args)
         {
 
             Console.WriteLine("Welcome to Maze Runner. select your level");
@@ -60,61 +60,89 @@ namespace MazeRunnerWPF
                 Console.WriteLine($"current location: {x},{y}");
 
 
-                //get the question
+                //display possible ways to go
                 if (TheMaze.EastQuestion[x, y] != -1)
                 {
-                    Console.WriteLine("Attempt East = 0");
+                    Console.WriteLine("Move East = 0");
                 }
                 if (TheMaze.WestQuestion[x, y] != -1)
                 {
-                    Console.WriteLine("Attempt West = 1");
+                    Console.WriteLine("Move West = 1");
                 }
                 if (TheMaze.NorthQuestion[x, y] != -1)
                 {
-                    Console.WriteLine("Attempt North = 2");
+                    Console.WriteLine("Move North = 2");
                 }
                 if (TheMaze.SouthQuestion[x, y] != -1)
                 {
-                    Console.WriteLine("Attempt South = 3");
+                    Console.WriteLine("Move South = 3");
                 }
 
                 int choice = Convert.ToInt32(Console.ReadLine());
 
 
 
-                //ask question and move if succesful
+                //ask question if question is locked and move if succesfull
                 bool correctAnswer = false;
                 switch (choice)
                 {
                     case Direction.East:
-                        if (Trebek.AskQuestion(TheMaze.EastQuestion[x, y]))
+                        if (TheMaze.QuestionStatus(TheMaze.EastQuestion[x, y]))
+                        {
+                            if (Trebek.AskQuestion(TheMaze.EastQuestion[x, y]))
+                            {
+                                MovePlayer(Direction.East);
+                                correctAnswer = true;
+                            }
+
+                        }
+                        else
                         {
                             MovePlayer(Direction.East);
-                            correctAnswer = true;
-                            
                         }
                         break;
                     case Direction.West:
-                        if (Trebek.AskQuestion(TheMaze.WestQuestion[x, y]))
+                        if (TheMaze.QuestionStatus(TheMaze.WestQuestion[x, y]))
+                        {
+                            if (Trebek.AskQuestion(TheMaze.WestQuestion[x, y]))
+                            {
+                                MovePlayer(Direction.West);
+                                correctAnswer = true;
+                            }
+                        }
+                        else
                         {
                             MovePlayer(Direction.West);
-                            correctAnswer = true;
                         }
                         break;
                     case Direction.North:
-                        if (Trebek.AskQuestion(TheMaze.NorthQuestion[x, y]))
+                        if (TheMaze.QuestionStatus(TheMaze.NorthQuestion[x, y]))
+                        {
+                            if (Trebek.AskQuestion(TheMaze.NorthQuestion[x, y]))
+                            {
+                                MovePlayer(Direction.North);
+                                correctAnswer = true;
+                            }
+                        }
+                        else
                         {
                             MovePlayer(Direction.North);
-                            correctAnswer = true;
                         }
                         break;
                     case Direction.South:
-                        if (Trebek.AskQuestion(TheMaze.SouthQuestion[x, y]))
+                        if (TheMaze.QuestionStatus(TheMaze.SouthQuestion[x, y]))
+                        {
+                            if (Trebek.AskQuestion(TheMaze.SouthQuestion[x, y]))
+                            {
+                                MovePlayer(Direction.South);
+                                correctAnswer = true;
+                            }
+                        }
+                        else
                         {
                             MovePlayer(Direction.South);
-                            correctAnswer = true;
                         }
-                       
+
                         break;
 
                     default:
@@ -126,7 +154,7 @@ namespace MazeRunnerWPF
                     //dont move rooms!
                 }
 
-                if (TheMaze.PlayerLocation == TheMaze._ExitCoordinates)
+                if (TheMaze.PlayerLocation.x == TheMaze._ExitCoordinates.x && TheMaze.PlayerLocation.y == TheMaze._ExitCoordinates.y)
                 {
                     Console.WriteLine("YouWin");
                     return;
@@ -136,7 +164,7 @@ namespace MazeRunnerWPF
 
         }
 
-       
+
 
         static void MovePlayer(int direction)
         {

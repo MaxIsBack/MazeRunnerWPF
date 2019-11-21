@@ -17,9 +17,11 @@ namespace MazeRunnerWPF
             // gui knows how to display question. Trebek jst gets input and lets the gui if the player got the question right.
             //and then updates the question status.
 
+            
+            
+            Console.WriteLine("Trebek is Asking you a question");
 
-
-
+            Console.WriteLine(theQuestion.QuestionPrompt);
             // string input = Gui.getInput();
 
             int input = Convert.ToInt32(Console.ReadLine());
@@ -29,7 +31,10 @@ namespace MazeRunnerWPF
             switch (input)
             {
                 case 0:
+                    
+                    GamePlay.TheMaze.UnlockQuestion(questionIndex);
                     correctlyAnswered = true;
+                    Console.WriteLine("nice work");
                     break;
 
                 default:
@@ -40,30 +45,12 @@ namespace MazeRunnerWPF
 
             if (correctlyAnswered)
             {
-                Console.WriteLine("nice work");
+                //Console.WriteLine("nice work");
             }
 
 
             return correctlyAnswered;
 
-
-
-            //check answer
-
-
-            /*
-
-
-                        if (correct)
-                        {
-                            theQuestion.Unlock;
-                            return true;
-                        }
-                        else
-                            return false;
-
-
-                    }*/
 
         }
     }
