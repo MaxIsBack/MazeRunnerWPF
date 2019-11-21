@@ -23,13 +23,23 @@ namespace MazeRunnerWPF
     {
         public const int THREAD_SLEEP = 1000 / 90;  // 90 fps for removing stuttering
         private MazeGui.MazeGuiBuilder mazeBuilder;
+        private (int x, int y) currentLocation;
 
         public MainWindow()
         {
             InitializeComponent();
             mazeBuilder = new MazeGui.MazeGuiBuilder(3);
+            currentLocation = mazeBuilder.GetEntranceLoc();
             Console.WriteLine();
             CurrentAngle = targetAngle = GetLookRotation();
+            BuildCurrentLocation();
+        }
+
+        private void BuildCurrentLocation()
+        {
+            var collect = mazeBuilder.BuildRoomTextureCoordinates(currentLocation.x, currentLocation.y);
+            meshMainRoom.TextureCoordinates = collect;
+            Console.WriteLine(meshMainRoom.TextureCoordinates);
         }
 
         private void btnTurnLeft_Click(object sender, RoutedEventArgs e) { TurnLeft(); }

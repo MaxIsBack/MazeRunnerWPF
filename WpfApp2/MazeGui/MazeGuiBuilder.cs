@@ -24,7 +24,12 @@ namespace MazeRunnerWPF.MazeGui
 
         public MazeGuiBuilder(int size)
         {
-             mazeStruct = new Maze(size);
+            mazeStruct = new Maze(size);
+        }
+
+        public (int x, int y) GetEntranceLoc()
+        {
+            return mazeStruct.getEntrance();
         }
 
         public PointCollection BuildRoomTextureCoordinates(int x, int y)
@@ -78,8 +83,8 @@ namespace MazeRunnerWPF.MazeGui
 
         private Point[] GetTexCoordFromType(TextureType type)
         {
-            double texUnitU = 0.5;
-            double texUnitV = 0.5;
+            double texUnitU = 1;
+            double texUnitV = 4;
 
             Point[] points = new Point[4];
             points[0] = new Point(0, 0);
@@ -101,7 +106,7 @@ namespace MazeRunnerWPF.MazeGui
                 case TextureType.DOOR_UNLOCKED:
                     break;
                 case TextureType.DOOR_LOCKED:
-                    offsetU = 0.5;
+                    offsetU = 1;
                     offsetV = 0;
                     break;
             }
