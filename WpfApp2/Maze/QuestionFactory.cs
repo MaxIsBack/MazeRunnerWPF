@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace MazeRunnerWPF
 {
@@ -137,9 +138,21 @@ namespace MazeRunnerWPF
                             string difficulty = (reader["Difficulty"].ToString());
                             string question = (System.Web.HttpUtility.HtmlDecode(reader["Question"].ToString()));
                             string correctAnswer = (reader["CorrectAnswer"].ToString());
+                            //string[] incorrectAnswers = reader["IncorrectAnswers"].ToString().Split('|');
+
                             string[] incorrectAnswers = reader["IncorrectAnswers"].ToString().Split('|');
-                           
-                           
+                            string pattern = "(?<=\")(.*?)(?=\")";
+
+                            for (int j = 0; j < incorrectAnswers.Length; j++)
+                            {
+                                string cleanedAnswer= Regex.Match(incorrectAnswers[j], pattern).ToString();
+                                incorrectAnswers[j] = cleanedAnswer;
+                            } 
+                          
+                                
+
+
+
                             questions.Enqueue(new Question(difficulty, category, type, question, correctAnswer, incorrectAnswers));
 
                         }
