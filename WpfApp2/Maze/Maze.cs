@@ -19,12 +19,13 @@ namespace MazeRunnerWPF
         public int[,] WestQuestion { get; private set; }
 
 
+
+
+        public (int x, int y) _EntranceCoordinates;
+        public (int x, int y) _ExitCoordinates;
+
+        public (int x, int y) PlayerLocation { get; set; }
         public bool[,] RoomDiscovered { get; private set; }
-
-
-
-        private (int x, int y) _EntranceCoodinates;
-        private (int x, int y) _ExitCoordinates;
 
         private QuestionFactory _QuestionFactory = new QuestionFactory();
 
@@ -72,6 +73,8 @@ namespace MazeRunnerWPF
 
 
         }
+
+        
 
         public void ChangeQuestion( int QuestionIndex, params string[] questionArgs)
         {
@@ -198,8 +201,8 @@ namespace MazeRunnerWPF
 
         private void setExits()
         {
-            _EntranceCoodinates.x = randomInt.Next(Size / 2);
-            _EntranceCoodinates.y = randomInt.Next(Size / 2);
+            _EntranceCoordinates.x = randomInt.Next(Size / 2);
+            _EntranceCoordinates.y = randomInt.Next(Size / 2);
 
             int boundaryFactor;
             if (Size % 2 == 0)
@@ -213,21 +216,14 @@ namespace MazeRunnerWPF
             {
                 exitX = randomInt.Next(Size / 2) + boundaryFactor;
             }
-            while (exitX == _EntranceCoodinates.x);
+            while (exitX == _EntranceCoordinates.x);
 
             _ExitCoordinates.x = exitX;
             _ExitCoordinates.y = exitY;
 
         }
 
-        public (int x, int y) getEntrance()
-        {
-            return _EntranceCoodinates;
-        }
-        public (int x, int y) getExit()
-        {
-            return _ExitCoordinates;
-        }
+      
 
 
         public int getSize()
@@ -265,6 +261,16 @@ namespace MazeRunnerWPF
 
 
 
+    }
+
+
+    public static class Direction
+    {
+        public const int East = 0;
+        public const int West = 1;
+        public const int North = 3;
+        public const int South = 4;
+        
     }
 
 }
