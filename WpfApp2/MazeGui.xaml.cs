@@ -27,8 +27,7 @@ namespace MazeRunnerWPF
         public MainWindow()
         {
             InitializeComponent();
-            //mazeBuilder = new MazeGui.MazeGuiBuilder(3);
-            Maze maze = new Maze(3);
+            mazeBuilder = new MazeGui.MazeGuiBuilder(3);
             Console.WriteLine();
             CurrentAngle = targetAngle = GetLookRotation();
         }
