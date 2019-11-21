@@ -25,7 +25,10 @@ namespace MazeRunnerWPF
 
             Console.WriteLine(theQuestion.QuestionPrompt);
 
-            Console.WriteLine(answerChoices[0]);
+            foreach(string answer in answerChoices)
+            {
+                Console.WriteLine(answer);
+            } 
             // string input = Gui.getInput();
 
             int input = Convert.ToInt32(Console.ReadLine());
