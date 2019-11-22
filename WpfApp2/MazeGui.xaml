@@ -130,69 +130,136 @@
 
                                 </GeometryModel3D>
 
-                                <GeometryModel3D>
+                                <!--<GeometryModel3D>
                                     <GeometryModel3D.Geometry>
-                                        <MeshGeometry3D x:Name = "meshMainRoom2"
-                                            Positions="1 0 0  0 0 0
-                                                        1 1 0  0 1 0
-                                            
-                                                        0 0 1  1 0 1
-                                                        0 1 1  1 1 1
+                                        <MeshGeometry3D x:Name = "meshWallNorth"
+                                            Positions="0 0 1  1 0 1
+                                                        0 1 1  1 1 1"
                                             
                                             
-                                            
-                                                        0 0 0  0 0 1
-                                                        0 1 0  0 1 1
-                                            
-                                                        1 0 1  1 0 0
-                                                        1 1 1  1 1 0
-                                            
-                                            
-                                            
-                                                        0 0 1  1 0 1
-                                                        0 0 0  1 0 0
-                                            
-                                                        0 1 1  1 1 1
-                                                        0 1 0  1 1 0"
-                                            
-                                            
-                                            Normals="0 0 -1  0 0 -1
-                                                        0 0 -1  0 0 -1
-                                            
-                                                        0 0 1  0 0 1
-                                                        0 0 1  0 0 1
-                                            
-                                            
-                                            
-                                                        -1 0 0  -1 0 0
-                                                        -1 0 0  -1 0 0
-                                            
-                                                        1 0 0  1 0 0
-                                                        1 0 0  1 0 0"
+                                            Normals="0 0 1  0 0 1
+                                                        0 0 1  0 0 1"
                                             
                                           
-                                            TextureCoordinates="0 0  0 0
-                                                        0 0  0 0
-                                            
-                                                        0 0  1 0
-                                                        0 1  1 1
-                                            
-                                                        0 0  1 0
-                                                        0 1  1 1
-                                            
-                                                        0 0  1 0
+                                            TextureCoordinates="0 0  1 0
                                                         0 1  1 1"
                                             
-                                            TriangleIndices="2 1 0  3 1 2
-                                                        5 4 6   5 6 7
-                                            
-                                                        10 9 8  11 9 10
-                                                        14 13 12  15 13 14">
+                                            TriangleIndices="2 1 0  3 1 2">
                                         </MeshGeometry3D>
                                     </GeometryModel3D.Geometry>
 
                                     <GeometryModel3D.Material>
                                         <DiffuseMaterial x:Name = "matDiffuseMain2">
+                                            <DiffuseMaterial.Brush>
+                                                <ImageBrush ImageSource="Assets/door_tex.png"/>
+                                            </DiffuseMaterial.Brush>
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+
+                                    <GeometryModel3D.Transform>
+                                        <Transform3DGroup>
+                                            <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
+                                            <ScaleTransform3D ScaleX="1.99" ScaleY="1" ScaleZ="1.99"></ScaleTransform3D>
+                                        </Transform3DGroup>
+                                    </GeometryModel3D.Transform>
+
+                                </GeometryModel3D>
+
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D x:Name = "meshWallSouth"
+                                            Positions="1 0 0  0 0 0
+                                                        1 1 0  0 1 0"
+                                            
+                                            
+                                            Normals="0 0 -1  0 0 -1
+                                                        0 0 -1  0 0 -1"
+                                            
+                                          
+                                            TextureCoordinates="0 0  1 0
+                                                        0 1  1 1"
+                                            
+                                            TriangleIndices="2 1 0  3 1 2">
+                                        </MeshGeometry3D>
+                                    </GeometryModel3D.Geometry>
+
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial x:Name = "matDiffuseMain2">
+                                            <DiffuseMaterial.Brush>
+                                                <ImageBrush ImageSource="Assets/door_tex.png"/>
+                                            </DiffuseMaterial.Brush>
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+
+                                    <GeometryModel3D.Transform>
+                                        <Transform3DGroup>
+                                            <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
+                                            <ScaleTransform3D ScaleX="1.99" ScaleY="1" ScaleZ="1.99"></ScaleTransform3D>
+                                        </Transform3DGroup>
+                                    </GeometryModel3D.Transform>
+
+                                </GeometryModel3D>-->
+
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D x:Name = "meshWallWest"
+                                            Positions="
+                                                        1 0 1  1 0 0
+                                                        1 1 1  1 1 0"
+                                            
+                                            
+                                            Normals="
+                                                        1 0 0  1 0 0
+                                                        1 0 0  1 0 0"
+                                            
+                                          
+                                            TextureCoordinates="0 0  1 0
+                                                        0 1  1 1"
+                                            
+                                            TriangleIndices="2 1 0  3 1 2">
+                                        </MeshGeometry3D>
+                                    </GeometryModel3D.Geometry>
+
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial x:Name = "matDiffuseMain2">
+                                            <DiffuseMaterial.Brush>
+                                                <ImageBrush ImageSource="Assets/door_tex.png"/>
+                                            </DiffuseMaterial.Brush>
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+
+                                    <GeometryModel3D.Transform>
+                                        <Transform3DGroup>
+                                            <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
+                                            <ScaleTransform3D ScaleX="1.99" ScaleY="1" ScaleZ="1.99"></ScaleTransform3D>
+                                        </Transform3DGroup>
+                                    </GeometryModel3D.Transform>
+
+                                </GeometryModel3D>
+
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D x:Name = "meshWallEast"
+                                            Positions="
+                                                        0 0 0  0 0 1
+                                                        0 1 0  0 1 1"
+                                            
+                                            
+                                            Normals="
+                                                        -1 0 0  -1 0 0
+                                                        -1 0 0  -1 0 0"
+                                            
+                                          
+                                            TextureCoordinates="
+                                                        0 0  1 0
+                                                        0 1  1 1"
+                                            
+                                            TriangleIndices="2 1 0  3 1 2">
+                                        </MeshGeometry3D>
+                                    </GeometryModel3D.Geometry>
+
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial x:Name = "matDiffuseMain3">
                                             <DiffuseMaterial.Brush>
                                                 <ImageBrush ImageSource="Assets/door_tex.png"/>
                                             </DiffuseMaterial.Brush>
