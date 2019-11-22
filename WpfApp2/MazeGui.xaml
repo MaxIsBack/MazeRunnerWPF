@@ -15,127 +15,219 @@
                 </PerspectiveCamera>
             </Viewport3D.Camera>
 
-            <ModelVisual3D>
-                <ModelVisual3D.Content>
-                    <DirectionalLight x:Name = "dirLightMain" Direction = "-1,-1,-1">
-                    </DirectionalLight>
-                </ModelVisual3D.Content>
-            </ModelVisual3D>
+            <Viewport3D.Children>
 
-            <ModelVisual3D>
-                <ModelVisual3D.Content>
-                    <AmbientLight Color="#66603C"></AmbientLight>
-                </ModelVisual3D.Content>
-            </ModelVisual3D>
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <DirectionalLight x:Name = "dirLightMain" Direction = "-1,-1,-1">
+                        </DirectionalLight>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
 
-            <ModelVisual3D x:Name = "MyModel">
-                <ModelVisual3D.Content>
-                    <GeometryModel3D>
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <AmbientLight Color="#66603C"></AmbientLight>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
 
-                        <GeometryModel3D.Geometry>
-                            <MeshGeometry3D x:Name = "meshMainRoom"
-                                Positions="1 0 0  0 0 0
-                                            1 1 0  0 1 0
+                <ModelVisual3D x:Name = "MyModel">
+                    <ModelVisual3D.Content>
+                        <Model3DGroup>
+                            <Model3DGroup.Children>
+                                <GeometryModel3D>
+
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D x:Name = "meshMainRoom"
+                                            Positions="1 0 0  0 0 0
+                                                        1 1 0  0 1 0
                                             
-                                            0 0 1  1 0 1
-                                            0 1 1  1 1 1
-                                            
-                                            
-                                            
-                                            0 0 0  0 0 1
-                                            0 1 0  0 1 1
-                                            
-                                            1 0 1  1 0 0
-                                            1 1 1  1 1 0
+                                                        0 0 1  1 0 1
+                                                        0 1 1  1 1 1
                                             
                                             
                                             
-                                            0 0 1  1 0 1
-                                            0 0 0  1 0 0
+                                                        0 0 0  0 0 1
+                                                        0 1 0  0 1 1
                                             
-                                            0 1 1  1 1 1
-                                            0 1 0  1 1 0"
-                                            
-                                            
-                                Normals="0 0 -1  0 0 -1
-                                            0 0 -1  0 0 -1
-                                            
-                                            0 0 1  0 0 1
-                                            0 0 1  0 0 1
+                                                        1 0 1  1 0 0
+                                                        1 1 1  1 1 0
                                             
                                             
                                             
-                                            -1 0 0  -1 0 0
-                                            -1 0 0  -1 0 0
+                                                        0 0 1  1 0 1
+                                                        0 0 0  1 0 0
                                             
-                                            1 0 0  1 0 0
-                                            1 0 0  1 0 0
+                                                        0 1 1  1 1 1
+                                                        0 1 0  1 1 0"
+                                            
+                                            
+                                            Normals="0 0 -1  0 0 -1
+                                                        0 0 -1  0 0 -1
+                                            
+                                                        0 0 1  0 0 1
+                                                        0 0 1  0 0 1
                                             
                                             
                                             
-                                            0 1 0  0 1 0
-                                            0 1 0  0 1 0
+                                                        -1 0 0  -1 0 0
+                                                        -1 0 0  -1 0 0
                                             
-                                            0 -1 0  0 -1 0
-                                            0 -1 0  0 -1 0"
+                                                        1 0 0  1 0 0
+                                                        1 0 0  1 0 0
+                                            
+                                            
+                                            
+                                                        0 1 0  0 1 0
+                                                        0 1 0  0 1 0
+                                            
+                                                        0 -1 0  0 -1 0
+                                                        0 -1 0  0 -1 0"
                                             
                                           
-                                TextureCoordinates="0 0  1 0
-                                            0 1  1 1
+                                            TextureCoordinates="0 0  1 0
+                                                        0 1  1 1
                                             
-                                            0 0  1 0
-                                            0 1  1 1
+                                                        0 0  1 0
+                                                        0 1  1 1
                                             
-                                            0 0  1 0
-                                            0 1  1 1
+                                                        0 0  1 0
+                                                        0 1  1 1
                                             
-                                            0 0  1 0
-                                            0 1  1 1
+                                                        0 0  1 0
+                                                        0 1  1 1
                                             
-                                            0 0  1 0
-                                            0 1  1 1
+                                                        0 0  1 0
+                                                        0 1  1 1
                                             
-                                            0 0  1 0
-                                            0 1  1 1"
+                                                        0 0  1 0
+                                                        0 1  1 1"
                                             
-                                TriangleIndices="2 1 0  3 1 2
-                                                 5 4 6   5 6 7
+                                            TriangleIndices="2 1 0  3 1 2
+                                                             5 4 6   5 6 7
                                             
-                                                10 9 8  11 9 10
-                                                14 13 12  15 13 14
+                                                            10 9 8  11 9 10
+                                                            14 13 12  15 13 14
                                             
-                                                16 17 18  18 17 19
-                                                22 21 20  23 21 22">
-                            </MeshGeometry3D>
-                        </GeometryModel3D.Geometry>
+                                                            16 17 18  18 17 19
+                                                            22 21 20  23 21 22">
+                                        </MeshGeometry3D>
+                                    </GeometryModel3D.Geometry>
 
-                        <GeometryModel3D.Material>
-                            <DiffuseMaterial x:Name = "matDiffuseMain">
-                                <DiffuseMaterial.Brush>
-                                    <ImageBrush ImageSource="Assets/tex.png"/>
-                                </DiffuseMaterial.Brush>
-                            </DiffuseMaterial>
-                        </GeometryModel3D.Material>
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial x:Name = "matDiffuseMain">
+                                            <DiffuseMaterial.Brush>
+                                                <ImageBrush ImageSource="Assets/tex.png"/>
+                                            </DiffuseMaterial.Brush>
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
 
-                        <GeometryModel3D.Transform>
-                            <Transform3DGroup>
-                                <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
-                                <ScaleTransform3D ScaleX="2" ScaleY="1" ScaleZ="2"></ScaleTransform3D>
-                            </Transform3DGroup>
-                        </GeometryModel3D.Transform>
+                                    <GeometryModel3D.Transform>
+                                        <Transform3DGroup>
+                                            <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
+                                            <ScaleTransform3D ScaleX="2" ScaleY="1" ScaleZ="2"></ScaleTransform3D>
+                                        </Transform3DGroup>
+                                    </GeometryModel3D.Transform>
 
-                    </GeometryModel3D>
-                </ModelVisual3D.Content>
+                                </GeometryModel3D>
 
-                <ModelVisual3D.Transform>
-                    <RotateTransform3D>
-                        <RotateTransform3D.Rotation>
-                            <AxisAngleRotation3D x:Name="lookRotation" Axis = "0 2 0"/>
-                        </RotateTransform3D.Rotation>
-                    </RotateTransform3D>
-                </ModelVisual3D.Transform>
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D x:Name = "meshMainRoom2"
+                                            Positions="1 0 0  0 0 0
+                                                        1 1 0  0 1 0
+                                            
+                                                        0 0 1  1 0 1
+                                                        0 1 1  1 1 1
+                                            
+                                            
+                                            
+                                                        0 0 0  0 0 1
+                                                        0 1 0  0 1 1
+                                            
+                                                        1 0 1  1 0 0
+                                                        1 1 1  1 1 0
+                                            
+                                            
+                                            
+                                                        0 0 1  1 0 1
+                                                        0 0 0  1 0 0
+                                            
+                                                        0 1 1  1 1 1
+                                                        0 1 0  1 1 0"
+                                            
+                                            
+                                            Normals="0 0 -1  0 0 -1
+                                                        0 0 -1  0 0 -1
+                                            
+                                                        0 0 1  0 0 1
+                                                        0 0 1  0 0 1
+                                            
+                                            
+                                            
+                                                        -1 0 0  -1 0 0
+                                                        -1 0 0  -1 0 0
+                                            
+                                                        1 0 0  1 0 0
+                                                        1 0 0  1 0 0"
+                                            
+                                          
+                                            TextureCoordinates="0 0  0 0
+                                                        0 0  0 0
+                                            
+                                                        0 0  1 0
+                                                        0 1  1 1
+                                            
+                                                        0 0  1 0
+                                                        0 1  1 1
+                                            
+                                                        0 0  1 0
+                                                        0 1  1 1"
+                                            
+                                            TriangleIndices="2 1 0  3 1 2
+                                                        5 4 6   5 6 7
+                                            
+                                                        10 9 8  11 9 10
+                                                        14 13 12  15 13 14">
+                                        </MeshGeometry3D>
+                                    </GeometryModel3D.Geometry>
 
-            </ModelVisual3D>
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial x:Name = "matDiffuseMain2">
+                                            <DiffuseMaterial.Brush>
+                                                <ImageBrush ImageSource="Assets/door_tex.png"/>
+                                            </DiffuseMaterial.Brush>
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+
+                                    <GeometryModel3D.Transform>
+                                        <Transform3DGroup>
+                                            <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
+                                            <ScaleTransform3D ScaleX="1.99" ScaleY="1" ScaleZ="1.99"></ScaleTransform3D>
+                                        </Transform3DGroup>
+                                    </GeometryModel3D.Transform>
+
+                                </GeometryModel3D>
+                            </Model3DGroup.Children>
+                            <Model3DGroup.Transform>
+                                <RotateTransform3D>
+                                    <RotateTransform3D.Rotation>
+                                        <AxisAngleRotation3D x:Name="lookRotation" Axis = "0 2 0"/>
+                                    </RotateTransform3D.Rotation>
+                                </RotateTransform3D>
+                            </Model3DGroup.Transform>
+                        </Model3DGroup>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+
+                <!--<ModelVisual3D x:Name = "MyModel2">
+                    <ModelVisual3D.Content>
+                        
+                    </ModelVisual3D.Content>
+
+
+
+                </ModelVisual3D>-->
+            </Viewport3D.Children>
         </Viewport3D>
 
         <Button x:Name="btnTurnLeft" Content="Left" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="150" Height="40" Click="btnTurnLeft_Click"/>
