@@ -12,7 +12,7 @@ namespace MazeRunnerWPF.MazeGui
 {
     public enum TextureType
     {
-        CEILING, FLOOR, WALL, DOOR_UNLOCKED, DOOR_LOCKED
+        WALL, DOOR_UNLOCKED, DOOR_LOCKED
     }
 
     public enum CardinalDirs
@@ -87,8 +87,6 @@ namespace MazeRunnerWPF.MazeGui
         {
             switch (type)
             {
-                case TextureType.CEILING:
-                case TextureType.FLOOR:
                 case TextureType.WALL:
                     diffuseMaterial.Brush = new ImageBrush(
                             new BitmapImage(new Uri(@"./Assets/tex.png", UriKind.Relative))
