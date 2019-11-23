@@ -1,4 +1,3 @@
-
 ﻿<Window x:Class="MazeRunnerWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,10 +5,251 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MazeRunnerWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        KeyDown="Window_KeyDown" Background="Black">
     <Grid>
-        <Canvas HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Name="mainCanvas"/>
+        <Viewport3D Name="viewport3D1">
 
+            <Viewport3D.Camera>
+                <PerspectiveCamera x:Name="camMain" Position="0 0 -2" LookDirection="0 0 1">
+                </PerspectiveCamera>
+            </Viewport3D.Camera>
+
+            <Viewport3D.Children>
+
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <DirectionalLight x:Name="dirLightMain" Direction="-1,-1,-1">
+                        </DirectionalLight>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <AmbientLight Color="#66603C"></AmbientLight>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+
+                <ModelVisual3D x:Name="modelWholeRoom">
+                    <ModelVisual3D.Content>
+                        <Model3DGroup>
+                            <Model3DGroup.Children>
+                                <GeometryModel3D>
+
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D x:Name="meshFloor"
+                                            Positions="0 0 0  1 0 0
+                                                        0 0 1  1 0 1"
+                                            
+                                            
+                                            Normals="0 1 0  0 1 0
+                                                        0 1 0  0 1 0"
+                                            
+                                          
+                                            TextureCoordinates="1 1  0 1
+                                                        1 0  0 0"
+                                            
+                                            TriangleIndices="2 1 0  3 1 2">
+                                        </MeshGeometry3D>
+                                    </GeometryModel3D.Geometry>
+
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial x:Name="matDiffuseFloor">
+                                            <DiffuseMaterial.Brush>
+                                                <ImageBrush ImageSource="Assets/floor.png"/>
+                                            </DiffuseMaterial.Brush>
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+
+                                    <GeometryModel3D.Transform>
+                                        <Transform3DGroup>
+                                            <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
+                                            <ScaleTransform3D ScaleX="2" ScaleY="1" ScaleZ="2"></ScaleTransform3D>
+                                        </Transform3DGroup>
+                                    </GeometryModel3D.Transform>
+
+                                </GeometryModel3D>
+
+                                <GeometryModel3D>
+
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D x:Name="meshCeiling"
+                                            Positions="0 1 1  1 1 1
+                                                        0 1 0  1 1 0"
+                                            
+                                            
+                                            Normals="0 -1 0  0 -1 0
+                                                        0 -1 0  0 -1 0"
+                                            
+                                          
+                                            TextureCoordinates="1 1  0 1
+                                                        1 0  0 0"
+                                            
+                                            TriangleIndices="2 1 0  3 1 2">
+                                        </MeshGeometry3D>
+                                    </GeometryModel3D.Geometry>
+
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial x:Name="matDiffuseCeiling">
+                                            <DiffuseMaterial.Brush>
+                                                <ImageBrush ImageSource="Assets/ceil.png"/>
+                                            </DiffuseMaterial.Brush>
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+
+                                    <GeometryModel3D.Transform>
+                                        <Transform3DGroup>
+                                            <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
+                                            <ScaleTransform3D ScaleX="2" ScaleY="1" ScaleZ="2"></ScaleTransform3D>
+                                        </Transform3DGroup>
+                                    </GeometryModel3D.Transform>
+
+                                </GeometryModel3D>
+
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D x:Name="meshWallNorth"
+                                            Positions="0 0 1  1 0 1
+                                                        0 1 1  1 1 1"
+                                            
+                                            
+                                            Normals="0 0 1  0 0 1
+                                                        0 0 1  0 0 1"
+                                            
+                                          
+                                            TextureCoordinates="1 1  0 1
+                                                        1 0  0 0"
+                                            
+                                            TriangleIndices="2 1 0  3 1 2">
+                                        </MeshGeometry3D>
+                                    </GeometryModel3D.Geometry>
+
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial x:Name="matDiffuseNorth">
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+
+                                    <GeometryModel3D.Transform>
+                                        <Transform3DGroup>
+                                            <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
+                                            <ScaleTransform3D ScaleX="2" ScaleY="1" ScaleZ="2"></ScaleTransform3D>
+                                        </Transform3DGroup>
+                                    </GeometryModel3D.Transform>
+
+                                </GeometryModel3D>
+
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D x:Name="meshWallSouth"
+                                            Positions="1 0 0  0 0 0
+                                                        1 1 0  0 1 0"
+                                            
+                                            
+                                            Normals="0 0 -1  0 0 -1
+                                                        0 0 -1  0 0 -1"
+                                            
+                                          
+                                            TextureCoordinates="1 1  0 1
+                                                        1 0  0 0"
+                                            
+                                            TriangleIndices="2 1 0  3 1 2">
+                                        </MeshGeometry3D>
+                                    </GeometryModel3D.Geometry>
+
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial x:Name="matDiffuseSouth">
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+
+                                    <GeometryModel3D.Transform>
+                                        <Transform3DGroup>
+                                            <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
+                                            <ScaleTransform3D ScaleX="2" ScaleY="1" ScaleZ="2"></ScaleTransform3D>
+                                        </Transform3DGroup>
+                                    </GeometryModel3D.Transform>
+
+                                </GeometryModel3D>
+
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D x:Name="meshWallWest"
+                                            Positions="1 0 1  1 0 0
+                                                        1 1 1  1 1 0"
+                                            
+                                            
+                                            Normals="1 0 0  1 0 0
+                                                        1 0 0  1 0 0"
+                                            
+                                          
+                                            TextureCoordinates="1 1  0 1
+                                                        1 0  0 0"
+                                            
+                                            TriangleIndices="2 1 0  3 1 2">
+                                        </MeshGeometry3D>
+                                    </GeometryModel3D.Geometry>
+
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial x:Name="matDiffuseWest">
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+
+                                    <GeometryModel3D.Transform>
+                                        <Transform3DGroup>
+                                            <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
+                                            <ScaleTransform3D ScaleX="2" ScaleY="1" ScaleZ="2"></ScaleTransform3D>
+                                        </Transform3DGroup>
+                                    </GeometryModel3D.Transform>
+
+                                </GeometryModel3D>
+
+                                <GeometryModel3D>
+                                    <GeometryModel3D.Geometry>
+                                        <MeshGeometry3D x:Name="meshWallEast"
+                                            Positions="0 0 0  0 0 1
+                                                        0 1 0  0 1 1"
+                                            
+                                            
+                                            Normals="-1 0 0  -1 0 0
+                                                        -1 0 0  -1 0 0"
+                                            
+                                          
+                                            TextureCoordinates="1 1  0 1
+                                                        1 0  0 0"
+                                            
+                                            TriangleIndices="2 1 0  3 1 2">
+                                        </MeshGeometry3D>
+                                    </GeometryModel3D.Geometry>
+
+                                    <GeometryModel3D.Material>
+                                        <DiffuseMaterial x:Name="matDiffuseEast">
+                                        </DiffuseMaterial>
+                                    </GeometryModel3D.Material>
+
+                                    <GeometryModel3D.Transform>
+                                        <Transform3DGroup>
+                                            <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
+                                            <ScaleTransform3D ScaleX="2" ScaleY="1" ScaleZ="2"></ScaleTransform3D>
+                                        </Transform3DGroup>
+                                    </GeometryModel3D.Transform>
+
+                                </GeometryModel3D>
+                            </Model3DGroup.Children>
+                            <Model3DGroup.Transform>
+                                <RotateTransform3D>
+                                    <RotateTransform3D.Rotation>
+                                        <AxisAngleRotation3D x:Name="lookRotation" Axis="0 2 0"/>
+                                    </RotateTransform3D.Rotation>
+                                </RotateTransform3D>
+                            </Model3DGroup.Transform>
+                        </Model3DGroup>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+            </Viewport3D.Children>
+        </Viewport3D>
+
+        <Button x:Name="btnTurnLeft" Content="Left" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="150" Height="40" Click="btnTurnLeft_Click" Opacity="0.75"/>
+        <Button x:Name="btnTurnRight" Content="Right" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="150" Height="40" Click="btnTurnRight_Click" Opacity="0.75"/>
+        <Button x:Name="btnAction" Content="Action" Margin="0,0,10,55" VerticalAlignment="Bottom" Width="85" Height="70" Click="btnAction_Click" MinWidth="85" MinHeight="70" HorizontalAlignment="Right" Opacity="0.75"/>
     </Grid>
 </Window>
 
