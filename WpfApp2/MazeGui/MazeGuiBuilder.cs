@@ -90,7 +90,9 @@ namespace MazeRunnerWPF.MazeGui
                 case TextureType.CEILING:
                 case TextureType.FLOOR:
                 case TextureType.WALL:
-                    diffuseMaterial.Brush = null;
+                    diffuseMaterial.Brush = new ImageBrush(
+                            new BitmapImage(new Uri(@"./Assets/tex.png", UriKind.Relative))
+                        );
                     break;
                 case TextureType.DOOR_UNLOCKED:
                 case TextureType.DOOR_LOCKED:
