@@ -285,15 +285,6 @@
                         </Model3DGroup>
                     </ModelVisual3D.Content>
                 </ModelVisual3D>
-
-                <!--<ModelVisual3D x:Name = "MyModel2">
-                    <ModelVisual3D.Content>
-                        
-                    </ModelVisual3D.Content>
-
-
-
-                </ModelVisual3D>-->
             </Viewport3D.Children>
         </Viewport3D>
 
