@@ -84,23 +84,23 @@
                                                         0 -1 0  0 -1 0"
                                             
                                           
-                                            TextureCoordinates="0 0  1 0
-                                                        0 1  1 1
+                                            TextureCoordinates="1 1  0 1
+                                                        1 0  0 0
                                             
-                                                        0 0  1 0
-                                                        0 1  1 1
+                                                        1 1  0 1
+                                                        1 0  0 0
                                             
-                                                        0 0  1 0
-                                                        0 1  1 1
+                                                        1 1  0 1
+                                                        1 0  0 0
                                             
-                                                        0 0  1 0
-                                                        0 1  1 1
+                                                        1 1  0 1
+                                                        1 0  0 0
                                             
-                                                        0 0  1 0
-                                                        0 1  1 1
+                                                        1 1  0 1
+                                                        1 0  0 0
                                             
-                                                        0 0  1 0
-                                                        0 1  1 1"
+                                                        1 1  0 1
+                                                        1 0  0 0"
                                             
                                             TriangleIndices="2 1 0  3 1 2
                                                              5 4 6   5 6 7
@@ -141,8 +141,8 @@
                                                         0 0 1  0 0 1"
                                             
                                           
-                                            TextureCoordinates="0 0  1 0
-                                                        0 1  1 1"
+                                            TextureCoordinates="1 1  0 1
+                                                        1 0  0 0"
                                             
                                             TriangleIndices="2 1 0  3 1 2">
                                         </MeshGeometry3D>
@@ -176,8 +176,8 @@
                                                         0 0 -1  0 0 -1"
                                             
                                           
-                                            TextureCoordinates="0 0  1 0
-                                                        0 1  1 1"
+                                            TextureCoordinates="1 1  0 1
+                                                        1 0  0 0"
                                             
                                             TriangleIndices="2 1 0  3 1 2">
                                         </MeshGeometry3D>
@@ -203,18 +203,16 @@
                                 <GeometryModel3D>
                                     <GeometryModel3D.Geometry>
                                         <MeshGeometry3D x:Name = "meshWallWest"
-                                            Positions="
-                                                        1 0 1  1 0 0
+                                            Positions="1 0 1  1 0 0
                                                         1 1 1  1 1 0"
                                             
                                             
-                                            Normals="
-                                                        1 0 0  1 0 0
+                                            Normals="1 0 0  1 0 0
                                                         1 0 0  1 0 0"
                                             
                                           
-                                            TextureCoordinates="0 0  1 0
-                                                        0 1  1 1"
+                                            TextureCoordinates="1 1  0 1
+                                                        1 0  0 0"
                                             
                                             TriangleIndices="2 1 0  3 1 2">
                                         </MeshGeometry3D>
@@ -240,19 +238,16 @@
                                 <GeometryModel3D>
                                     <GeometryModel3D.Geometry>
                                         <MeshGeometry3D x:Name = "meshWallEast"
-                                            Positions="
-                                                        0 0 0  0 0 1
+                                            Positions="0 0 0  0 0 1
                                                         0 1 0  0 1 1"
                                             
                                             
-                                            Normals="
-                                                        -1 0 0  -1 0 0
+                                            Normals="-1 0 0  -1 0 0
                                                         -1 0 0  -1 0 0"
                                             
                                           
-                                            TextureCoordinates="
-                                                        0 0  1 0
-                                                        0 1  1 1"
+                                            TextureCoordinates="1 1  0 1
+                                                        1 0  0 0"
                                             
                                             TriangleIndices="2 1 0  3 1 2">
                                         </MeshGeometry3D>
