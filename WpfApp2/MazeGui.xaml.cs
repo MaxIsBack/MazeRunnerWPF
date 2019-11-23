@@ -37,9 +37,14 @@ namespace MazeRunnerWPF
 
         private void BuildCurrentLocation()
         {
-            var collect = mazeBuilder.BuildRoomTextureCoordinates(currentLocation.x, currentLocation.y);
-            meshMainRoom.TextureCoordinates = collect;
-            Console.WriteLine(meshMainRoom.TextureCoordinates);
+            mazeBuilder.BuildRoomTextures(
+                currentLocation.x,
+                currentLocation.y,
+                ref matDiffuseNorth,
+                ref matDiffuseSouth,
+                ref matDiffuseWest,
+                ref matDiffuseEast
+            );
         }
 
         private void btnTurnLeft_Click(object sender, RoutedEventArgs e) { TurnLeft(); }

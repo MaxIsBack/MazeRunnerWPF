@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 
 namespace MazeRunnerWPF.MazeGui
 {
@@ -32,6 +34,20 @@ namespace MazeRunnerWPF.MazeGui
             return mazeStruct.getEntrance();
         }
 
+        public void BuildRoomTextures(
+            int gridX,
+            int gridY,
+            ref DiffuseMaterial northTex,
+            ref DiffuseMaterial southTex,
+            ref DiffuseMaterial westTex,
+            ref DiffuseMaterial eastTex)
+        {
+            AssignTexture(ref northTex, GetTexTypeFromLocationDirection(gridX, gridY, CardinalDirs.NORTH));
+            AssignTexture(ref southTex, GetTexTypeFromLocationDirection(gridX, gridY, CardinalDirs.SOUTH));
+            AssignTexture(ref westTex, GetTexTypeFromLocationDirection(gridX, gridY, CardinalDirs.WEST));
+            AssignTexture(ref eastTex, GetTexTypeFromLocationDirection(gridX, gridY, CardinalDirs.EAST));
+        }
+
         public PointCollection BuildRoomTextureCoordinates(int x, int y)
         {
             var ptCollect = new PointCollection();
@@ -52,6 +68,25 @@ namespace MazeRunnerWPF.MazeGui
             for (int i = 0; i < points.Length; i++)
             {
                 ptCollect.Add(points[i]);
+            }
+        }
+
+        private void AssignTexture(ref DiffuseMaterial diffuseMaterial, TextureType type)
+        {
+            switch (type)
+            {
+                case TextureType.CEILING:
+                case TextureType.FLOOR:
+                case TextureType.WALL:
+                    diffuseMaterial.Brush = null;
+                    break;
+                case TextureType.DOOR_UNLOCKED:
+                case TextureType.DOOR_LOCKED:
+                    diffuseMaterial.Brush =
+                        new ImageBrush(
+                            new BitmapImage(new Uri(@"./Assets/door_tex.png", UriKind.Relative))
+                        );
+                    break;
             }
         }
 

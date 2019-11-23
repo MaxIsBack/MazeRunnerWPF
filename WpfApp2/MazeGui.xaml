@@ -130,7 +130,7 @@
 
                                 </GeometryModel3D>
 
-                                <!--<GeometryModel3D>
+                                <GeometryModel3D>
                                     <GeometryModel3D.Geometry>
                                         <MeshGeometry3D x:Name = "meshWallNorth"
                                             Positions="0 0 1  1 0 1
@@ -149,7 +149,7 @@
                                     </GeometryModel3D.Geometry>
 
                                     <GeometryModel3D.Material>
-                                        <DiffuseMaterial x:Name = "matDiffuseMain2">
+                                        <DiffuseMaterial x:Name = "matDiffuseNorth">
                                             <DiffuseMaterial.Brush>
                                                 <ImageBrush ImageSource="Assets/door_tex.png"/>
                                             </DiffuseMaterial.Brush>
@@ -184,7 +184,7 @@
                                     </GeometryModel3D.Geometry>
 
                                     <GeometryModel3D.Material>
-                                        <DiffuseMaterial x:Name = "matDiffuseMain2">
+                                        <DiffuseMaterial x:Name = "matDiffuseSouth">
                                             <DiffuseMaterial.Brush>
                                                 <ImageBrush ImageSource="Assets/door_tex.png"/>
                                             </DiffuseMaterial.Brush>
@@ -198,7 +198,7 @@
                                         </Transform3DGroup>
                                     </GeometryModel3D.Transform>
 
-                                </GeometryModel3D>-->
+                                </GeometryModel3D>
 
                                 <GeometryModel3D>
                                     <GeometryModel3D.Geometry>
@@ -221,7 +221,7 @@
                                     </GeometryModel3D.Geometry>
 
                                     <GeometryModel3D.Material>
-                                        <DiffuseMaterial x:Name = "matDiffuseMain2">
+                                        <DiffuseMaterial x:Name = "matDiffuseWest">
                                             <DiffuseMaterial.Brush>
                                                 <ImageBrush ImageSource="Assets/door_tex.png"/>
                                             </DiffuseMaterial.Brush>
@@ -259,7 +259,7 @@
                                     </GeometryModel3D.Geometry>
 
                                     <GeometryModel3D.Material>
-                                        <DiffuseMaterial x:Name = "matDiffuseMain3">
+                                        <DiffuseMaterial x:Name = "matDiffuseEast">
                                             <DiffuseMaterial.Brush>
                                                 <ImageBrush ImageSource="Assets/door_tex.png"/>
                                             </DiffuseMaterial.Brush>
