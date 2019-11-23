@@ -28,6 +28,7 @@ namespace MazeRunnerWPF
 
         public MainWindow()
         {
+            acceptInput = true;
             InitializeComponent();
             mazeBuilder = new MazeGui.MazeGuiBuilder(3);
             currentLocation = mazeBuilder.GetEntranceLoc();
@@ -71,6 +72,8 @@ namespace MazeRunnerWPF
 
 
 
+        private bool acceptInput;
+
         private void btnTurnLeft_Click(object sender, RoutedEventArgs e) { TurnLeft(); }
         private void btnTurnRight_Click(object sender, RoutedEventArgs e) { TurnRight(); }
         private void btnAction_Click(object sender, RoutedEventArgs e) { DoAction(); }
@@ -96,6 +99,9 @@ namespace MazeRunnerWPF
 
         private void TurnLeft()
         {
+            if (!acceptInput) return;
+            acceptInput = false;
+
             currentDir = MazeGui.CardinalDirsUtils.TurnLeft(currentDir);
             UpdateIfCanMove();
             Turn(-90);
@@ -103,6 +109,9 @@ namespace MazeRunnerWPF
 
         private void TurnRight()
         {
+            if (!acceptInput) return;
+            acceptInput = false;
+
             currentDir = MazeGui.CardinalDirsUtils.TurnRight(currentDir);
             UpdateIfCanMove();
             Turn(90);
@@ -112,6 +121,9 @@ namespace MazeRunnerWPF
         {
             if (CanMove())
             {
+                if (!acceptInput) return;
+                acceptInput = false;
+
                 MoveToZ(1);
             }
         }
@@ -150,6 +162,8 @@ namespace MazeRunnerWPF
                     new object[] { CurrentAngle }
                 );
             }
+
+            acceptInput = true;
         }
 
 
@@ -197,6 +211,8 @@ namespace MazeRunnerWPF
                     new object[] { currentZ }
                 );
             }
+
+            acceptInput = true;
         }
 
         private delegate void UpdateSetZPos(double z);
