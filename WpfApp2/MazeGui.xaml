@@ -150,16 +150,13 @@
 
                                     <GeometryModel3D.Material>
                                         <DiffuseMaterial x:Name = "matDiffuseNorth">
-                                            <DiffuseMaterial.Brush>
-                                                <ImageBrush ImageSource="Assets/door_tex.png"/>
-                                            </DiffuseMaterial.Brush>
                                         </DiffuseMaterial>
                                     </GeometryModel3D.Material>
 
                                     <GeometryModel3D.Transform>
                                         <Transform3DGroup>
                                             <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
-                                            <ScaleTransform3D ScaleX="1.99" ScaleY="1" ScaleZ="1.99"></ScaleTransform3D>
+                                            <ScaleTransform3D ScaleX="1.9999" ScaleY="1" ScaleZ="1.9999"></ScaleTransform3D>
                                         </Transform3DGroup>
                                     </GeometryModel3D.Transform>
 
@@ -185,16 +182,13 @@
 
                                     <GeometryModel3D.Material>
                                         <DiffuseMaterial x:Name = "matDiffuseSouth">
-                                            <DiffuseMaterial.Brush>
-                                                <ImageBrush ImageSource="Assets/door_tex.png"/>
-                                            </DiffuseMaterial.Brush>
                                         </DiffuseMaterial>
                                     </GeometryModel3D.Material>
 
                                     <GeometryModel3D.Transform>
                                         <Transform3DGroup>
                                             <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
-                                            <ScaleTransform3D ScaleX="1.99" ScaleY="1" ScaleZ="1.99"></ScaleTransform3D>
+                                            <ScaleTransform3D ScaleX="1.9999" ScaleY="1" ScaleZ="1.9999"></ScaleTransform3D>
                                         </Transform3DGroup>
                                     </GeometryModel3D.Transform>
 
@@ -220,16 +214,13 @@
 
                                     <GeometryModel3D.Material>
                                         <DiffuseMaterial x:Name = "matDiffuseWest">
-                                            <DiffuseMaterial.Brush>
-                                                <ImageBrush ImageSource="Assets/door_tex.png"/>
-                                            </DiffuseMaterial.Brush>
                                         </DiffuseMaterial>
                                     </GeometryModel3D.Material>
 
                                     <GeometryModel3D.Transform>
                                         <Transform3DGroup>
                                             <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
-                                            <ScaleTransform3D ScaleX="1.99" ScaleY="1" ScaleZ="1.99"></ScaleTransform3D>
+                                            <ScaleTransform3D ScaleX="1.9999" ScaleY="1" ScaleZ="1.9999"></ScaleTransform3D>
                                         </Transform3DGroup>
                                     </GeometryModel3D.Transform>
 
@@ -255,16 +246,13 @@
 
                                     <GeometryModel3D.Material>
                                         <DiffuseMaterial x:Name = "matDiffuseEast">
-                                            <DiffuseMaterial.Brush>
-                                                <ImageBrush ImageSource="Assets/door_tex.png"/>
-                                            </DiffuseMaterial.Brush>
                                         </DiffuseMaterial>
                                     </GeometryModel3D.Material>
 
                                     <GeometryModel3D.Transform>
                                         <Transform3DGroup>
                                             <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.45" OffsetZ="-0.5"></TranslateTransform3D>
-                                            <ScaleTransform3D ScaleX="1.99" ScaleY="1" ScaleZ="1.99"></ScaleTransform3D>
+                                            <ScaleTransform3D ScaleX="1.9999" ScaleY="1" ScaleZ="1.9999"></ScaleTransform3D>
                                         </Transform3DGroup>
                                     </GeometryModel3D.Transform>
 
