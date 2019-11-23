@@ -56,7 +56,7 @@
                                     <GeometryModel3D.Material>
                                         <DiffuseMaterial x:Name="matDiffuseFloor">
                                             <DiffuseMaterial.Brush>
-                                                <ImageBrush ImageSource="Assets/stu.png"/>
+                                                <ImageBrush ImageSource="Assets/floor.png"/>
                                             </DiffuseMaterial.Brush>
                                         </DiffuseMaterial>
                                     </GeometryModel3D.Material>
