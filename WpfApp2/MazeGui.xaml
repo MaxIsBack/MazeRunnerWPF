@@ -19,7 +19,7 @@
 
                 <ModelVisual3D>
                     <ModelVisual3D.Content>
-                        <DirectionalLight x:Name = "dirLightMain" Direction = "-1,-1,-1">
+                        <DirectionalLight x:Name="dirLightMain" Direction="-1,-1,-1">
                         </DirectionalLight>
                     </ModelVisual3D.Content>
                 </ModelVisual3D>
@@ -30,14 +30,49 @@
                     </ModelVisual3D.Content>
                 </ModelVisual3D>
 
-                <ModelVisual3D x:Name = "MyModel">
+                <ModelVisual3D x:Name="modelCenterpiece">
+                    <ModelVisual3D.Content>
+                        <GeometryModel3D>
+                            
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D x:Name="meshCenterpiece"
+                                    Positions="0 0 0  1 0 0
+                                                0 1 0  1 1 0"
+                                    Normals="0 0 -1  0 0 -1
+                                                0 0 -1  0 0 -1"
+                                    TextureCoordinates="1 1  0 1
+                                                1 0  0 0"
+                                    TriangleIndices="2 1 0  3 1 2">
+                                </MeshGeometry3D>
+                            </GeometryModel3D.Geometry>
+                            
+                            <GeometryModel3D.Material>
+                                <DiffuseMaterial x:Name="matDiffuseCenterpiece">
+                                    <DiffuseMaterial.Brush>
+                                        <ImageBrush ImageSource="Assets/stu.png"/>
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.Material>
+                            
+                            <GeometryModel3D.Transform>
+                                <Transform3DGroup>
+                                    <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.6" OffsetZ="0"></TranslateTransform3D>
+                                    <ScaleTransform3D ScaleX="0.75" ScaleY="0.75" ScaleZ="1"></ScaleTransform3D>
+                                </Transform3DGroup>
+                            </GeometryModel3D.Transform>
+                            
+                        </GeometryModel3D>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+
+                <ModelVisual3D x:Name="modelWholeRoom">
                     <ModelVisual3D.Content>
                         <Model3DGroup>
                             <Model3DGroup.Children>
                                 <GeometryModel3D>
 
                                     <GeometryModel3D.Geometry>
-                                        <MeshGeometry3D x:Name = "meshFloor"
+                                        <MeshGeometry3D x:Name="meshFloor"
                                             Positions="0 0 0  1 0 0
                                                         0 0 1  1 0 1"
                                             
@@ -54,7 +89,7 @@
                                     </GeometryModel3D.Geometry>
 
                                     <GeometryModel3D.Material>
-                                        <DiffuseMaterial x:Name = "matDiffuseFloor">
+                                        <DiffuseMaterial x:Name="matDiffuseFloor">
                                             <DiffuseMaterial.Brush>
                                                 <ImageBrush ImageSource="Assets/floor.png"/>
                                             </DiffuseMaterial.Brush>
@@ -73,7 +108,7 @@
                                 <GeometryModel3D>
 
                                     <GeometryModel3D.Geometry>
-                                        <MeshGeometry3D x:Name = "meshCeiling"
+                                        <MeshGeometry3D x:Name="meshCeiling"
                                             Positions="0 1 1  1 1 1
                                                         0 1 0  1 1 0"
                                             
@@ -90,7 +125,7 @@
                                     </GeometryModel3D.Geometry>
 
                                     <GeometryModel3D.Material>
-                                        <DiffuseMaterial x:Name = "matDiffuseCeiling">
+                                        <DiffuseMaterial x:Name="matDiffuseCeiling">
                                             <DiffuseMaterial.Brush>
                                                 <ImageBrush ImageSource="Assets/ceil.png"/>
                                             </DiffuseMaterial.Brush>
@@ -108,7 +143,7 @@
 
                                 <GeometryModel3D>
                                     <GeometryModel3D.Geometry>
-                                        <MeshGeometry3D x:Name = "meshWallNorth"
+                                        <MeshGeometry3D x:Name="meshWallNorth"
                                             Positions="0 0 1  1 0 1
                                                         0 1 1  1 1 1"
                                             
@@ -125,7 +160,7 @@
                                     </GeometryModel3D.Geometry>
 
                                     <GeometryModel3D.Material>
-                                        <DiffuseMaterial x:Name = "matDiffuseNorth">
+                                        <DiffuseMaterial x:Name="matDiffuseNorth">
                                         </DiffuseMaterial>
                                     </GeometryModel3D.Material>
 
@@ -140,7 +175,7 @@
 
                                 <GeometryModel3D>
                                     <GeometryModel3D.Geometry>
-                                        <MeshGeometry3D x:Name = "meshWallSouth"
+                                        <MeshGeometry3D x:Name="meshWallSouth"
                                             Positions="1 0 0  0 0 0
                                                         1 1 0  0 1 0"
                                             
@@ -157,7 +192,7 @@
                                     </GeometryModel3D.Geometry>
 
                                     <GeometryModel3D.Material>
-                                        <DiffuseMaterial x:Name = "matDiffuseSouth">
+                                        <DiffuseMaterial x:Name="matDiffuseSouth">
                                         </DiffuseMaterial>
                                     </GeometryModel3D.Material>
 
@@ -172,7 +207,7 @@
 
                                 <GeometryModel3D>
                                     <GeometryModel3D.Geometry>
-                                        <MeshGeometry3D x:Name = "meshWallWest"
+                                        <MeshGeometry3D x:Name="meshWallWest"
                                             Positions="1 0 1  1 0 0
                                                         1 1 1  1 1 0"
                                             
@@ -189,7 +224,7 @@
                                     </GeometryModel3D.Geometry>
 
                                     <GeometryModel3D.Material>
-                                        <DiffuseMaterial x:Name = "matDiffuseWest">
+                                        <DiffuseMaterial x:Name="matDiffuseWest">
                                         </DiffuseMaterial>
                                     </GeometryModel3D.Material>
 
@@ -204,7 +239,7 @@
 
                                 <GeometryModel3D>
                                     <GeometryModel3D.Geometry>
-                                        <MeshGeometry3D x:Name = "meshWallEast"
+                                        <MeshGeometry3D x:Name="meshWallEast"
                                             Positions="0 0 0  0 0 1
                                                         0 1 0  0 1 1"
                                             
@@ -221,7 +256,7 @@
                                     </GeometryModel3D.Geometry>
 
                                     <GeometryModel3D.Material>
-                                        <DiffuseMaterial x:Name = "matDiffuseEast">
+                                        <DiffuseMaterial x:Name="matDiffuseEast">
                                         </DiffuseMaterial>
                                     </GeometryModel3D.Material>
 
@@ -237,7 +272,7 @@
                             <Model3DGroup.Transform>
                                 <RotateTransform3D>
                                     <RotateTransform3D.Rotation>
-                                        <AxisAngleRotation3D x:Name="lookRotation" Axis = "0 2 0"/>
+                                        <AxisAngleRotation3D x:Name="lookRotation" Axis="0 2 0"/>
                                     </RotateTransform3D.Rotation>
                                 </RotateTransform3D>
                             </Model3DGroup.Transform>
@@ -247,9 +282,9 @@
             </Viewport3D.Children>
         </Viewport3D>
 
-        <Button x:Name="btnTurnLeft" Content="Left" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="150" Height="40" Click="btnTurnLeft_Click"/>
-        <Button x:Name="btnTurnRight" Content="Right" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="150" Height="40" Click="btnTurnRight_Click"/>
-        <Button x:Name="btnAction" Content="Action" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="85" Height="70" Click="btnAction_Click"/>
+        <Button x:Name="btnTurnLeft" Content="Left" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="150" Height="40" Click="btnTurnLeft_Click" Opacity="0.75"/>
+        <Button x:Name="btnTurnRight" Content="Right" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="150" Height="40" Click="btnTurnRight_Click" Opacity="0.75"/>
+        <Button x:Name="btnAction" Content="Action" Margin="0,0,10,55" VerticalAlignment="Bottom" Width="85" Height="70" Click="btnAction_Click" MinWidth="85" MinHeight="70" HorizontalAlignment="Right" Opacity="0.75"/>
     </Grid>
 </Window>
 
