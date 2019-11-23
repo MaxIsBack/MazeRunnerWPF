@@ -15,9 +15,44 @@ namespace MazeRunnerWPF.MazeGui
         CEILING, FLOOR, WALL, DOOR_UNLOCKED, DOOR_LOCKED
     }
 
-    enum CardinalDirs
+    public enum CardinalDirs
     {
-        NORTH, SOUTH, EAST, WEST
+        NORTH = 0, SOUTH = 1, EAST = 2, WEST = 3
+    }
+
+    public static class CardinalDirsUtils
+    {
+        public static CardinalDirs TurnLeft(CardinalDirs direction)
+        {
+            switch (direction)
+            {
+                case CardinalDirs.NORTH:
+                    return CardinalDirs.WEST;
+                case CardinalDirs.SOUTH:
+                    return CardinalDirs.EAST;
+                case CardinalDirs.EAST:
+                    return CardinalDirs.NORTH;
+                case CardinalDirs.WEST:
+                    return CardinalDirs.SOUTH;
+            }
+            return CardinalDirs.NORTH;
+        }
+
+        public static CardinalDirs TurnRight(CardinalDirs direction)
+        {
+            switch (direction)
+            {
+                case CardinalDirs.NORTH:
+                    return CardinalDirs.EAST;
+                case CardinalDirs.SOUTH:
+                    return CardinalDirs.WEST;
+                case CardinalDirs.EAST:
+                    return CardinalDirs.SOUTH;
+                case CardinalDirs.WEST:
+                    return CardinalDirs.NORTH;
+            }
+            return CardinalDirs.NORTH;
+        }
     }
 
     public class MazeGuiBuilder
@@ -48,29 +83,6 @@ namespace MazeRunnerWPF.MazeGui
             AssignTexture(ref eastTex, GetTexTypeFromLocationDirection(gridX, gridY, CardinalDirs.EAST));
         }
 
-        public PointCollection BuildRoomTextureCoordinates(int x, int y)
-        {
-            var ptCollect = new PointCollection();
-
-            // Order: Front, back, left, right, bottom, top
-            AddArrayPointsToCollection(ref ptCollect, GetTexCoordFromType(GetTexTypeFromLocationDirection(x, y, CardinalDirs.NORTH)));
-            AddArrayPointsToCollection(ref ptCollect, GetTexCoordFromType(GetTexTypeFromLocationDirection(x, y, CardinalDirs.SOUTH)));
-            AddArrayPointsToCollection(ref ptCollect, GetTexCoordFromType(GetTexTypeFromLocationDirection(x, y, CardinalDirs.WEST)));
-            AddArrayPointsToCollection(ref ptCollect, GetTexCoordFromType(GetTexTypeFromLocationDirection(x, y, CardinalDirs.EAST)));
-            AddArrayPointsToCollection(ref ptCollect, GetTexCoordFromType(TextureType.FLOOR));
-            AddArrayPointsToCollection(ref ptCollect, GetTexCoordFromType(TextureType.CEILING));
-
-            return ptCollect;
-        }
-
-        private void AddArrayPointsToCollection(ref PointCollection ptCollect, Point[] points)
-        {
-            for (int i = 0; i < points.Length; i++)
-            {
-                ptCollect.Add(points[i]);
-            }
-        }
-
         private void AssignTexture(ref DiffuseMaterial diffuseMaterial, TextureType type)
         {
             switch (type)
@@ -90,68 +102,37 @@ namespace MazeRunnerWPF.MazeGui
             }
         }
 
-        private TextureType GetTexTypeFromLocationDirection(int x, int y, CardinalDirs direction)
+        public bool IsWall(int x, int y, CardinalDirs facingDirection)
         {
-            bool[,] refWalls = null;
+            TextureType type = GetTexTypeFromLocationDirection(x, y, facingDirection);
+            return type == TextureType.WALL;
+        }
 
+        private bool[,] GetDirectionalWallInfo(CardinalDirs direction)
+        {
             switch (direction)
             {
                 case CardinalDirs.NORTH:
-                    refWalls = mazeStruct.NorthWall;
-                    break;
+                    return mazeStruct.NorthWall;
                 case CardinalDirs.SOUTH:
-                    refWalls = mazeStruct.SouthWall;
-                    break;
+                    return mazeStruct.SouthWall;
                 case CardinalDirs.EAST:
-                    refWalls = mazeStruct.EastWall;
-                    break;
+                    return mazeStruct.EastWall;
                 case CardinalDirs.WEST:
-                    refWalls = mazeStruct.WestWall;
-                    break;
+                    return mazeStruct.WestWall;
             }
 
-            if (refWalls[x, y])
+            return null;
+        }
+
+        private TextureType GetTexTypeFromLocationDirection(int x, int y, CardinalDirs direction)
+        {
+            bool[,] refWalls = GetDirectionalWallInfo(direction);
+
+            if (refWalls[y, x])
                 return TextureType.WALL;
             else
                 return TextureType.DOOR_LOCKED;
-        }
-
-        private Point[] GetTexCoordFromType(TextureType type)
-        {
-            double texUnitU = 1;
-            double texUnitV = 4;
-
-            Point[] points = new Point[4];
-            points[0] = new Point(0, 0);
-            points[1] = new Point(texUnitU, 0);
-            points[2] = new Point(0, texUnitV);
-            points[3] = new Point(texUnitU, texUnitV);
-
-            double offsetU = 0, offsetV = 0;
-            switch (type)
-            {
-                case TextureType.CEILING:
-                    break;
-                case TextureType.FLOOR:
-                    break;
-                case TextureType.WALL:
-                    offsetU = 0;
-                    offsetV = 0;
-                    break;
-                case TextureType.DOOR_UNLOCKED:
-                    break;
-                case TextureType.DOOR_LOCKED:
-                    offsetU = 1;
-                    offsetV = 0;
-                    break;
-            }
-
-            for (int i = 0; i < points.Length; i++)
-            {
-                points[i].X += offsetU;
-                points[i].Y += offsetV;
-            }
-            return points;
         }
     }
 }

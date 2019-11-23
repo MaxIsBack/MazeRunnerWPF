@@ -24,19 +24,41 @@ namespace MazeRunnerWPF
         public const int THREAD_SLEEP = 1000 / 90;  // 90 fps for removing stuttering
         private MazeGui.MazeGuiBuilder mazeBuilder;
         private (int x, int y) currentLocation;
+        private MazeGui.CardinalDirs currentDir;
 
         public MainWindow()
         {
             InitializeComponent();
             mazeBuilder = new MazeGui.MazeGuiBuilder(3);
             currentLocation = mazeBuilder.GetEntranceLoc();
-            Console.WriteLine();
             CurrentAngle = targetAngle = GetLookRotation();
+            currentDir = MazeGui.CardinalDirs.NORTH;
             BuildCurrentLocation();
         }
 
+        private void MoveRoomsAuto()
+        {
+            switch (currentDir)
+            {
+                case MazeGui.CardinalDirs.NORTH:
+                    currentLocation.y--;
+                    break;
+                case MazeGui.CardinalDirs.SOUTH:
+                    currentLocation.y++;
+                    break;
+                case MazeGui.CardinalDirs.EAST:
+                    currentLocation.x++;
+                    break;
+                case MazeGui.CardinalDirs.WEST:
+                    currentLocation.x--;
+                    break;
+            }
+        }
+
+        private delegate void TriggerBuildCurrentLocation();
         private void BuildCurrentLocation()
         {
+            UpdateIfCanMove();
             mazeBuilder.BuildRoomTextures(
                 currentLocation.x,
                 currentLocation.y,
@@ -46,6 +68,8 @@ namespace MazeRunnerWPF
                 ref matDiffuseEast
             );
         }
+
+
 
         private void btnTurnLeft_Click(object sender, RoutedEventArgs e) { TurnLeft(); }
         private void btnTurnRight_Click(object sender, RoutedEventArgs e) { TurnRight(); }
@@ -60,24 +84,37 @@ namespace MazeRunnerWPF
 
 
 
+        private void UpdateIfCanMove()
+        {
+            btnAction.IsEnabled = CanMove();
+        }
+
+        private bool CanMove()
+        {
+            return !mazeBuilder.IsWall(currentLocation.x, currentLocation.y, currentDir);
+        }
 
         private void TurnLeft()
         {
+            currentDir = MazeGui.CardinalDirsUtils.TurnLeft(currentDir);
+            UpdateIfCanMove();
             Turn(-90);
         }
 
         private void TurnRight()
         {
+            currentDir = MazeGui.CardinalDirsUtils.TurnRight(currentDir);
+            UpdateIfCanMove();
             Turn(90);
         }
 
         private void DoAction()
         {
-            MoveToZ(1);
+            if (CanMove())
+            {
+                MoveToZ(1);
+            }
         }
-
-
-
 
 
         private double targetAngle;
@@ -143,6 +180,11 @@ namespace MazeRunnerWPF
             Dispatcher.Invoke(
                 new UpdateSetZPos(this.SetZPos),
                 new object[] { currentZ }
+            );
+            MoveRoomsAuto();
+            Dispatcher.Invoke(
+                new TriggerBuildCurrentLocation(this.BuildCurrentLocation),
+                new object[] { }
             );
 
             moveDelta = (targetZ - currentZ) / ticks;
