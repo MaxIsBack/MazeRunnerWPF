@@ -30,41 +30,6 @@
                     </ModelVisual3D.Content>
                 </ModelVisual3D>
 
-                <ModelVisual3D x:Name="modelCenterpiece">
-                    <ModelVisual3D.Content>
-                        <GeometryModel3D>
-                            
-                            <GeometryModel3D.Geometry>
-                                <MeshGeometry3D x:Name="meshCenterpiece"
-                                    Positions="0 0 0  1 0 0
-                                                0 1 0  1 1 0"
-                                    Normals="0 0 -1  0 0 -1
-                                                0 0 -1  0 0 -1"
-                                    TextureCoordinates="1 1  0 1
-                                                1 0  0 0"
-                                    TriangleIndices="2 1 0  3 1 2">
-                                </MeshGeometry3D>
-                            </GeometryModel3D.Geometry>
-                            
-                            <GeometryModel3D.Material>
-                                <DiffuseMaterial x:Name="matDiffuseCenterpiece">
-                                    <DiffuseMaterial.Brush>
-                                        <ImageBrush ImageSource="Assets/stu.png"/>
-                                    </DiffuseMaterial.Brush>
-                                </DiffuseMaterial>
-                            </GeometryModel3D.Material>
-                            
-                            <GeometryModel3D.Transform>
-                                <Transform3DGroup>
-                                    <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.6" OffsetZ="0"></TranslateTransform3D>
-                                    <ScaleTransform3D ScaleX="0.75" ScaleY="0.75" ScaleZ="1"></ScaleTransform3D>
-                                </Transform3DGroup>
-                            </GeometryModel3D.Transform>
-                            
-                        </GeometryModel3D>
-                    </ModelVisual3D.Content>
-                </ModelVisual3D>
-
                 <ModelVisual3D x:Name="modelWholeRoom">
                     <ModelVisual3D.Content>
                         <Model3DGroup>
@@ -91,7 +56,7 @@
                                     <GeometryModel3D.Material>
                                         <DiffuseMaterial x:Name="matDiffuseFloor">
                                             <DiffuseMaterial.Brush>
-                                                <ImageBrush ImageSource="Assets/floor.png"/>
+                                                <ImageBrush ImageSource="Assets/stu.png"/>
                                             </DiffuseMaterial.Brush>
                                         </DiffuseMaterial>
                                     </GeometryModel3D.Material>
