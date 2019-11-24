@@ -234,7 +234,9 @@ namespace MazeRunnerWPF
 
         }
 
-      
+        public (int x, int y) GetEntrance() {
+            return _EntranceCoordinates;
+        }
 
 
         public int getSize()

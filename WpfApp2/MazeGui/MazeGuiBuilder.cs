@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.IO;
+using System.Reflection;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
@@ -66,7 +63,7 @@ namespace MazeRunnerWPF.MazeGui
 
         public (int x, int y) GetEntranceLoc()
         {
-            return mazeStruct.getEntrance();
+            return mazeStruct.GetEntrance();
         }
 
         public void BuildRoomTextures(
@@ -85,19 +82,28 @@ namespace MazeRunnerWPF.MazeGui
 
         private void AssignTexture(ref DiffuseMaterial diffuseMaterial, TextureType type)
         {
+            string assetPath= Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),"Assets");
+
+            //string myURI = @"C:\Users\saffron\source\repos\MazeRunnerWPF\WpfApp2\Assets\door_tex.png";
+
+           
+
             switch (type)
-            {
+            {   
+                
+
                 case TextureType.WALL:
                     diffuseMaterial.Brush = new ImageBrush(
-                            new BitmapImage(new Uri(@"./Assets/tex.png", UriKind.Relative))
-                        );
+                            new BitmapImage(new Uri(@"./Assets/tex.png", UriKind.Relative)));
                     break;
                 case TextureType.DOOR_UNLOCKED:
                 case TextureType.DOOR_LOCKED:
-                    diffuseMaterial.Brush =
-                        new ImageBrush(
-                            new BitmapImage(new Uri(@"./Assets/door_tex.png", UriKind.Relative))
-                        );
+                    diffuseMaterial.Brush = new ImageBrush(
+
+
+                    new BitmapImage(new Uri(@"./Assets/door_tex.png", UriKind.Relative)));
+                    
+
                     break;
             }
         }
