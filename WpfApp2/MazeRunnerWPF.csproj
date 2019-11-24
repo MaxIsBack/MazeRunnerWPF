@@ -102,6 +102,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MazeGui\MazeGuiBuilder.cs" />
     <Compile Include="Maze\GamePlay.cs" />
     <Compile Include="Maze\Trebek.cs" />
     <Compile Include="Maze\Maze.cs" />
@@ -136,6 +137,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\tex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\door_tex.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\ceil.png" />
+    <Resource Include="Assets\floor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\stu.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">
