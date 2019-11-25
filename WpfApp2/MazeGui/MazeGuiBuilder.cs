@@ -58,7 +58,9 @@ namespace MazeRunnerWPF.MazeGui
 
         public MazeGuiBuilder(int size)
         {
-            mazeStruct = new Maze(size);
+
+            Controller.MazeController.createMaze(3);
+            mazeStruct = Controller.MazeController.getMaze();
         }
 
         public (int x, int y) GetEntranceLoc()

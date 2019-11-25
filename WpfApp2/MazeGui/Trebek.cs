@@ -12,7 +12,7 @@ namespace MazeRunnerWPF
         public static bool AskQuestion(int questionIndex)
         {
 
-            Question theQuestion = GamePlay.TheMaze.GetQuestion(questionIndex);
+            Question theQuestion = Controller.MazeController.getMaze().GetQuestion(questionIndex);
 
             // gui knows how to display question. Trebek jst gets input and lets the gui if the player got the question right.
             //and then updates the question status.
@@ -44,14 +44,14 @@ namespace MazeRunnerWPF
             switch (input)
             {
                 case 0:
-                    
-                    GamePlay.TheMaze.UnlockQuestion(questionIndex);
+
+                    Controller.MazeController.getMaze().UnlockQuestion(questionIndex);
                     correctlyAnswered = true;
                     Console.WriteLine("nice work");
                     break;
 
                 default:
-                    GamePlay.TheMaze.ChangeQuestion(questionIndex);
+                    Controller.MazeController.getMaze().ChangeQuestion(questionIndex);
                     break;
             }
 
