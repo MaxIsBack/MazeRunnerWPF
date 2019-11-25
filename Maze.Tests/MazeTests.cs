@@ -12,14 +12,7 @@ namespace MazeTesting
         [TestMethod]
         public void PrintTestMaze()
         {
-            int n = 3;
-            MazeStructure maze = new MazeStructure(n);
-            //maze.testDraw();
-
-            maze.testDraw();
-
-
-
+           
         }
 
         [TestMethod]
