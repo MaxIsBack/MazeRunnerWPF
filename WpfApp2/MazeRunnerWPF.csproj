@@ -161,12 +161,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\ceil.png">
+    <None Include="Assets\ceil.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Assets\floor.png">
+    </None>
+    <None Include="Assets\floor.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\stu.png">
