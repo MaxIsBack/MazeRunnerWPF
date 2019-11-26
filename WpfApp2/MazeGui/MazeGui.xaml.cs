@@ -66,7 +66,9 @@ namespace MazeRunnerWPF
                 ref matDiffuseNorth,
                 ref matDiffuseSouth,
                 ref matDiffuseWest,
-                ref matDiffuseEast
+                ref matDiffuseEast,
+                ref matDiffuseFloor,
+                ref matDiffuseCeiling
             );
         }
 
