@@ -1,3 +1,4 @@
+using MazeRunnerWPF.MazeGui;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,7 +67,9 @@ namespace MazeRunnerWPF
                 ref matDiffuseNorth,
                 ref matDiffuseSouth,
                 ref matDiffuseWest,
-                ref matDiffuseEast
+                ref matDiffuseEast,
+                ref matDiffuseFloor,
+                ref matDiffuseCeiling
             );
         }
 
@@ -123,6 +126,8 @@ namespace MazeRunnerWPF
             {
                 if (!acceptInput) return;
                 acceptInput = false;
+
+                this.Content = GuiContentManager.Instance.SwitchGuis(this.Content);
 
                 MoveToZ(1);
             }
