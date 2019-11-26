@@ -55,9 +55,6 @@
 
                                     <GeometryModel3D.Material>
                                         <DiffuseMaterial x:Name="matDiffuseFloor">
-                                            <DiffuseMaterial.Brush>
-                                                <ImageBrush ImageSource="Assets/floor.png"/>
-                                            </DiffuseMaterial.Brush>
                                         </DiffuseMaterial>
                                     </GeometryModel3D.Material>
 
@@ -91,9 +88,6 @@
 
                                     <GeometryModel3D.Material>
                                         <DiffuseMaterial x:Name="matDiffuseCeiling">
-                                            <DiffuseMaterial.Brush>
-                                                <ImageBrush ImageSource="Assets/ceil.png"/>
-                                            </DiffuseMaterial.Brush>
                                         </DiffuseMaterial>
                                     </GeometryModel3D.Material>
 
