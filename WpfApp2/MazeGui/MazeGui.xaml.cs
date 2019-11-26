@@ -1,3 +1,4 @@
+using MazeRunnerWPF.MazeGui;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -125,6 +126,8 @@ namespace MazeRunnerWPF
             {
                 if (!acceptInput) return;
                 acceptInput = false;
+
+                this.Content = GuiContentManager.Instance.SwitchGuis(this.Content);
 
                 MoveToZ(1);
             }
