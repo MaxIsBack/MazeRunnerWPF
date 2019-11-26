@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
@@ -9,7 +7,7 @@ namespace MazeRunnerWPF.MazeGui
 {
     public enum TextureType
     {
-        WALL, DOOR_UNLOCKED, DOOR_LOCKED
+        WALL, DOOR_UNLOCKED, DOOR_LOCKED, FLOOR, CEILING
     }
 
     public enum CardinalDirs
@@ -72,35 +70,42 @@ namespace MazeRunnerWPF.MazeGui
             ref DiffuseMaterial northTex,
             ref DiffuseMaterial southTex,
             ref DiffuseMaterial westTex,
-            ref DiffuseMaterial eastTex)
+            ref DiffuseMaterial eastTex,
+            ref DiffuseMaterial floorTex,
+            ref DiffuseMaterial ceilTex)
         {
             AssignTexture(ref northTex, GetTexTypeFromLocationDirection(gridX, gridY, CardinalDirs.NORTH));
             AssignTexture(ref southTex, GetTexTypeFromLocationDirection(gridX, gridY, CardinalDirs.SOUTH));
             AssignTexture(ref westTex, GetTexTypeFromLocationDirection(gridX, gridY, CardinalDirs.WEST));
             AssignTexture(ref eastTex, GetTexTypeFromLocationDirection(gridX, gridY, CardinalDirs.EAST));
+            AssignTexture(ref floorTex, TextureType.FLOOR);
+            AssignTexture(ref ceilTex, TextureType.CEILING);
         }
 
         private void AssignTexture(ref DiffuseMaterial diffuseMaterial, TextureType type)
         {
-            
+            string texPath = @"./Assets/tex.png";
             switch (type)
-            {   
-                
-
+            {
                 case TextureType.WALL:
-                    diffuseMaterial.Brush = new ImageBrush(
-                            new BitmapImage(new Uri(@"Assets/tex.png", UriKind.Relative)));
+                    texPath = @"./Assets/tex.png";
                     break;
                 case TextureType.DOOR_UNLOCKED:
                 case TextureType.DOOR_LOCKED:
-                    diffuseMaterial.Brush = new ImageBrush(
-
-
-                    new BitmapImage(new Uri(@"Assets/door_tex.png", UriKind.Relative)));
-                    
-
+                    texPath = @"./Assets/door_tex.png";
+                    break;
+                case TextureType.FLOOR:
+                    texPath = @"./Assets/floor.png";
+                    break;
+                case TextureType.CEILING:
+                    texPath = @"./Assets/ceil.png";
                     break;
             }
+
+            diffuseMaterial.Brush =
+                new ImageBrush(
+                    new BitmapImage(new Uri(texPath, UriKind.Relative))
+                );
         }
 
         public bool IsWall(int x, int y, CardinalDirs facingDirection)
