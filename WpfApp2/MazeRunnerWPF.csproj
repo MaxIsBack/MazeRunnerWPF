@@ -85,27 +85,28 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="MazeGui\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MazeGui.xaml">
+    <Compile Include="Controller\MazeController.cs" />
+    <Page Include="MazeGui\MazeGui.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="MazeGui\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MazeGui.xaml.cs">
+    <Compile Include="MazeGui\MazeGui.xaml.cs">
       <DependentUpon>MazeGui.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MazeGui\MazeGuiBuilder.cs" />
-    <Compile Include="Maze\GamePlay.cs" />
-    <Compile Include="Maze\Trebek.cs" />
+    <Compile Include="MazeGui\GamePlay.cs" />
+    <Compile Include="MazeGui\Trebek.cs" />
     <Compile Include="Maze\Maze.cs" />
     <Compile Include="Maze\MazeStructure.cs" />
     <Compile Include="Maze\Question.cs" />

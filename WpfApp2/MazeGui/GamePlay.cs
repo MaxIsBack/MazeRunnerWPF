@@ -1,15 +1,16 @@
-﻿using System;
+﻿using MazeRunnerWPF.Controller;
+using System;
 
 namespace MazeRunnerWPF
 {
 
     public class GamePlay
     {
-        public static Maze TheMaze { get; private set; }
+        private static Maze TheMaze;
         static int MazeSize { get; set; } = 4;
 
 
-        public static void MazeRunnerMain(string[] args)
+        public void MazeRunnerMain(string[] args)
         {
 
             Console.WriteLine("Welcome to Maze Runner. select your level");
@@ -28,7 +29,8 @@ namespace MazeRunnerWPF
                     break;
             }
 
-            TheMaze = new Maze(MazeSize, mazeArgs);
+            TheMaze =  MazeController.getMaze();
+               // Maze(MazeSize, mazeArgs);
 
             TheMaze.PlayerLocation = TheMaze._EntranceCoordinates;
 
@@ -47,6 +49,10 @@ namespace MazeRunnerWPF
 
         }
 
+        public Maze getMaze()
+        {
+            return TheMaze;
+        }
 
         private static void DisplayQuestionOptions()
         {

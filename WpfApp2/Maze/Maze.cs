@@ -63,6 +63,8 @@ namespace MazeRunnerWPF
 
         }
 
+    
+
         //returns true if locked false if not
         internal bool QuestionStatus(int questionIndex)
         {
