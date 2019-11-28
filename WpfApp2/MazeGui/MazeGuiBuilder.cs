@@ -5,6 +5,12 @@ using System.Windows.Media.Media3D;
 
 namespace MazeRunnerWPF.MazeGui
 {
+    public interface IGuiPage
+    {
+        void OnShown();
+        void OnDisappeared();
+    }
+
     public enum TextureType
     {
         WALL, DOOR_UNLOCKED, DOOR_LOCKED, FLOOR, CEILING

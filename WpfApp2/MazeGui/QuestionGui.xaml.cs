@@ -19,12 +19,19 @@ namespace MazeRunnerWPF.MazeGui
     /// <summary>
     /// Interaction logic for QuestionGui.xaml
     /// </summary>
-    public partial class QuestionGui : Page
+    public partial class QuestionGui : Page, IGuiPage
     {
         public QuestionGui()
         {
             InitializeComponent();
         }
+
+        public void OnDisappeared()
+        {
+        }
+
+        public void OnShown()
+        { }
 
         private void btnSubmitAnswer_Click(object sender, RoutedEventArgs e)
         {

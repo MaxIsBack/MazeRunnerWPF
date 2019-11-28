@@ -20,7 +20,7 @@ namespace MazeRunnerWPF.MazeGui
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MazeGui : Page
+    public partial class MazeGui : Page, IGuiPage
     {
         public const int THREAD_SLEEP = 1000 / 90;  // 90 fps for removing stuttering
         private MazeGuiBuilder mazeBuilder;
@@ -83,7 +83,21 @@ namespace MazeRunnerWPF.MazeGui
         private void btnTurnRight_Click(object sender, RoutedEventArgs e) { TurnRight(); }
         private void btnAction_Click(object sender, RoutedEventArgs e) { DoAction(); }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+        public void OnShown()
+        {
+            Console.WriteLine("Added keydown events");
+            var window = Window.GetWindow(this);
+            window.KeyDown += Page_KeyDown;
+        }
+
+        public void OnDisappeared()
+        {
+            Console.WriteLine("Removed keydown events");
+            var window = Window.GetWindow(this);
+            window.KeyDown -= Page_KeyDown;
+        }
+
+        private void Page_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Left) TurnLeft();
             else if (e.Key == Key.Right) TurnRight();
@@ -223,6 +237,7 @@ namespace MazeRunnerWPF.MazeGui
         }
 
         private delegate void UpdateSetZPos(double z);
+
         private void SetZPos(double z)
         {
             var pt = camMain.Position;
