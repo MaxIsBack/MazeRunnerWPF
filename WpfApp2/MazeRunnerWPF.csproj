@@ -89,7 +89,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\GuiMediator.cs" />
     <Compile Include="Controller\MazeController.cs" />
+    <Page Include="MazeGui\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MazeGui\MazeGui.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -98,14 +103,24 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MazeGui\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MazeGui\MazeGui.xaml.cs">
       <DependentUpon>MazeGui.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MazeGui\QuestionGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MazeGui\MazeGuiBuilder.cs" />
     <Compile Include="MazeGui\GamePlay.cs" />
+    <Compile Include="MazeGui\QuestionGui.xaml.cs">
+      <DependentUpon>QuestionGui.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MazeGui\Trebek.cs" />
     <Compile Include="Maze\Maze.cs" />
     <Compile Include="Maze\MazeStructure.cs" />
