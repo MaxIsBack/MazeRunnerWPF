@@ -20,7 +20,7 @@ namespace MazeRunnerWPF.MazeGui
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MazeGui : Page
+    public partial class MazeGui : Page, IGuiPage
     {
         public const int THREAD_SLEEP = 1000 / 90;  // 90 fps for removing stuttering
         private MazeGuiBuilder mazeBuilder;
@@ -83,7 +83,39 @@ namespace MazeRunnerWPF.MazeGui
         private void btnTurnRight_Click(object sender, RoutedEventArgs e) { TurnRight(); }
         private void btnAction_Click(object sender, RoutedEventArgs e) { DoAction(); }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+        public void OnShown(object passingObj)
+        {
+            Console.WriteLine("Added keydown events");
+            var window = Window.GetWindow(this);
+            window.KeyDown += Page_KeyDown;
+
+            if (isWaitingOnQuestion)
+            {
+                isWaitingOnQuestion = false;
+
+                bool answeredCorrectly = (((bool, int))passingObj).Item1;
+                int questionId = (((bool, int))passingObj).Item2;
+                if (answeredCorrectly)
+                {
+                    mazeBuilder.UnlockQuestion(questionId);
+                    BuildCurrentLocation();     // TODO: May be heavy???
+                    MoveToZ(1);
+                }
+                else
+                {
+                    acceptInput = true;
+                }
+            }
+        }
+
+        public void OnDisappeared()
+        {
+            Console.WriteLine("Removed keydown events");
+            var window = Window.GetWindow(this);
+            window.KeyDown -= Page_KeyDown;
+        }
+
+        private void Page_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Left) TurnLeft();
             else if (e.Key == Key.Right) TurnRight();
@@ -94,12 +126,22 @@ namespace MazeRunnerWPF.MazeGui
 
         private void UpdateIfCanMove()
         {
-            btnAction.IsEnabled = CanMove();
+            btnAction.IsEnabled = IsDoor();
         }
 
-        private bool CanMove()
+        private bool IsDoor()
         {
             return !mazeBuilder.IsWall(currentLocation.x, currentLocation.y, currentDir);
+        }
+
+        private bool IsDoorLocked()
+        {
+            int doorQ = mazeBuilder.GetQuestionId(
+                            currentLocation.x,
+                            currentLocation.y,
+                            currentDir
+                        );
+            return mazeBuilder.IsQuestionLocked(doorQ);
         }
 
         private void TurnLeft()
@@ -122,16 +164,30 @@ namespace MazeRunnerWPF.MazeGui
             Turn(90);
         }
 
+        private bool isWaitingOnQuestion;
         private void DoAction()
         {
-            if (CanMove())
+            isWaitingOnQuestion = false;
+            if (IsDoor())
             {
                 if (!acceptInput) return;
                 acceptInput = false;
 
-                GuiMediator.Instance.ShowQuestionGui();
-
-                MoveToZ(1);
+                if (IsDoorLocked())
+                {
+                    isWaitingOnQuestion = true;
+                    GuiMediator.Instance.ShowQuestionGui(
+                        mazeBuilder.GetQuestionId(
+                            currentLocation.x,
+                            currentLocation.y,
+                            currentDir
+                        )
+                    );
+                }
+                else
+                {
+                    MoveToZ(1);
+                }
             }
         }
 
@@ -223,6 +279,7 @@ namespace MazeRunnerWPF.MazeGui
         }
 
         private delegate void UpdateSetZPos(double z);
+
         private void SetZPos(double z)
         {
             var pt = camMain.Position;

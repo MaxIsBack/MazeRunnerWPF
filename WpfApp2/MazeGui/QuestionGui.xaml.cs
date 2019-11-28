@@ -19,17 +19,33 @@ namespace MazeRunnerWPF.MazeGui
     /// <summary>
     /// Interaction logic for QuestionGui.xaml
     /// </summary>
-    public partial class QuestionGui : Page
+    public partial class QuestionGui : Page, IGuiPage
     {
         public QuestionGui()
         {
             InitializeComponent();
         }
 
+        private int questionId;
+        public void OnShown(object passingObj)
+        {
+            questionId = (int)passingObj;
+        }
+
+        public void OnDisappeared()
+        {
+        }
+
         private void btnSubmitAnswer_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Zoo wee mama!");
-            GuiMediator.Instance.ShowMazeGui();
+            GuiMediator.Instance.ShowMazeGui((true, questionId));
+        }
+
+        private void btnSubmitBadChoice_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Aye aye aye!");
+            GuiMediator.Instance.ShowMazeGui((false, questionId));
         }
     }
 }

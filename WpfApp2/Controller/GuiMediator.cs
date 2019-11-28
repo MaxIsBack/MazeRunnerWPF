@@ -32,34 +32,45 @@ namespace MazeRunnerWPF.Controller
         }
 
         private MainWindow mainWindow;
-        private object mazeGuiContent;
-        private object questionGuiContent;
+        private IGuiPage mazeGuiContent;
+        private IGuiPage questionGuiContent;
+        private IGuiPage previous;
 
         public void SetMainWindow(MainWindow window)
         {
             mainWindow = window;
         }
 
-        public void ShowMazeGui()
+        public void ShowMazeGui(object passingObj)
         {
             if (mazeGuiContent == null)
             {
                 Console.WriteLine("New Maze Gui created");
                 mazeGuiContent = new MazeRunnerWPF.MazeGui.MazeGui();
             }
-
-            mainWindow.SetContent(mazeGuiContent);
+            SetUpContent(mazeGuiContent, passingObj);
         }
 
-        public void ShowQuestionGui()
+        public void ShowQuestionGui(object passingObj)
         {
             if (questionGuiContent == null)
             {
                 Console.WriteLine("New Question Gui created");
                 questionGuiContent = new MazeRunnerWPF.MazeGui.QuestionGui();
             }
+            SetUpContent(questionGuiContent, passingObj);
+        }
 
-            mainWindow.SetContent(questionGuiContent);
+        private void SetUpContent(IGuiPage page, object passingObj)
+        {
+            if (previous != null)
+            {
+                previous.OnDisappeared();
+            }
+
+            mainWindow.SetContent(page);
+            previous = page;
+            previous.OnShown(passingObj);
         }
     }
 }

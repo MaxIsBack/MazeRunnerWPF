@@ -24,7 +24,7 @@ namespace MazeRunnerWPF.MazeGui
         {
             InitializeComponent();
             GuiMediator.Instance.SetMainWindow(this);
-            GuiMediator.Instance.ShowMazeGui();
+            GuiMediator.Instance.ShowMazeGui(null);
         }
 
         public void SetContent(object content)
