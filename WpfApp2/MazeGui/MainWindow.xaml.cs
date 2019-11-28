@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MazeRunnerWPF.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,13 @@ namespace MazeRunnerWPF.MazeGui
         public MainWindow()
         {
             InitializeComponent();
+            GuiMediator.Instance.SetMainWindow(this);
+            GuiMediator.Instance.ShowMazeGui();
+        }
+
+        public void SetContent(object content)
+        {
+            this.Content = content;
         }
     }
 }

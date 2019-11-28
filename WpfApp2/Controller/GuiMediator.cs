@@ -31,11 +31,11 @@ namespace MazeRunnerWPF.Controller
         {
         }
 
-        private Window mainWindow;
+        private MainWindow mainWindow;
         private object mazeGuiContent;
         private object questionGuiContent;
 
-        public void SetMainWindow(Window window)
+        public void SetMainWindow(MainWindow window)
         {
             mainWindow = window;
         }
@@ -45,10 +45,10 @@ namespace MazeRunnerWPF.Controller
             if (mazeGuiContent == null)
             {
                 Console.WriteLine("New Maze Gui created");
-                questionGuiContent = new MainWindow();
+                mazeGuiContent = new MazeRunnerWPF.MazeGui.MazeGui();
             }
 
-            mainWindow.Content = mazeGuiContent;
+            mainWindow.SetContent(mazeGuiContent);
         }
 
         public void ShowQuestionGui()
@@ -56,10 +56,10 @@ namespace MazeRunnerWPF.Controller
             if (questionGuiContent == null)
             {
                 Console.WriteLine("New Question Gui created");
-                questionGuiContent = new QuestionGui();
+                questionGuiContent = new MazeRunnerWPF.MazeGui.QuestionGui();
             }
 
-            mainWindow.Content = questionGuiContent;
+            mainWindow.SetContent(questionGuiContent);
         }
     }
 }

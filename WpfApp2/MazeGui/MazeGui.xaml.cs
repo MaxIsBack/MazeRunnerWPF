@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MazeRunnerWPF
+namespace MazeRunnerWPF.MazeGui
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,18 +23,18 @@ namespace MazeRunnerWPF
     public partial class MazeGui : Page
     {
         public const int THREAD_SLEEP = 1000 / 90;  // 90 fps for removing stuttering
-        private MazeGui.MazeGuiBuilder mazeBuilder;
+        private MazeGuiBuilder mazeBuilder;
         private (int x, int y) currentLocation;
-        private MazeGui.CardinalDirs currentDir;
+        private CardinalDirs currentDir;
 
         public MazeGui()
         {
             acceptInput = true;
             InitializeComponent();
-            mazeBuilder = new MazeGui.MazeGuiBuilder(3);
+            mazeBuilder = new MazeGuiBuilder(3);
             currentLocation = mazeBuilder.GetEntranceLoc();
             CurrentAngle = targetAngle = GetLookRotation();
-            currentDir = MazeGui.CardinalDirs.NORTH;
+            currentDir = CardinalDirs.NORTH;
             BuildCurrentLocation();
 
             //GuiMediator.Instance.SetMazeGui(this);
@@ -44,16 +44,16 @@ namespace MazeRunnerWPF
         {
             switch (currentDir)
             {
-                case MazeGui.CardinalDirs.NORTH:
+                case CardinalDirs.NORTH:
                     currentLocation.y--;
                     break;
-                case MazeGui.CardinalDirs.SOUTH:
+                case CardinalDirs.SOUTH:
                     currentLocation.y++;
                     break;
-                case MazeGui.CardinalDirs.EAST:
+                case CardinalDirs.EAST:
                     currentLocation.x++;
                     break;
-                case MazeGui.CardinalDirs.WEST:
+                case CardinalDirs.WEST:
                     currentLocation.x--;
                     break;
             }
@@ -107,7 +107,7 @@ namespace MazeRunnerWPF
             if (!acceptInput) return;
             acceptInput = false;
 
-            currentDir = MazeGui.CardinalDirsUtils.TurnLeft(currentDir);
+            currentDir = CardinalDirsUtils.TurnLeft(currentDir);
             UpdateIfCanMove();
             Turn(-90);
         }
@@ -117,7 +117,7 @@ namespace MazeRunnerWPF
             if (!acceptInput) return;
             acceptInput = false;
 
-            currentDir = MazeGui.CardinalDirsUtils.TurnRight(currentDir);
+            currentDir = CardinalDirsUtils.TurnRight(currentDir);
             UpdateIfCanMove();
             Turn(90);
         }
@@ -129,7 +129,7 @@ namespace MazeRunnerWPF
                 if (!acceptInput) return;
                 acceptInput = false;
 
-                //this.Content = GuiMediator.Instance.GetQuestionGui();
+                GuiMediator.Instance.ShowQuestionGui();
 
                 MoveToZ(1);
             }
