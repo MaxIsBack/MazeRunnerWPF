@@ -8,7 +8,7 @@ namespace MazeRunnerWPF.MazeGui
     public interface IGuiPage
     {
         void OnShown(object passingObj);
-        object OnDisappeared();
+        void OnDisappeared();
     }
 
     public enum TextureType
@@ -122,6 +122,17 @@ namespace MazeRunnerWPF.MazeGui
         {
             TextureType type = GetTexTypeFromLocationDirection(x, y, facingDirection);
             return type == TextureType.WALL;
+        }
+
+        public void UnlockQuestion(int questionId)
+        {
+            mazeStruct.UnlockQuestion(questionId);
+        }
+
+        public int GetQuestionId(int x, int y, CardinalDirs facingDirection)
+        {
+            (bool[,] walls, int[,] questions) refWalls = GetDirectionalWallInfo(facingDirection);
+            return refWalls.questions[y, x];
         }
 
         private (bool[,], int[,]) GetDirectionalWallInfo(CardinalDirs direction)

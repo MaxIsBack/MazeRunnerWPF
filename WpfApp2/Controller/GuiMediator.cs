@@ -41,32 +41,31 @@ namespace MazeRunnerWPF.Controller
             mainWindow = window;
         }
 
-        public void ShowMazeGui()
+        public void ShowMazeGui(object passingObj)
         {
             if (mazeGuiContent == null)
             {
                 Console.WriteLine("New Maze Gui created");
                 mazeGuiContent = new MazeRunnerWPF.MazeGui.MazeGui();
             }
-            SetUpContent(mazeGuiContent);
+            SetUpContent(mazeGuiContent, passingObj);
         }
 
-        public void ShowQuestionGui()
+        public void ShowQuestionGui(object passingObj)
         {
             if (questionGuiContent == null)
             {
                 Console.WriteLine("New Question Gui created");
                 questionGuiContent = new MazeRunnerWPF.MazeGui.QuestionGui();
             }
-            SetUpContent(questionGuiContent);
+            SetUpContent(questionGuiContent, passingObj);
         }
 
-        private void SetUpContent(IGuiPage page)
+        private void SetUpContent(IGuiPage page, object passingObj)
         {
-            object passingObj = null;
             if (previous != null)
             {
-                passingObj = previous.OnDisappeared();
+                previous.OnDisappeared();
             }
 
             mainWindow.SetContent(page);

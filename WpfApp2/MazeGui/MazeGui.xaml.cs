@@ -93,9 +93,12 @@ namespace MazeRunnerWPF.MazeGui
             {
                 isWaitingOnQuestion = false;
 
-                bool answeredCorrectly = (bool)passingObj;
+                bool answeredCorrectly = (((bool, int))passingObj).Item1;
+                int questionId = (((bool, int))passingObj).Item2;
                 if (answeredCorrectly)
                 {
+                    mazeBuilder.UnlockQuestion(questionId);
+                    BuildCurrentLocation();     // TODO: May be heavy???
                     MoveToZ(1);
                 }
                 else
@@ -105,12 +108,11 @@ namespace MazeRunnerWPF.MazeGui
             }
         }
 
-        public object OnDisappeared()
+        public void OnDisappeared()
         {
             Console.WriteLine("Removed keydown events");
             var window = Window.GetWindow(this);
             window.KeyDown -= Page_KeyDown;
-            return null;
         }
 
         private void Page_KeyDown(object sender, KeyEventArgs e)
@@ -162,7 +164,13 @@ namespace MazeRunnerWPF.MazeGui
                 acceptInput = false;
 
                 isWaitingOnQuestion = true;
-                GuiMediator.Instance.ShowQuestionGui();
+                GuiMediator.Instance.ShowQuestionGui(
+                    mazeBuilder.GetQuestionId(
+                        currentLocation.x,
+                        currentLocation.y,
+                        currentDir
+                    )
+                );
             }
         }
 
