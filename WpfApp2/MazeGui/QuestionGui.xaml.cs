@@ -26,16 +26,25 @@ namespace MazeRunnerWPF.MazeGui
             InitializeComponent();
         }
 
-        public void OnDisappeared()
+        public void OnShown(object passingObj)
         {
         }
 
-        public void OnShown()
-        { }
+        private bool answeredCorrectly;
+        public object OnDisappeared()
+        { return answeredCorrectly; }
 
         private void btnSubmitAnswer_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Zoo wee mama!");
+            answeredCorrectly = true;
+            GuiMediator.Instance.ShowMazeGui();
+        }
+
+        private void btnSubmitBadChoice_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Aye aye aye!");
+            answeredCorrectly = false;
             GuiMediator.Instance.ShowMazeGui();
         }
     }

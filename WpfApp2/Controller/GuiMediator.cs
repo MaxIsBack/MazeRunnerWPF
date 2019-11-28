@@ -63,14 +63,15 @@ namespace MazeRunnerWPF.Controller
 
         private void SetUpContent(IGuiPage page)
         {
+            object passingObj = null;
             if (previous != null)
             {
-                previous.OnDisappeared();
+                passingObj = previous.OnDisappeared();
             }
 
             mainWindow.SetContent(page);
             previous = page;
-            previous.OnShown();
+            previous.OnShown(passingObj);
         }
     }
 }

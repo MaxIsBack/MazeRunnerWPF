@@ -7,8 +7,8 @@ namespace MazeRunnerWPF.MazeGui
 {
     public interface IGuiPage
     {
-        void OnShown();
-        void OnDisappeared();
+        void OnShown(object passingObj);
+        object OnDisappeared();
     }
 
     public enum TextureType

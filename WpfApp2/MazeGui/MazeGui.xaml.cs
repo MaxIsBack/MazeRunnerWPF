@@ -83,18 +83,34 @@ namespace MazeRunnerWPF.MazeGui
         private void btnTurnRight_Click(object sender, RoutedEventArgs e) { TurnRight(); }
         private void btnAction_Click(object sender, RoutedEventArgs e) { DoAction(); }
 
-        public void OnShown()
+        public void OnShown(object passingObj)
         {
             Console.WriteLine("Added keydown events");
             var window = Window.GetWindow(this);
             window.KeyDown += Page_KeyDown;
+
+            if (isWaitingOnQuestion)
+            {
+                isWaitingOnQuestion = false;
+
+                bool answeredCorrectly = (bool)passingObj;
+                if (answeredCorrectly)
+                {
+                    MoveToZ(1);
+                }
+                else
+                {
+                    acceptInput = true;
+                }
+            }
         }
 
-        public void OnDisappeared()
+        public object OnDisappeared()
         {
             Console.WriteLine("Removed keydown events");
             var window = Window.GetWindow(this);
             window.KeyDown -= Page_KeyDown;
+            return null;
         }
 
         private void Page_KeyDown(object sender, KeyEventArgs e)
@@ -136,16 +152,17 @@ namespace MazeRunnerWPF.MazeGui
             Turn(90);
         }
 
+        private bool isWaitingOnQuestion;
         private void DoAction()
         {
+            isWaitingOnQuestion = false;
             if (CanMove())
             {
                 if (!acceptInput) return;
                 acceptInput = false;
 
+                isWaitingOnQuestion = true;
                 GuiMediator.Instance.ShowQuestionGui();
-
-                MoveToZ(1);
             }
         }
 
