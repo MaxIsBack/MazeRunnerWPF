@@ -89,6 +89,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\GuiMediator.cs" />
     <Compile Include="Controller\MazeController.cs" />
     <Page Include="MazeGui\MazeGui.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -98,7 +99,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MazeGui\GuiContentManager.cs" />
     <Compile Include="MazeGui\MazeGui.xaml.cs">
       <DependentUpon>MazeGui.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MazeRunnerWPF.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,7 +29,7 @@ namespace MazeRunnerWPF.MazeGui
         private void btnSubmitAnswer_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Zoo wee mama!");
-            this.Content = GuiContentManager.Instance.SwitchGuis(this.Content);
+            GuiMediator.Instance.ShowMazeGui();
         }
     }
 }

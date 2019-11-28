@@ -1,4 +1,4 @@
-using MazeRunnerWPF.MazeGui;
+using MazeRunnerWPF.Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +20,14 @@ namespace MazeRunnerWPF
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MazeGui : Page
     {
         public const int THREAD_SLEEP = 1000 / 90;  // 90 fps for removing stuttering
         private MazeGui.MazeGuiBuilder mazeBuilder;
         private (int x, int y) currentLocation;
         private MazeGui.CardinalDirs currentDir;
 
-        public MainWindow()
+        public MazeGui()
         {
             acceptInput = true;
             InitializeComponent();
@@ -36,6 +36,8 @@ namespace MazeRunnerWPF
             CurrentAngle = targetAngle = GetLookRotation();
             currentDir = MazeGui.CardinalDirs.NORTH;
             BuildCurrentLocation();
+
+            //GuiMediator.Instance.SetMazeGui(this);
         }
 
         private void MoveRoomsAuto()
@@ -127,7 +129,7 @@ namespace MazeRunnerWPF
                 if (!acceptInput) return;
                 acceptInput = false;
 
-                this.Content = GuiContentManager.Instance.SwitchGuis(this.Content);
+                //this.Content = GuiMediator.Instance.GetQuestionGui();
 
                 MoveToZ(1);
             }
