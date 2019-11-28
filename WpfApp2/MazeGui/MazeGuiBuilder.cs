@@ -99,8 +99,10 @@ namespace MazeRunnerWPF.MazeGui
                     texPath = @"./Assets/tex.png";
                     break;
                 case TextureType.DOOR_UNLOCKED:
-                case TextureType.DOOR_LOCKED:
                     texPath = @"./Assets/door_tex.png";
+                    break;
+                case TextureType.DOOR_LOCKED:
+                    texPath = @"./Assets/door_tex_locked.png";
                     break;
                 case TextureType.FLOOR:
                     texPath = @"./Assets/floor.png";
@@ -122,31 +124,43 @@ namespace MazeRunnerWPF.MazeGui
             return type == TextureType.WALL;
         }
 
-        private bool[,] GetDirectionalWallInfo(CardinalDirs direction)
+        private (bool[,], int[,]) GetDirectionalWallInfo(CardinalDirs direction)
         {
             switch (direction)
             {
                 case CardinalDirs.NORTH:
-                    return mazeStruct.NorthWall;
+                    return (mazeStruct.NorthWall, mazeStruct.NorthQuestion);
                 case CardinalDirs.SOUTH:
-                    return mazeStruct.SouthWall;
+                    return (mazeStruct.SouthWall, mazeStruct.SouthQuestion);
                 case CardinalDirs.EAST:
-                    return mazeStruct.EastWall;
+                    return (mazeStruct.EastWall, mazeStruct.EastQuestion);
                 case CardinalDirs.WEST:
-                    return mazeStruct.WestWall;
+                    return (mazeStruct.WestWall, mazeStruct.WestQuestion);
             }
 
-            return null;
+            return (null, null);
+        }
+
+        private bool IsQuestionLocked(int qIndex)
+        {
+            return mazeStruct.GetQuestion(qIndex).Locked();
         }
 
         private TextureType GetTexTypeFromLocationDirection(int x, int y, CardinalDirs direction)
         {
-            bool[,] refWalls = GetDirectionalWallInfo(direction);
+            (bool[,] walls, int[,] questions) refWalls = GetDirectionalWallInfo(direction);
 
-            if (refWalls[y, x])
+            if (refWalls.walls[y, x])
                 return TextureType.WALL;
             else
-                return TextureType.DOOR_LOCKED;
+            {
+                if (IsQuestionLocked(
+                        refWalls.questions[y, x]))
+                {
+                    return TextureType.DOOR_LOCKED;
+                }
+                return TextureType.DOOR_UNLOCKED;
+            }
         }
     }
 }
