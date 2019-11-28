@@ -126,12 +126,22 @@ namespace MazeRunnerWPF.MazeGui
 
         private void UpdateIfCanMove()
         {
-            btnAction.IsEnabled = CanMove();
+            btnAction.IsEnabled = IsDoor();
         }
 
-        private bool CanMove()
+        private bool IsDoor()
         {
             return !mazeBuilder.IsWall(currentLocation.x, currentLocation.y, currentDir);
+        }
+
+        private bool IsDoorLocked()
+        {
+            int doorQ = mazeBuilder.GetQuestionId(
+                            currentLocation.x,
+                            currentLocation.y,
+                            currentDir
+                        );
+            return mazeBuilder.IsQuestionLocked(doorQ);
         }
 
         private void TurnLeft()
@@ -158,19 +168,26 @@ namespace MazeRunnerWPF.MazeGui
         private void DoAction()
         {
             isWaitingOnQuestion = false;
-            if (CanMove())
+            if (IsDoor())
             {
                 if (!acceptInput) return;
                 acceptInput = false;
 
-                isWaitingOnQuestion = true;
-                GuiMediator.Instance.ShowQuestionGui(
-                    mazeBuilder.GetQuestionId(
-                        currentLocation.x,
-                        currentLocation.y,
-                        currentDir
-                    )
-                );
+                if (IsDoorLocked())
+                {
+                    isWaitingOnQuestion = true;
+                    GuiMediator.Instance.ShowQuestionGui(
+                        mazeBuilder.GetQuestionId(
+                            currentLocation.x,
+                            currentLocation.y,
+                            currentDir
+                        )
+                    );
+                }
+                else
+                {
+                    MoveToZ(1);
+                }
             }
         }
 

@@ -152,9 +152,9 @@ namespace MazeRunnerWPF.MazeGui
             return (null, null);
         }
 
-        private bool IsQuestionLocked(int qIndex)
+        public bool IsQuestionLocked(int questionId)
         {
-            return mazeStruct.GetQuestion(qIndex).Locked();
+            return mazeStruct.GetQuestion(questionId).Locked();
         }
 
         private TextureType GetTexTypeFromLocationDirection(int x, int y, CardinalDirs direction)
