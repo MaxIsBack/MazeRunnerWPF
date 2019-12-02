@@ -103,6 +103,13 @@ namespace MazeRunnerWPF.MazeGui
                 }
                 else
                 {
+                    mazeBuilder.LockDoorWhenQuestionAnsweredIncorrectly(
+                        currentLocation.x,
+                        currentLocation.y,
+                        currentDir
+                    );
+
+                    BuildCurrentLocation();     // TODO: May be heavy???
                     acceptInput = true;
                 }
             }

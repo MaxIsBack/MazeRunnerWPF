@@ -13,7 +13,7 @@ namespace MazeRunnerWPF.MazeGui
 
     public enum TextureType
     {
-        WALL, DOOR_UNLOCKED, DOOR_LOCKED, FLOOR, CEILING
+        WALL, DOOR_UNLOCKED, DOOR_LOCKED, DOOR_PERMALOCKED, FLOOR, CEILING
     }
 
     public enum CardinalDirs
@@ -104,6 +104,9 @@ namespace MazeRunnerWPF.MazeGui
                 case TextureType.DOOR_LOCKED:
                     texPath = @"./Assets/door_tex_locked.png";
                     break;
+                case TextureType.DOOR_PERMALOCKED:
+                    texPath = @"./Assets/stu.png";      // TODO: Change this to an actual texture
+                    break;
                 case TextureType.FLOOR:
                     texPath = @"./Assets/floor.png";
                     break;
@@ -133,6 +136,12 @@ namespace MazeRunnerWPF.MazeGui
         {
             (bool[,] walls, int[,] questions) refWalls = GetDirectionalWallInfo(facingDirection);
             return refWalls.questions[y, x];
+        }
+
+        public void LockDoorWhenQuestionAnsweredIncorrectly(int x, int y, CardinalDirs facingDirection)
+        {
+            (bool[,] _, int[,] questions) refWalls = GetDirectionalWallInfo(facingDirection);
+            mazeStruct.QuestionAnsweredIncorrectly(x, y, refWalls.questions);
         }
 
         private (bool[,], int[,]) GetDirectionalWallInfo(CardinalDirs direction)
@@ -165,8 +174,12 @@ namespace MazeRunnerWPF.MazeGui
                 return TextureType.WALL;
             else
             {
-                if (IsQuestionLocked(
-                        refWalls.questions[y, x]))
+                int questionId = refWalls.questions[y, x];
+                if (questionId < 0)
+                {
+                    return TextureType.DOOR_PERMALOCKED;
+                }
+                else if (IsQuestionLocked(questionId))
                 {
                     return TextureType.DOOR_LOCKED;
                 }
