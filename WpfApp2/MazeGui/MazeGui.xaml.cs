@@ -188,6 +188,7 @@ namespace MazeRunnerWPF.MazeGui
                 if (IsDoorPermalocked())
                 {
                     // Chew the player out for even thinking that they could have another chance!!! ;(
+                    acceptInput = true;
                 }
                 else if (IsDoorLocked())
                 {
