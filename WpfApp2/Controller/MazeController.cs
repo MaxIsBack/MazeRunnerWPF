@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MazeRunnerWPF.Controller
 {
-     static class MazeController
+    static class MazeController
     {
 
         private static volatile Maze theMaze;

@@ -5,9 +5,15 @@ using System.Windows.Media.Media3D;
 
 namespace MazeRunnerWPF.MazeGui
 {
+    public interface IGuiPage
+    {
+        void OnShown(object passingObj);
+        void OnDisappeared();
+    }
+
     public enum TextureType
     {
-        WALL, DOOR_UNLOCKED, DOOR_LOCKED, FLOOR, CEILING
+        WALL, DOOR_UNLOCKED, DOOR_LOCKED, DOOR_PERMALOCKED, FLOOR, CEILING
     }
 
     public enum CardinalDirs
@@ -93,8 +99,13 @@ namespace MazeRunnerWPF.MazeGui
                     texPath = @"./Assets/tex.png";
                     break;
                 case TextureType.DOOR_UNLOCKED:
-                case TextureType.DOOR_LOCKED:
                     texPath = @"./Assets/door_tex.png";
+                    break;
+                case TextureType.DOOR_LOCKED:
+                    texPath = @"./Assets/door_tex_locked.png";
+                    break;
+                case TextureType.DOOR_PERMALOCKED:
+                    texPath = @"./Assets/stu.png";      // TODO: Change this to an actual texture
                     break;
                 case TextureType.FLOOR:
                     texPath = @"./Assets/floor.png";
@@ -116,31 +127,69 @@ namespace MazeRunnerWPF.MazeGui
             return type == TextureType.WALL;
         }
 
-        private bool[,] GetDirectionalWallInfo(CardinalDirs direction)
+        public void UnlockQuestion(int questionId)
+        {
+            mazeStruct.UnlockQuestion(questionId);
+        }
+
+        public int GetQuestionId(int x, int y, CardinalDirs facingDirection)
+        {
+            (bool[,] walls, int[,] questions) refWalls = GetDirectionalWallInfo(facingDirection);
+            return refWalls.questions[y, x];
+        }
+
+        public void LockDoorWhenQuestionAnsweredIncorrectly(int x, int y, CardinalDirs facingDirection)
+        {
+            (bool[,] _, int[,] questions) refWalls = GetDirectionalWallInfo(facingDirection);
+            mazeStruct.QuestionAnsweredIncorrectly(x, y, refWalls.questions);
+        }
+
+        private (bool[,], int[,]) GetDirectionalWallInfo(CardinalDirs direction)
         {
             switch (direction)
             {
                 case CardinalDirs.NORTH:
-                    return mazeStruct.NorthWall;
+                    return (mazeStruct.NorthWall, mazeStruct.NorthQuestion);
                 case CardinalDirs.SOUTH:
-                    return mazeStruct.SouthWall;
+                    return (mazeStruct.SouthWall, mazeStruct.SouthQuestion);
                 case CardinalDirs.EAST:
-                    return mazeStruct.EastWall;
+                    return (mazeStruct.EastWall, mazeStruct.EastQuestion);
                 case CardinalDirs.WEST:
-                    return mazeStruct.WestWall;
+                    return (mazeStruct.WestWall, mazeStruct.WestQuestion);
             }
 
-            return null;
+            return (null, null);
+        }
+
+        public bool IsQuestionLocked(int questionId)
+        {
+            return mazeStruct.GetQuestion(questionId).Locked();
+        }
+
+        public bool IsDoorPermalocked(int x, int y, CardinalDirs facingDirection)
+        {
+            return GetTexTypeFromLocationDirection(x, y, facingDirection) == TextureType.DOOR_PERMALOCKED;
         }
 
         private TextureType GetTexTypeFromLocationDirection(int x, int y, CardinalDirs direction)
         {
-            bool[,] refWalls = GetDirectionalWallInfo(direction);
+            (bool[,] walls, int[,] questions) refWalls = GetDirectionalWallInfo(direction);
 
-            if (refWalls[y, x])
+            if (refWalls.walls[y, x])
                 return TextureType.WALL;
             else
-                return TextureType.DOOR_LOCKED;
+            {
+                int questionId = refWalls.questions[y, x];
+                if (questionId < 0)
+                {
+                    return TextureType.DOOR_PERMALOCKED;
+                }
+                else if (IsQuestionLocked(questionId))
+                {
+                    return TextureType.DOOR_LOCKED;
+                }
+                return TextureType.DOOR_UNLOCKED;
+            }
         }
     }
 }
