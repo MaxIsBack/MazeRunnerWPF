@@ -166,6 +166,11 @@ namespace MazeRunnerWPF.MazeGui
             return mazeStruct.GetQuestion(questionId).Locked();
         }
 
+        public bool IsDoorPermalocked(int x, int y, CardinalDirs facingDirection)
+        {
+            return GetTexTypeFromLocationDirection(x, y, facingDirection) == TextureType.DOOR_PERMALOCKED;
+        }
+
         private TextureType GetTexTypeFromLocationDirection(int x, int y, CardinalDirs direction)
         {
             (bool[,] walls, int[,] questions) refWalls = GetDirectionalWallInfo(direction);

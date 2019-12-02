@@ -141,6 +141,11 @@ namespace MazeRunnerWPF.MazeGui
             return !mazeBuilder.IsWall(currentLocation.x, currentLocation.y, currentDir);
         }
 
+        private bool IsDoorPermalocked()
+        {
+            return mazeBuilder.IsDoorPermalocked(currentLocation.x, currentLocation.y, currentDir);
+        }
+
         private bool IsDoorLocked()
         {
             int doorQ = mazeBuilder.GetQuestionId(
@@ -180,7 +185,11 @@ namespace MazeRunnerWPF.MazeGui
                 if (!acceptInput) return;
                 acceptInput = false;
 
-                if (IsDoorLocked())
+                if (IsDoorPermalocked())
+                {
+                    // Chew the player out for even thinking that they could have another chance!!! ;(
+                }
+                else if (IsDoorLocked())
                 {
                     isWaitingOnQuestion = true;
                     GuiMediator.Instance.ShowQuestionGui(
