@@ -103,6 +103,7 @@ namespace MazeRunnerWPF.MazeGui
                 }
                 else
                 {
+                    mazeBuilder.ShuffleAllQuestions(currentLocation);
                     acceptInput = true;
                 }
             }

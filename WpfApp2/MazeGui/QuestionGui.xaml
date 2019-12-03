@@ -11,6 +11,7 @@
     <Grid>
         <Button x:Name="btnSubmitAnswer" Content="Correct Answer!" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="175" Height="41" Click="btnSubmitAnswer_Click"/>
         <Button x:Name="btnSubmitBadChoice" Content="Wrong Answer!" HorizontalAlignment="Center" Margin="528,0,96,10" VerticalAlignment="Bottom" Width="176" Height="41" Click="btnSubmitBadChoice_Click"/>
+        <Label x:Name="lblQuestionIdTemp" Content="Label" HorizontalAlignment="Left" Margin="312,168,0,0" VerticalAlignment="Top" Background="White"/>
 
     </Grid>
 </Page>

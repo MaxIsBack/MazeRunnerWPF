@@ -129,6 +129,12 @@ namespace MazeRunnerWPF.MazeGui
             mazeStruct.UnlockQuestion(questionId);
         }
 
+        public void ShuffleAllQuestions((int x, int y) location)
+        {
+            mazeStruct.ChangeAllQuestionAtLocation(location);
+            //mazeStruct.ChangeAllQuestionAtLocation((location.y, location.x));     // Or is this the correct way?
+        }
+
         public int GetQuestionId(int x, int y, CardinalDirs facingDirection)
         {
             (bool[,] walls, int[,] questions) refWalls = GetDirectionalWallInfo(facingDirection);

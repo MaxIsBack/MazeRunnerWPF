@@ -30,6 +30,7 @@ namespace MazeRunnerWPF.MazeGui
         public void OnShown(object passingObj)
         {
             questionId = (int)passingObj;
+            lblQuestionIdTemp.Content = "Question ID: " + questionId;
         }
 
         public void OnDisappeared()
