@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MazeRunnerWPF
 {
-    class Trebek
+    public class Trebek
     {
         //returns true if question is correct;
         public static bool AskQuestion(int questionIndex)
@@ -67,7 +67,7 @@ namespace MazeRunnerWPF
 
         }
 
-        private static List<string> PrepareAnswers(Question theQuestion, out int correctAnswerPosition)
+        public static List<string> PrepareAnswers(Question theQuestion, out int correctAnswerPosition)
         {
             List<string> answerChoices = theQuestion.IncorrectAnswers.ToList();
             answerChoices.Add(theQuestion.CorrectAnswer);

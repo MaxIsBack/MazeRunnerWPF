@@ -32,6 +32,22 @@ namespace MazeRunnerWPF.MazeGui
             questionId = (int)passingObj;
             Question trebekPls = Controller.MazeController.Questioner(questionId);
             lblQuestion.Content = trebekPls.QuestionPrompt;
+
+            int correctAnswerPos;
+            List<string> answers =
+                MazeRunnerWPF.Trebek.PrepareAnswers(
+                    trebekPls,
+                    out correctAnswerPos
+                );
+
+            Console.WriteLine("Question type:");
+            Console.WriteLine(trebekPls.Type);
+            switch(trebekPls.Type)
+            {
+                case "Lulluby":
+                    Console.WriteLine("Seriously???!?!?!");
+                    break;
+            }
         }
 
         public void OnDisappeared()
