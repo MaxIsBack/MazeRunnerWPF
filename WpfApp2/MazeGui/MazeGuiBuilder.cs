@@ -131,8 +131,7 @@ namespace MazeRunnerWPF.MazeGui
 
         public void ShuffleAllQuestions((int x, int y) location)
         {
-            mazeStruct.ChangeAllQuestionAtLocation(location);
-            //mazeStruct.ChangeAllQuestionAtLocation((location.y, location.x));     // Or is this the correct way?
+            mazeStruct.ChangeAllQuestionAtLocation((location.y, location.x));
         }
 
         public int GetQuestionId(int x, int y, CardinalDirs facingDirection)
