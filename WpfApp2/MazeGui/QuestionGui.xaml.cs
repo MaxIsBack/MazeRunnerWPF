@@ -18,6 +18,10 @@ namespace MazeRunnerWPF.MazeGui
 {
     /// <summary>
     /// Interaction logic for QuestionGui.xaml
+    /// 
+    /// NOTE: In Page_Keydown(...) there are cheats enabling/disabling
+    /// the auto-right/auto-wrong buttons to answer a question in any
+    /// way the player desires. Press "C" to toggle.
     /// </summary>
     public partial class QuestionGui : Page, IGuiPage
     {
