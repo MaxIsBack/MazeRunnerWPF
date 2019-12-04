@@ -30,6 +30,9 @@ namespace MazeRunnerWPF.MazeGui
         private int questionId;
         public void OnShown(object passingObj)
         {
+            var window = Window.GetWindow(this);
+            window.KeyDown += Page_KeyDown;
+
             questionId = (int)passingObj;
 
             rbOption1.IsChecked = rbOption2.IsChecked = rbOption3.IsChecked = rbOption4.IsChecked = false;
@@ -46,7 +49,6 @@ namespace MazeRunnerWPF.MazeGui
             switch(trebekPls.Type)
             {
                 case "multiple":
-                    Console.WriteLine("Seriously???!?!?!");
                     lblQuestionType.Content = "Multiple Choice:";
                     rbOption1.Content = answerChoices[0].answer;
                     rbOption2.Content = answerChoices[1].answer;
@@ -54,7 +56,6 @@ namespace MazeRunnerWPF.MazeGui
                     rbOption4.Content = answerChoices[3].answer;
                     break;
                 case "boolean":
-                    Console.WriteLine("Seriously???!?!?!");
                     lblQuestionType.Content = "True/False:";
                     rbOption1.Content = answerChoices[0].answer;
                     rbOption2.Content = answerChoices[1].answer;
@@ -66,12 +67,23 @@ namespace MazeRunnerWPF.MazeGui
 
         public void OnDisappeared()
         {
+            var window = Window.GetWindow(this);
+            window.KeyDown -= Page_KeyDown;
+        }
+
+        private void Page_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.C)
+            {
+                Console.WriteLine("Toggle Cheats!!!");
+                btnSubmitBadChoice.Visibility = btnSubmitBadChoice.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+                btnSubmitAnswerRight.Visibility = btnSubmitAnswerRight.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+            }
         }
 
         private static bool QuestionableBoolToBool(bool? q)
         {
-            if (q == null) return false;
-            return (bool)q;
+            return q == null ? false : (bool)q;
         }
 
         private int GetSelectedAnswer()
@@ -106,7 +118,7 @@ namespace MazeRunnerWPF.MazeGui
             );
         }
 
-        private void btnSubmitAnswer222_Click(object sender, RoutedEventArgs e)
+        private void btnSubmitAnswerGoodChoice_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Zoo wee mama!");
             GuiMediator.Instance.ShowMazeGui((true, questionId));

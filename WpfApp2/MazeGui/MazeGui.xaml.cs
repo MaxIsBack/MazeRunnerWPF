@@ -277,6 +277,10 @@ namespace MazeRunnerWPF.MazeGui
             }
 
             acceptInput = true;
+            Dispatcher.Invoke(
+                new UpdateCheckIfWonMaze(this.CheckIfWonMaze),
+                new object[] { }
+            );
         }
 
         private delegate void UpdateSetZPos(double z);
@@ -286,6 +290,16 @@ namespace MazeRunnerWPF.MazeGui
             var pt = camMain.Position;
             pt.Z = z;
             camMain.Position = pt;
+        }
+
+        private delegate void UpdateCheckIfWonMaze();
+        private void CheckIfWonMaze()
+        {
+            if (currentLocation == mazeBuilder.GetGoalLoc())
+            {
+                Console.WriteLine("Yayyyy! You won!");
+                GuiMediator.Instance.ShowWinningGui(null);
+            }
         }
     }
 }

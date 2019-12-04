@@ -11,8 +11,8 @@
     <Grid Background="White">
         <Label x:Name="lblQuestion" Content="QUESTIONPROMPT" HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" Background="White"/>
         <Label x:Name="lblQuestionType" Content="QUESTIONTYPE" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Background="White" Height="38" Width="422" FontSize="20"/>
-        <Button x:Name="btnSubmitAnswerRight" Content="Correct Answer!" HorizontalAlignment="Center" Margin="590,0,35,124" VerticalAlignment="Bottom" Width="175" Height="41" Click="btnSubmitAnswer222_Click"/>
-        <Button x:Name="btnSubmitBadChoice" Content="Wrong Answer!" HorizontalAlignment="Center" Margin="590,0,34,170" VerticalAlignment="Bottom" Width="176" Height="41" Click="btnSubmitBadChoice_Click"/>
+        <Button x:Name="btnSubmitAnswerRight" Content="Correct Answer!" HorizontalAlignment="Center" Margin="590,0,35,124" VerticalAlignment="Bottom" Width="175" Height="41" Click="btnSubmitAnswerGoodChoice_Click" Visibility="Hidden"/>
+        <Button x:Name="btnSubmitBadChoice" Content="Wrong Answer!" HorizontalAlignment="Center" Margin="590,0,34,170" VerticalAlignment="Bottom" Width="176" Height="41" Click="btnSubmitBadChoice_Click" Visibility="Hidden"/>
         <Button x:Name="btnSubmitAnswer" Content="Final Answer, Mr. Trebek!" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="175" Height="41" Click="btnSubmitAnswer_Click"/>
 
         <RadioButton x:Name="rbOption1" GroupName="answrsGrp" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,142,0,0"/>

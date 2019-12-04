@@ -72,6 +72,11 @@ namespace MazeRunnerWPF.MazeGui
             return mazeStruct.GetEntrance();
         }
 
+        public (int x, int y) GetGoalLoc()
+        {
+            return mazeStruct.GetExit();
+        }
+
         public void BuildRoomTextures(
             int gridX,
             int gridY,
