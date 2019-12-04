@@ -87,7 +87,6 @@ namespace MazeRunnerWPF
             answerChoices = answerChoices.OrderBy(a => Guid.NewGuid()).ToList();
 
             return answerChoices;
-
         }
     }
 }
