@@ -10,7 +10,7 @@
 
     <Grid Background="Pink">
         <Label Content="You won! Congratulations!!!" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFD80000" FontSize="48"/>
-        <Button Content="Start New Game!" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="129" Height="44" Click="Button_Click"/>
+        <Button Content="Explore the maze more!" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="161" Height="44" Click="Button_Click"/>
         <Label x:Name="lblScore" Content="Score: " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,128,0,0" Foreground="#FF700000" FontWeight="Bold"/>
 
     </Grid>

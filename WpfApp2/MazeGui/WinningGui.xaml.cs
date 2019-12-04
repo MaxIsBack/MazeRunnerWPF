@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MazeRunnerWPF.Controller;
 
 namespace MazeRunnerWPF.MazeGui
 {
@@ -36,7 +37,7 @@ namespace MazeRunnerWPF.MazeGui
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: Implement the restart game thing!
+            GuiMediator.Instance.ShowMazeGui(null);
         }
     }
 }

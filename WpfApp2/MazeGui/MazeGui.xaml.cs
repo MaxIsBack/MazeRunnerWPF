@@ -31,7 +31,7 @@ namespace MazeRunnerWPF.MazeGui
         {
             acceptInput = true;
             InitializeComponent();
-            mazeBuilder = new MazeGuiBuilder(3);
+            mazeBuilder = new MazeGuiBuilder(4);
             currentLocation = mazeBuilder.GetEntranceLoc();
             CurrentAngle = targetAngle = GetLookRotation();
             currentDir = CardinalDirs.NORTH;
