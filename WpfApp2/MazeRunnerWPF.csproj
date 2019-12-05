@@ -114,6 +114,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MazeGui\TitleGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MazeGui\WinningGui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MazeGui\MazeGuiBuilder.cs" />
@@ -121,7 +129,13 @@
     <Compile Include="MazeGui\QuestionGui.xaml.cs">
       <DependentUpon>QuestionGui.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MazeGui\TitleGui.xaml.cs">
+      <DependentUpon>TitleGui.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MazeGui\Trebek.cs" />
+    <Compile Include="MazeGui\WinningGui.xaml.cs">
+      <DependentUpon>WinningGui.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Maze\Maze.cs" />
     <Compile Include="Maze\MazeStructure.cs" />
     <Compile Include="Maze\Question.cs" />

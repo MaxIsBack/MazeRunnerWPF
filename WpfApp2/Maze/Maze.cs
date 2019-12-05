@@ -236,8 +236,14 @@ namespace MazeRunnerWPF
 
         }
 
-        public (int x, int y) GetEntrance() {
+        public (int x, int y) GetEntrance()
+        {
             return _EntranceCoordinates;
+        }
+
+        public (int x, int y) GetExit()
+        {
+            return _ExitCoordinates;
         }
 
 

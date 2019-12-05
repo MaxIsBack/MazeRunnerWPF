@@ -62,14 +62,18 @@ namespace MazeRunnerWPF.MazeGui
 
         public MazeGuiBuilder(int size)
         {
-
-            Controller.MazeController.createMaze(3);
+            Controller.MazeController.createMaze(size);
             mazeStruct = Controller.MazeController.getMaze();
         }
 
         public (int x, int y) GetEntranceLoc()
         {
             return mazeStruct.GetEntrance();
+        }
+
+        public (int x, int y) GetGoalLoc()
+        {
+            return mazeStruct.GetExit();
         }
 
         public void BuildRoomTextures(
@@ -127,6 +131,11 @@ namespace MazeRunnerWPF.MazeGui
         public void UnlockQuestion(int questionId)
         {
             mazeStruct.UnlockQuestion(questionId);
+        }
+
+        public void ShuffleAllQuestions((int x, int y) location)
+        {
+            mazeStruct.ChangeAllQuestionAtLocation((location.y, location.x));
         }
 
         public int GetQuestionId(int x, int y, CardinalDirs facingDirection)

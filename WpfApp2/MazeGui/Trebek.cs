@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MazeRunnerWPF
 {
-    class Trebek
+    public class Trebek
     {
         //returns true if question is correct;
         public static bool AskQuestion(int questionIndex)
@@ -67,14 +67,26 @@ namespace MazeRunnerWPF
 
         }
 
-        private static List<string> PrepareAnswers(Question theQuestion, out int correctAnswerPosition)
+        private static List<string> PrepareAnswers(Question question, out int jojos)
         {
-            List<string> answerChoices = theQuestion.IncorrectAnswers.ToList();
-            answerChoices.Add(theQuestion.CorrectAnswer);
-            //shuffle
-            correctAnswerPosition = 0;
-            return answerChoices;
+            jojos = 1;
+            return new List<string>();
+        }
 
+        public static List<(string, bool)> PrepareAnswers(Question theQuestion)
+        {
+            List<string> answers = theQuestion.IncorrectAnswers.ToList();
+            List<(string, bool)> answerChoices = new List<(string, bool)>();
+            foreach (string answer in answers)
+            {
+                answerChoices.Add((answer, false));
+            }
+            answerChoices.Add((theQuestion.CorrectAnswer, true));
+
+            // Shuffle!!!
+            answerChoices = answerChoices.OrderBy(a => Guid.NewGuid()).ToList();
+
+            return answerChoices;
         }
     }
 }
