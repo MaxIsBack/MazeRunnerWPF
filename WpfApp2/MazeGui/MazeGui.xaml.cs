@@ -31,7 +31,7 @@ namespace MazeRunnerWPF.MazeGui
         {
             acceptInput = true;
             InitializeComponent();
-            mazeBuilder = new MazeGuiBuilder(3);
+            mazeBuilder = new MazeGuiBuilder(4);
             currentLocation = mazeBuilder.GetEntranceLoc();
             CurrentAngle = targetAngle = GetLookRotation();
             currentDir = CardinalDirs.NORTH;
@@ -103,13 +103,7 @@ namespace MazeRunnerWPF.MazeGui
                 }
                 else
                 {
-                    mazeBuilder.LockDoorWhenQuestionAnsweredIncorrectly(
-                        currentLocation.x,
-                        currentLocation.y,
-                        currentDir
-                    );
-
-                    BuildCurrentLocation();     // TODO: May be heavy???
+                    mazeBuilder.ShuffleAllQuestions(currentLocation);
                     acceptInput = true;
                 }
             }
@@ -293,6 +287,10 @@ namespace MazeRunnerWPF.MazeGui
             }
 
             acceptInput = true;
+            Dispatcher.Invoke(
+                new UpdateCheckIfWonMaze(this.CheckIfWonMaze),
+                new object[] { }
+            );
         }
 
         private delegate void UpdateSetZPos(double z);
@@ -302,6 +300,16 @@ namespace MazeRunnerWPF.MazeGui
             var pt = camMain.Position;
             pt.Z = z;
             camMain.Position = pt;
+        }
+
+        private delegate void UpdateCheckIfWonMaze();
+        private void CheckIfWonMaze()
+        {
+            if (currentLocation == mazeBuilder.GetGoalLoc())
+            {
+                Console.WriteLine("Yayyyy! You won!");
+                GuiMediator.Instance.ShowWinningGui(null);
+            }
         }
     }
 }
