@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace MazeRunnerWPF
@@ -14,7 +15,8 @@ namespace MazeRunnerWPF
         private int[] _HardMode = new int[] { 20, 70, 100 };
         private int[] _LegendaryMode = new int[] { 0, 10, 100 };
 
-        private int[] _IndexCounters; // keeps track of what questions have been already used from database.
+        public int[] _IndexCounters; // keeps track of what questions have been already used from database.
+        private string _QuestionIndexTrackerFile = @"C:\Users\saffron\source\repos\MazeRunnerWPF\WpfApp2\QuestionDatabase\QuestionIndexTracker.txt";
         string[] _Tables = new string[] { "EasyQuestions", "MediumQuestions", "HardQuestions" };
         private enum _EnumTable
         {
@@ -26,17 +28,45 @@ namespace MazeRunnerWPF
         string _Database = @"Data Source=QuestionDatabase\QuestionsForMazeRunner.db; Version=3;";
 
 
-        public QuestionFactory()
-        {
-            Random randomInt = new Random();
-            _IndexCounters = new int[]
-            {
-                randomInt.Next(10000) + 1,
-                randomInt.Next(10000) + 1,
-                randomInt.Next(10000) + 1
-            };
+        public QuestionFactory() { 
+        LoadIndexCounters();
         }
 
+        private void LoadIndexCounters()
+        {
+            
+
+            if (File.Exists(_QuestionIndexTrackerFile))
+            {
+
+                string[] indexCountersString = File.ReadAllText(_QuestionIndexTrackerFile).Split(',');
+      
+                _IndexCounters = new int[indexCountersString.Length];
+                for (int i = 0; i < indexCountersString.Length; i++)
+                {
+                    
+                    _IndexCounters[i] = Int32.Parse(indexCountersString[i]);
+
+                }
+                
+
+            }
+            else { 
+                _IndexCounters = new int[] { 1, 1, 1};
+            }
+
+            
+        }
+        private void SaveIndexCounters()
+        {
+            string indexCountersAsString =  string.Join(",", _IndexCounters);
+          
+                File.WriteAllText(_QuestionIndexTrackerFile,indexCountersAsString);
+
+            
+            
+
+        }
 
         public Queue<Question> getQuestions(string[] questionArgs, int numberOfQuestionsToReturn)
         {
@@ -57,26 +87,31 @@ namespace MazeRunnerWPF
 
 
                 }
-                if (args.Contains("m"))
+                else if (args.Contains("m"))
                 {
                     currentTableToGetFrom = (int)_EnumTable.MediumQuestions;
 
                 }
-                if (args.Contains("0"))
+                else if (args.Contains("h"))
+                {
+                    currentTableToGetFrom = (int)_EnumTable.MediumQuestions;
+
+                }
+                else if(args.Contains("0"))
                 {
                     currentLevel = _EasyMode;
                     getRandomQuestionsBasedOnLevel = true;
 
                 }
-                if (args.Contains("1"))
+                else if (args.Contains("1"))
                 {
                     currentLevel = _MediumMode;
                     getRandomQuestionsBasedOnLevel = true;
 
                 }
-                if (args.Contains("2"))
+                else if (args.Contains("2"))
                 {
-                    currentLevel = _MediumMode;
+                    currentLevel = _HardMode;
                     getRandomQuestionsBasedOnLevel = true;
 
                 }
@@ -176,6 +211,8 @@ namespace MazeRunnerWPF
 
                 sql_conn.Close();
             }
+
+            SaveIndexCounters();
 
             return questions;
         }
