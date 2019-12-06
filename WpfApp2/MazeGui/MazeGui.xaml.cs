@@ -27,17 +27,22 @@ namespace MazeRunnerWPF.MazeGui
         private (int x, int y) currentLocation;
         private CardinalDirs currentDir;
 
+        private bool isWaitingOnSetup;
+
         public MazeGui()
         {
             acceptInput = true;
             InitializeComponent();
-            mazeBuilder = new MazeGuiBuilder(3);
+            isWaitingOnSetup = true;
+        }
+
+        private void SetupMaze(int size, int difficulty)
+        {
+            mazeBuilder = new MazeGuiBuilder(size, difficulty);
             currentLocation = mazeBuilder.GetEntranceLoc();
-            CurrentAngle = targetAngle = GetLookRotation();
+            currentAngle = targetAngle = GetLookRotation();
             currentDir = CardinalDirs.NORTH;
             BuildCurrentLocation();
-
-            //GuiMediator.Instance.SetMazeGui(this);
         }
 
         private void MoveRoomsAuto()
@@ -103,15 +108,16 @@ namespace MazeRunnerWPF.MazeGui
                 }
                 else
                 {
-                    mazeBuilder.LockDoorWhenQuestionAnsweredIncorrectly(
-                        currentLocation.x,
-                        currentLocation.y,
-                        currentDir
-                    );
 
-                    BuildCurrentLocation();     // TODO: May be heavy???
+                    mazeBuilder.ShuffleAllQuestions(currentLocation);
+
                     acceptInput = true;
                 }
+            }
+            else if (isWaitingOnSetup)
+            {
+                isWaitingOnSetup = false;
+                SetupMaze(4, (int)passingObj);
             }
         }
 
@@ -213,7 +219,7 @@ namespace MazeRunnerWPF.MazeGui
         private void Turn(double angle)
         {
             targetAngle += angle;
-            CurrentAngle = GetLookRotation();
+            currentAngle = GetLookRotation();
             new Thread(new ThreadStart(TurnAnimateAsync)).Start();
         }
 
@@ -228,18 +234,18 @@ namespace MazeRunnerWPF.MazeGui
             return lookRotation.Angle;
         }
 
-        private double CurrentAngle;
+        private double currentAngle;
         private void TurnAnimateAsync()
         {
             int ticks = 30;
-            double turnDelta = (targetAngle - CurrentAngle) / ticks;
+            double turnDelta = (targetAngle - currentAngle) / ticks;
             for (int i = 0; i < ticks; i++)
             {
                 Thread.Sleep(THREAD_SLEEP);
-                CurrentAngle += turnDelta;
+                currentAngle += turnDelta;
                 Dispatcher.Invoke(
                     new UpdateSetLookRotation(this.SetLookRotation),
-                    new object[] { CurrentAngle }
+                    new object[] { currentAngle }
                 );
             }
 
@@ -293,6 +299,10 @@ namespace MazeRunnerWPF.MazeGui
             }
 
             acceptInput = true;
+            Dispatcher.Invoke(
+                new UpdateCheckIfWonMaze(this.CheckIfWonMaze),
+                new object[] { }
+            );
         }
 
         private delegate void UpdateSetZPos(double z);
@@ -302,6 +312,16 @@ namespace MazeRunnerWPF.MazeGui
             var pt = camMain.Position;
             pt.Z = z;
             camMain.Position = pt;
+        }
+
+        private delegate void UpdateCheckIfWonMaze();
+        private void CheckIfWonMaze()
+        {
+            if (currentLocation == mazeBuilder.GetGoalLoc())
+            {
+                Console.WriteLine("Yayyyy! You won!");
+                GuiMediator.Instance.ShowWinningGui(null);
+            }
         }
     }
 }

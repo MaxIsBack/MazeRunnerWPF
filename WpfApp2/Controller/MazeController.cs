@@ -11,11 +11,11 @@ namespace MazeRunnerWPF.Controller
 
         private static volatile Maze theMaze;
 
-        internal static void createMaze(int size)
+        internal static void CreateMaze(int size, int difficulty)
         {
             if (theMaze == null)
             {
-                theMaze = new Maze(size);
+                theMaze = new Maze(size, difficulty.ToString());
             }
         }
         internal static Maze MazeStruct()
