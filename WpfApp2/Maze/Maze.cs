@@ -216,6 +216,11 @@ namespace MazeRunnerWPF
             question.Unlock();
         }
 
+        public void QuestionAnsweredIncorrectly(int x, int y, int[,] questionList)
+        {
+            questionList[y, x] = -1;
+        }
+
 
 
         private void SetExits()
