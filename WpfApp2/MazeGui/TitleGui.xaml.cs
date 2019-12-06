@@ -42,6 +42,19 @@ namespace MazeRunnerWPF.MazeGui
 
         private void btnStartGame2_Click(object sender, RoutedEventArgs e)
         {
+            //  if (SAVEGAME_WAS_FOUND) // TODO
+            {
+                var window = Window.GetWindow(this);
+                if (MessageBox.Show(
+                    window,
+                    "Load previous save game?",
+                    "Saved Game Detected",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    // TODO: load savegame here
+                }
+            }
             GuiMediator.Instance.ShowMazeGui(cbDifficulty.SelectedIndex);
         }
     }
