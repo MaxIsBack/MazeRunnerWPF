@@ -55,7 +55,7 @@ namespace MazeRunnerWPF
                 throw new ArgumentException("size must be more than 2", nameof(size));
             }
 
-            _QuestionQueue = questionFactory.getQuestions(questionArgs, (size * size * 4));
+            _QuestionQueue = questionFactory.GetQuestions(questionArgs, (size * size * 4));
             this.size = size;
             /*StdDraw.setXscale(0, n+2);
             StdDraw.setYscale(0, n+2);*/
@@ -63,15 +63,22 @@ namespace MazeRunnerWPF
             testMaze = new string[size + 2, size + 2];
 
             Initialize();
-            generate();
-            getWalls();
+            Generate();
+            GetWalls();
 
-            setExits();
+            SetExits();
 
         }
 
-
-
+        public int[] getEntrance()
+        {
+            return this.entranceCoodinates;
+        }
+        
+        public int[] getExit()
+        {
+            return this.exitCoordinates;
+        }
 
         private void Initialize()
         {
@@ -109,7 +116,7 @@ namespace MazeRunnerWPF
 
 
         // generate the maze
-        private void generate(int x, int y)
+        private void Generate(int x, int y)
         {
             visited[x, y] = true;
             Random rand = new Random();
@@ -128,28 +135,28 @@ namespace MazeRunnerWPF
                     {
                         _NorthWall[x, y] = false;
                         _SouthWall[x, y + 1] = false;
-                        generate(x, y + 1);
+                        Generate(x, y + 1);
                         break;
                     }
                     else if (r == 1 && !visited[x + 1, y])
                     {
                         _EastWall[x, y] = false;
                         _WestWall[x + 1, y] = false;
-                        generate(x + 1, y);
+                        Generate(x + 1, y);
                         break;
                     }
                     else if (r == 2 && !visited[x, y - 1])
                     {
                         _SouthWall[x, y] = false;
                         _NorthWall[x, y - 1] = false;
-                        generate(x, y - 1);
+                        Generate(x, y - 1);
                         break;
                     }
                     else if (r == 3 && !visited[x - 1, y])
                     {
                         _WestWall[x, y] = false;
                         _EastWall[x - 1, y] = false;
-                        generate(x - 1, y);
+                        Generate(x - 1, y);
                         break;
                     }
                 }
@@ -158,9 +165,9 @@ namespace MazeRunnerWPF
         }
 
         // generate the maze starting from lower left
-        private void generate()
+        private void Generate()
         {
-            generate(1, 1);
+            Generate(1, 1);
 
             Random random = new Random();
             //delete some random walls
@@ -173,7 +180,7 @@ namespace MazeRunnerWPF
 
         }
 
-        private void setExits()
+        private void SetExits()
         {
             Random randomInt = new Random();
             entranceCoodinates[0] = randomInt.Next(size / 2);
@@ -198,7 +205,7 @@ namespace MazeRunnerWPF
         }
 
         // draw the maze a reference method to how we might do the gui draw.
-        public string[,] draw()
+        public string[,] Draw()
         {
             /* StdDraw.setPenColor(StdDraw.RED);
              StdDraw.filledCircle(n/2.0 + 0.5, n/2.0 + 0.5, 0.375);
@@ -249,7 +256,7 @@ namespace MazeRunnerWPF
         }
 
 
-        public void testDraw()
+        public void TestDraw()
         {
             /* StdDraw.setPenColor(StdDraw.RED);
              StdDraw.filledCircle(n/2.0 + 0.5, n/2.0 + 0.5, 0.375);
@@ -357,9 +364,9 @@ namespace MazeRunnerWPF
 
         }
 
-        public string[,] getWalls()
+        public string[,] GetWalls()
         {
-            string[,] wallLocations = this.draw();
+            string[,] wallLocations = this.Draw();
             string[,] wallLocationsRCformat = this.ConvertAlgorithmMazeToRowColFormat(wallLocations);
             SetUpMazeForGui(wallLocationsRCformat);
             Print2DArray(wallLocationsRCformat);

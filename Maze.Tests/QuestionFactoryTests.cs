@@ -18,7 +18,7 @@ namespace MazeTesting
             string [] fakeArgs = new string[] {"1"};
 
             
-            Queue<Question> questions =q.getQuestions(fakeArgs, 20);
+            Queue<Question> questions =q.GetQuestions(fakeArgs, 20);
 
             foreach(Question question in questions)
             {

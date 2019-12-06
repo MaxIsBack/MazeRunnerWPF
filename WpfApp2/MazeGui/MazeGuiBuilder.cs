@@ -62,7 +62,7 @@ namespace MazeRunnerWPF.MazeGui
 
         public MazeGuiBuilder(int size)
         {
-            Controller.MazeController.createMaze(size);
+            Controller.MazeController.CreateMaze(size);
             mazeStruct = Controller.MazeController.getMaze();
         }
 
