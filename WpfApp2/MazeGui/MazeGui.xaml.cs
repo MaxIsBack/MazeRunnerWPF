@@ -27,10 +27,13 @@ namespace MazeRunnerWPF.MazeGui
         private (int x, int y) currentLocation;
         private CardinalDirs currentDir;
 
+        private bool isWaitingOnSetup;
+
         public MazeGui()
         {
             acceptInput = true;
             InitializeComponent();
+            isWaitingOnSetup = true;
         }
 
         private void SetupMaze(int size, int difficulty)
@@ -109,9 +112,9 @@ namespace MazeRunnerWPF.MazeGui
                     acceptInput = true;
                 }
             }
-            else
+            else if (isWaitingOnSetup)
             {
-                // Handle starting maze
+                isWaitingOnSetup = false;
                 SetupMaze(4, (int)passingObj);
             }
         }
