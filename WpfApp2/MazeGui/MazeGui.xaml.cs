@@ -27,17 +27,22 @@ namespace MazeRunnerWPF.MazeGui
         private (int x, int y) currentLocation;
         private CardinalDirs currentDir;
 
+        private bool isWaitingOnSetup;
+
         public MazeGui()
         {
             acceptInput = true;
             InitializeComponent();
-            mazeBuilder = new MazeGuiBuilder(4);
+            isWaitingOnSetup = true;
+        }
+
+        private void SetupMaze(int size, int difficulty)
+        {
+            mazeBuilder = new MazeGuiBuilder(size, difficulty);
             currentLocation = mazeBuilder.GetEntranceLoc();
             CurrentAngle = targetAngle = GetLookRotation();
             currentDir = CardinalDirs.NORTH;
             BuildCurrentLocation();
-
-            //GuiMediator.Instance.SetMazeGui(this);
         }
 
         private void MoveRoomsAuto()
@@ -106,6 +111,11 @@ namespace MazeRunnerWPF.MazeGui
                     mazeBuilder.ShuffleAllQuestions(currentLocation);
                     acceptInput = true;
                 }
+            }
+            else if (isWaitingOnSetup)
+            {
+                isWaitingOnSetup = false;
+                SetupMaze(4, (int)passingObj);
             }
         }
 
