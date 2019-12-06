@@ -8,10 +8,18 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TitleGui">
 
-    <Grid Background="White">
-        <Label Content="THE MAZE 2000" HorizontalAlignment="Center" Margin="0,0,0,100" VerticalAlignment="Center" FontSize="48" FontFamily="Snap ITC" FontWeight="Bold"/>
-        <Label Content="Created by: 404 Team Not Found" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" FontSize="22" FontFamily="Wide Latin"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="10,391,0,0" VerticalAlignment="Top" Width="248" Height="49"/>
+    <Grid Background="Black">
+        <Label Content="THE MAZE 2000" HorizontalAlignment="Center" Margin="0,0,0,100" VerticalAlignment="Center" FontSize="48" FontFamily="Snap ITC" FontWeight="Bold" Foreground="White"/>
+        <Label Content="Created by: 404 Team Not Found" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" FontSize="22" FontFamily="Wide Latin" Foreground="White"/>
+        <Button x:Name="btnStartGame1" Content="Start Game!" HorizontalAlignment="Center" Margin="0,320,0,0" VerticalAlignment="Center" Width="248" Height="49" Click="btnStartGame1_Click"/>
+
+        <Button x:Name="btnStartGame2" Content="Start Game!" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="130" Height="119" Click="btnStartGame2_Click" Visibility="Hidden"/>
+        <Label x:Name="lblPrompt" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,198,110" Content="Select Game Difficulty" Foreground="White" Visibility="Hidden"/>
+        <ComboBox x:Name="cbDifficulty" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,262,145,85" Width="175" Visibility="Hidden">
+            <ComboBoxItem Content="Tom Easy" IsSelected="True"></ComboBoxItem>
+            <ComboBoxItem Content="Medium"></ComboBoxItem>
+            <ComboBoxItem Content="Stu Hard"></ComboBoxItem>
+        </ComboBox>
 
     </Grid>
 </Page>
