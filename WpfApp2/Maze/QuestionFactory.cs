@@ -14,7 +14,7 @@ namespace MazeRunnerWPF
         private int[] _HardMode = new int[] { 20, 70, 100 };
         private int[] _LegendaryMode = new int[] { 0, 10, 100 };
 
-        private int[] _IndexCounters = new int[] { 1, 1, 1 }; // keeps track of what questions have been already used from database.
+        private int[] _IndexCounters; // keeps track of what questions have been already used from database.
         string[] _Tables = new string[] { "EasyQuestions", "MediumQuestions", "HardQuestions" };
         private enum _EnumTable
         {
@@ -23,16 +23,25 @@ namespace MazeRunnerWPF
             HardQuestions = 2
         }
 
-
         string _Database = @"Data Source=QuestionDatabase\QuestionsForMazeRunner.db; Version=3;";
+
+
+        public QuestionFactory()
+        {
+            Random randomInt = new Random();
+            _IndexCounters = new int[]
+            {
+                randomInt.Next(10000) + 1,
+                randomInt.Next(10000) + 1,
+                randomInt.Next(10000) + 1
+            };
+        }
 
 
         public Queue<Question> getQuestions(string[] questionArgs, int numberOfQuestionsToReturn)
         {
             
             bool getRandomQuestionsBasedOnLevel = false;
-
-
 
             int currentTableToGetFrom = 0;
 
@@ -100,7 +109,6 @@ namespace MazeRunnerWPF
                     for (int i = 0; i < numberOfQuestionsToReturn; i++)
                     {
 
-
                         // gets questions based on percentage of difficulty
                         if (getRandomQuestionsBasedOnLevel == true)
                         {
@@ -123,6 +131,9 @@ namespace MazeRunnerWPF
 
                         }
 
+                        int count = GetQuestionCount(sql_conn, currentTableToGetFrom);
+                        while (_IndexCounters[currentTableToGetFrom] > count)
+                            _IndexCounters[currentTableToGetFrom] -= count;
 
 
                         cmd.CommandText = $"select * from {_Tables[currentTableToGetFrom]} where ID=" + _IndexCounters[currentTableToGetFrom];
@@ -156,14 +167,10 @@ namespace MazeRunnerWPF
                             questions.Enqueue(new Question(difficulty, category, type, question, correctAnswer, incorrectAnswers));
 
                         }
-
                         reader.Close();
+
                         _IndexCounters[currentTableToGetFrom]++;
                     }
-
-
-
-
                 }
 
 
@@ -171,10 +178,25 @@ namespace MazeRunnerWPF
             }
 
             return questions;
-
-
         }
 
+        private int GetQuestionCount(SQLiteConnection sql_conn, int currentTableToGetFrom)
+        {
+            using (SQLiteCommand cmd = sql_conn.CreateCommand())
+            {
+                cmd.CommandText = $"select count(1) from {_Tables[currentTableToGetFrom]}";
+                cmd.CommandType = System.Data.CommandType.Text;
+                SQLiteDataReader reader = cmd.ExecuteReader();
 
+                int count = -1;
+                if (reader.Read())
+                {
+                    count = Convert.ToInt32(reader[0]);
+                }
+                reader.Close();
+
+                return count;
+            }
+        }
     }
 }
