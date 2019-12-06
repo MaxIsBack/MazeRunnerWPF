@@ -9,10 +9,10 @@ namespace MazeRunnerWPF
 {
     public class QuestionFactory
     {
-        private int[] _EasyMode = new int[] { 70, 90, 100 };
-        private int[] _MediumMode = new int[] { 40, 85, 100 };
-        private int[] _HardMode = new int[] { 20, 70, 100 };
-        private int[] _LegendaryMode = new int[] { 0, 10, 100 };
+        private int[] easyMode = new int[] { 70, 90, 100 };
+        private int[] mediumMode = new int[] { 40, 85, 100 };
+        private int[] hardMode = new int[] { 20, 70, 100 };
+        private int[] legendaryMode = new int[] { 0, 10, 100 };
 
         private int[] _IndexCounters; // keeps track of what questions have been already used from database.
         string[] _Tables = new string[] { "EasyQuestions", "MediumQuestions", "HardQuestions" };
@@ -26,6 +26,7 @@ namespace MazeRunnerWPF
         string _Database = @"Data Source=QuestionDatabase\QuestionsForMazeRunner.db; Version=3;";
 
 
+
         public QuestionFactory()
         {
             Random randomInt = new Random();
@@ -37,7 +38,6 @@ namespace MazeRunnerWPF
             };
         }
 
-
         public Queue<Question> getQuestions(string[] questionArgs, int numberOfQuestionsToReturn)
         {
             
@@ -46,7 +46,7 @@ namespace MazeRunnerWPF
             int currentTableToGetFrom = 0;
 
             //default level
-            int[] currentLevel = _EasyMode;
+            int[] currentLevel = easyMode;
 
             if (questionArgs != null && questionArgs.Length > 0)
             {
@@ -64,19 +64,19 @@ namespace MazeRunnerWPF
                 }
                 if (args.Contains("0"))
                 {
-                    currentLevel = _EasyMode;
+                    currentLevel = easyMode;
                     getRandomQuestionsBasedOnLevel = true;
 
                 }
                 if (args.Contains("1"))
                 {
-                    currentLevel = _MediumMode;
+                    currentLevel = mediumMode;
                     getRandomQuestionsBasedOnLevel = true;
 
                 }
                 if (args.Contains("2"))
                 {
-                    currentLevel = _MediumMode;
+                    currentLevel = mediumMode;
                     getRandomQuestionsBasedOnLevel = true;
 
                 }
