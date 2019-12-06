@@ -38,7 +38,7 @@ namespace MazeRunnerWPF
             };
         }
 
-        public Queue<Question> getQuestions(string[] questionArgs, int numberOfQuestionsToReturn)
+        public Queue<Question> GetQuestions(string[] questionArgs, int numberOfQuestionsToReturn)
         {
             
             bool getRandomQuestionsBasedOnLevel = false;
