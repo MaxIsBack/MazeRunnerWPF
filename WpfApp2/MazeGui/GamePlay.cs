@@ -6,7 +6,7 @@ namespace MazeRunnerWPF
 
     public class GamePlay
     {
-        private static Maze TheMaze;
+        private static Maze theMaze;
         static int MazeSize { get; set; } = 4;
 
 
@@ -29,10 +29,10 @@ namespace MazeRunnerWPF
                     break;
             }
 
-            TheMaze =  MazeController.getMaze();
-               // Maze(MazeSize, mazeArgs);
+            theMaze =  MazeController.getMaze();
+            // Maze(MazeSize, mazeArgs);
 
-            TheMaze.PlayerLocation = TheMaze._EntranceCoordinates;
+            theMaze.SetPlayerLocation(theMaze.GetEntrance().x, theMaze.GetEntrance().y);
 
             Play();
 
@@ -49,9 +49,9 @@ namespace MazeRunnerWPF
 
         }
 
-        public Maze getMaze()
+        public Maze GetMaze()
         {
-            return TheMaze;
+            return theMaze;
         }
 
         private static void DisplayQuestionOptions()
@@ -60,26 +60,26 @@ namespace MazeRunnerWPF
             while (true)
             {
 
-                int x = TheMaze.PlayerLocation.x;
-                int y = TheMaze.PlayerLocation.y;
+                int x = theMaze.PlayerLocation.x;
+                int y = theMaze.PlayerLocation.y;
 
                 Console.WriteLine($"current location: {x},{y}");
 
 
                 //display possible ways to go
-                if (TheMaze.EastQuestion[x, y] != -1)
+                if (theMaze.EastQuestion[x, y] != -1)
                 {
                     Console.WriteLine("Move East = 0");
                 }
-                if (TheMaze.WestQuestion[x, y] != -1)
+                if (theMaze.WestQuestion[x, y] != -1)
                 {
                     Console.WriteLine("Move West = 1");
                 }
-                if (TheMaze.NorthQuestion[x, y] != -1)
+                if (theMaze.NorthQuestion[x, y] != -1)
                 {
                     Console.WriteLine("Move North = 2");
                 }
-                if (TheMaze.SouthQuestion[x, y] != -1)
+                if (theMaze.SouthQuestion[x, y] != -1)
                 {
                     Console.WriteLine("Move South = 3");
                 }
@@ -93,9 +93,9 @@ namespace MazeRunnerWPF
                 switch (choice)
                 {
                     case Direction.East:
-                        if (TheMaze.QuestionStatus(TheMaze.EastQuestion[x, y]))
+                        if (theMaze.QuestionStatus(theMaze.EastQuestion[x, y]))
                         {
-                            if (Trebek.AskQuestion(TheMaze.EastQuestion[x, y]))
+                            if (Trebek.AskQuestion(theMaze.EastQuestion[x, y]))
                             {
                                 MovePlayer(Direction.East);
                                 correctAnswer = true;
@@ -108,9 +108,9 @@ namespace MazeRunnerWPF
                         }
                         break;
                     case Direction.West:
-                        if (TheMaze.QuestionStatus(TheMaze.WestQuestion[x, y]))
+                        if (theMaze.QuestionStatus(theMaze.WestQuestion[x, y]))
                         {
-                            if (Trebek.AskQuestion(TheMaze.WestQuestion[x, y]))
+                            if (Trebek.AskQuestion(theMaze.WestQuestion[x, y]))
                             {
                                 MovePlayer(Direction.West);
                                 correctAnswer = true;
@@ -122,9 +122,9 @@ namespace MazeRunnerWPF
                         }
                         break;
                     case Direction.North:
-                        if (TheMaze.QuestionStatus(TheMaze.NorthQuestion[x, y]))
+                        if (theMaze.QuestionStatus(theMaze.NorthQuestion[x, y]))
                         {
-                            if (Trebek.AskQuestion(TheMaze.NorthQuestion[x, y]))
+                            if (Trebek.AskQuestion(theMaze.NorthQuestion[x, y]))
                             {
                                 MovePlayer(Direction.North);
                                 correctAnswer = true;
@@ -136,9 +136,9 @@ namespace MazeRunnerWPF
                         }
                         break;
                     case Direction.South:
-                        if (TheMaze.QuestionStatus(TheMaze.SouthQuestion[x, y]))
+                        if (theMaze.QuestionStatus(theMaze.SouthQuestion[x, y]))
                         {
-                            if (Trebek.AskQuestion(TheMaze.SouthQuestion[x, y]))
+                            if (Trebek.AskQuestion(theMaze.SouthQuestion[x, y]))
                             {
                                 MovePlayer(Direction.South);
                                 correctAnswer = true;
@@ -160,7 +160,7 @@ namespace MazeRunnerWPF
                     //dont move rooms!
                 }
 
-                if (TheMaze.PlayerLocation.x == TheMaze._ExitCoordinates.x && TheMaze.PlayerLocation.y == TheMaze._ExitCoordinates.y)
+                if (theMaze.PlayerLocation.x == theMaze.GetExit().x && theMaze.PlayerLocation.y == theMaze.GetExit().y)
                 {
                     Console.WriteLine("YouWin");
                     return;
@@ -172,24 +172,24 @@ namespace MazeRunnerWPF
 
 
 
-        static void MovePlayer(int direction)
+        internal static void MovePlayer(int direction)
         {
-            int x = TheMaze.PlayerLocation.x;
-            int y = TheMaze.PlayerLocation.y;
+            int x = theMaze.PlayerLocation.x;
+            int y = theMaze.PlayerLocation.y;
 
             switch (direction)
             {
                 case Direction.East:
-                    TheMaze.PlayerLocation = (x, y + 1);
+                    theMaze.SetPlayerLocation(x, y + 1);
                     break;
                 case Direction.West:
-                    TheMaze.PlayerLocation = (x, y - 1);
+                    theMaze.SetPlayerLocation(x, y - 1);
                     break;
                 case Direction.North:
-                    TheMaze.PlayerLocation = (x - 1, y);
+                    theMaze.SetPlayerLocation(x - 1, y);
                     break;
                 case Direction.South:
-                    TheMaze.PlayerLocation = (x + 1, y);
+                    theMaze.SetPlayerLocation(x + 1, y);
                     break;
                 default:
                     break;

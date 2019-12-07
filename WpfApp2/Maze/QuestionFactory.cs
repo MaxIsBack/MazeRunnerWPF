@@ -9,10 +9,10 @@ namespace MazeRunnerWPF
 {
     public class QuestionFactory
     {
-        private int[] _EasyMode = new int[] { 70, 90, 100 };
-        private int[] _MediumMode = new int[] { 40, 85, 100 };
-        private int[] _HardMode = new int[] { 20, 70, 100 };
-        private int[] _LegendaryMode = new int[] { 0, 10, 100 };
+        private int[] easyMode = new int[] { 70, 90, 100 };
+        private int[] mediumMode = new int[] { 40, 85, 100 };
+        private int[] hardMode = new int[] { 20, 70, 100 };
+        private int[] legendaryMode = new int[] { 0, 10, 100 };
 
         private int [] _GameMode;
         public int [] GameMode { get { return _GameMode; } }
@@ -62,6 +62,7 @@ namespace MazeRunnerWPF
         string _Database = @"Data Source=QuestionDatabase\QuestionsForMazeRunner.db; Version=3;";
 
 
+
         public QuestionFactory()
         {
 
@@ -94,6 +95,7 @@ namespace MazeRunnerWPF
             }
         }
 
+
         private void LoadIndexCounters()
         {
 
@@ -122,6 +124,7 @@ namespace MazeRunnerWPF
 
         }
         private void SaveIndexCounters()
+
         {
             string indexCountersAsString = string.Join(",", _IndexCounters);
 
@@ -139,11 +142,13 @@ namespace MazeRunnerWPF
 
             int currentTableToGetFrom = 0;
 
+
             EnsureEnoughQuestionsRemainingInDatabase(numberOfQuestionsToReturn);
 
 
             //use game mode unless there are params to just get a certain type of question
             int[] currentLevel = _GameMode;
+
 
 
 
@@ -169,19 +174,23 @@ namespace MazeRunnerWPF
                 }
                 /* if (args.Contains("0"))
                 {
+
                     currentLevel = _EasyMode;
                    
+
 
                 }
                 else if (args.Contains("1"))
                 {
-                    currentLevel = _MediumMode;
+                    currentLevel = mediumMode;
                     getRandomQuestionsBasedOnLevel = true;
 
                 }
                 else if (args.Contains("2"))
                 {
+
                     currentLevel = _HardMode;
+
                     getRandomQuestionsBasedOnLevel = true;
 
                 }*/

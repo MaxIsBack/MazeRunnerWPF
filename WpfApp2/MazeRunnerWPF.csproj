@@ -138,7 +138,7 @@
     </Compile>
     <Compile Include="Maze\Maze.cs" />
     <Compile Include="Maze\MazeStructure.cs" />
-    <Compile Include="Maze\Question.cs" />
+    <Compile Include="Controller\Question.cs" />
     <Compile Include="Maze\QuestionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

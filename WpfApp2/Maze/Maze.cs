@@ -22,10 +22,10 @@ namespace MazeRunnerWPF
 
 
 
-        public (int x, int y) _EntranceCoordinates;
-        public (int x, int y) _ExitCoordinates;
+        private (int x, int y) _EntranceCoordinates;
+        private (int x, int y) _ExitCoordinates;
 
-        public (int x, int y) PlayerLocation { get; set; }
+        public (int x, int y) PlayerLocation { get;private set; }
         public bool[,] RoomDiscovered { get; private set; }
 
         private QuestionFactory _QuestionFactory = new QuestionFactory();
@@ -61,7 +61,7 @@ namespace MazeRunnerWPF
 
             mazeStructure = null; // clean up memory.
 
-            setExits();
+            SetExits();
 
         }
 
@@ -88,11 +88,18 @@ namespace MazeRunnerWPF
 
 
         }
-
+        public void SetPlayerLocation(int x, int y)
+        {
+           if(x >= 0 && y>= 0)
+            {
+                this.PlayerLocation = (x, y);
+            }
+        }
         
 
         public void ChangeQuestion( int QuestionIndex)
         {
+
             MazeQuestions[QuestionIndex] = _QuestionFactory.getQuestions(1).Dequeue();
         }
 
@@ -100,6 +107,7 @@ namespace MazeRunnerWPF
         public void ChangeQuestion(int QuestionIndex, string[] questionArgs)
         {
             MazeQuestions[QuestionIndex] = _QuestionFactory.getQuestions(1, questionArgs).Dequeue();
+
         }
 
 
@@ -107,7 +115,7 @@ namespace MazeRunnerWPF
         // method not used
        /* public void ChangeAllQuestionsInMaze((int x, int y) location, params string[] questionParams)
         {
-            Queue<Question> newQuestions = _QuestionFactory.getQuestions(questionParams, Size * Size * 4);
+            Queue<Question> newQuestions = _QuestionFactory.GetQuestions(questionParams, Size * Size * 4);
             MazeQuestions = new List<Question>();
 
             InitializeQuestionLocationArraysWithDefaultQuestionIndex();
@@ -229,7 +237,8 @@ namespace MazeRunnerWPF
 
 
 
-        private void setExits()
+
+        private void SetExits()
         {
             _EntranceCoordinates.x = randomInt.Next(Size / 2);
             _EntranceCoordinates.y = randomInt.Next(Size / 2);
@@ -264,7 +273,7 @@ namespace MazeRunnerWPF
         }
 
 
-        public int getSize()
+        public int GetSize()
         {
             return Size;
         }
