@@ -244,8 +244,8 @@
         <Button x:Name="btnTurnLeft" Content="Left" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="150" Height="40" Click="btnTurnLeft_Click" Opacity="0.75"/>
         <Button x:Name="btnTurnRight" Content="Right" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="150" Height="40" Click="btnTurnRight_Click" Opacity="0.75"/>
         <Button x:Name="btnAction" Content="Action" Margin="0,0,10,55" VerticalAlignment="Bottom" Width="85" Height="70" Click="btnAction_Click" MinWidth="85" MinHeight="70" HorizontalAlignment="Right" Opacity="0.75"/>
-        
-        <Canvas x:Name="canvasOverlay" Panel.ZIndex="100" />
+
+        <Button Content="Save Game" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="74" Height="20" Click="btnSave_Click" Opacity="0.75"/>
     </Grid>
 </Page>
 

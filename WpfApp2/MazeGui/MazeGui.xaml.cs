@@ -88,6 +88,13 @@ namespace MazeRunnerWPF.MazeGui
         private void btnTurnRight_Click(object sender, RoutedEventArgs e) { TurnRight(); }
         private void btnAction_Click(object sender, RoutedEventArgs e) { DoAction(); }
 
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Window.GetWindow(this);
+            MessageBox.Show(window, "Game Saved! Click OK to continue.", "Game Saved", MessageBoxButton.OK, MessageBoxImage.Information);
+            // TODO: load game here!
+        }
+
         public void OnShown(object passingObj)
         {
             Console.WriteLine("Added keydown events");
@@ -111,7 +118,11 @@ namespace MazeRunnerWPF.MazeGui
 
                     mazeBuilder.ShuffleAllQuestions(currentLocation);
 
+
+                    BuildCurrentLocation();
+
                     acceptInput = true;
+                    
                 }
             }
             else if (isWaitingOnSetup)
@@ -315,6 +326,7 @@ namespace MazeRunnerWPF.MazeGui
         }
 
         private delegate void UpdateCheckIfWonMaze();
+
         private void CheckIfWonMaze()
         {
             if (currentLocation == mazeBuilder.GetGoalLoc())

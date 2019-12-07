@@ -90,5 +90,17 @@ namespace MazeTesting
 
 
 
+        [TestMethod]
+        public void QuestionCounterWorks()
+        {
+          
+
+
+
+
+        }
+
+
+
     }
 }
