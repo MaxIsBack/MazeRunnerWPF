@@ -321,16 +321,11 @@ namespace MazeRunnerWPF
 
         public void ChangeAllUnlockedQuestionsInMaze((int x, int y) location, params string[] questionParams)
         {
-
-            ChangeAllQuestionAtLocation(location);
-
             for (int x = 0; x < Size; x++)
             {
                 for (int y = 0; y < Size; y++)
                 {
-
-                    ChangeAllUnlockedQuestionAtLocation((x, y));
-                    
+                    ChangeAllQuestionAtLocation((x, y));
                 }
             }
         }
