@@ -71,9 +71,11 @@ namespace MazeRunnerWPF
           
 
 
+
             SetExits();
 
         }
+
 
         public int[] getEntrance()
         {

@@ -97,6 +97,7 @@ namespace MazeRunnerWPF
             }
         }
 
+
         private void LoadIndexCounters()
         {
 
@@ -125,6 +126,7 @@ namespace MazeRunnerWPF
 
         }
         private void SaveIndexCounters()
+
         {
             string indexCountersAsString = string.Join(",", _IndexCounters);
 
@@ -144,11 +146,13 @@ namespace MazeRunnerWPF
 
             int currentTableToGetFrom = 0;
 
+
             EnsureEnoughQuestionsRemainingInDatabase(numberOfQuestionsToReturn);
 
 
             //use game mode unless there are params to just get a certain type of question
             int[] currentLevel = _GameMode;
+
 
 
 

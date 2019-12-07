@@ -25,6 +25,7 @@ namespace MazeTesting
             Queue<Question> questions =q.getQuestions(20);
 
 
+
             foreach(Question question in questions)
             {
                 Console.WriteLine($"Question: {question.QuestionPrompt} | Category: {question.Category} | Difficulty: {question.Difficulty}");

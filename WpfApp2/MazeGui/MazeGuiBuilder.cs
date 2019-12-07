@@ -158,6 +158,7 @@ namespace MazeRunnerWPF.MazeGui
         }*/
 
 
+
         private (bool[,], int[,]) GetDirectionalWallInfo(CardinalDirs direction)
         {
             switch (direction)
