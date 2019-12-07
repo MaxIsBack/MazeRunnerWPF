@@ -116,7 +116,10 @@ namespace MazeRunnerWPF.MazeGui
                 else
                 {
                     mazeBuilder.ShuffleAllQuestions(currentLocation);
+
+                    BuildCurrentLocation();
                     acceptInput = true;
+                    
                 }
             }
             else if (isWaitingOnSetup)

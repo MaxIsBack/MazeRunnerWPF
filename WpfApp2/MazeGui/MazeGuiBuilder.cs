@@ -136,10 +136,11 @@ namespace MazeRunnerWPF.MazeGui
             mazeStruct.UnlockQuestion(questionId);
         }
 
-        public void ShuffleAllQuestions((int x, int y) location)
+        public void ShuffleAllQuestions((int y, int x) location)
         {
             //mazeStruct.ChangeAllQuestionAtLocation((location.y, location.x));
             mazeStruct.ChangeAllUnlockedQuestionsInMaze((location.x, location.y));
+            
         }
 
         public int GetQuestionId(int x, int y, CardinalDirs facingDirection)
