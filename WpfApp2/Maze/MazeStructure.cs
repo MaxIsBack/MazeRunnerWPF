@@ -55,16 +55,21 @@ namespace MazeRunnerWPF
                 throw new ArgumentException("size must be more than 2", nameof(size));
             }
 
-            _QuestionQueue = questionFactory.GetQuestions(questionArgs, (size * size * 4));
+
+
             this.size = size;
             /*StdDraw.setXscale(0, n+2);
             StdDraw.setYscale(0, n+2);*/
-
+            questionFactory.SetGameMode(questionArgs);
+            _QuestionQueue = questionFactory.getQuestions(size*size*3);
             testMaze = new string[size + 2, size + 2];
 
             Initialize();
-            Generate();
-            GetWalls();
+
+            generate();
+            getWalls();
+          
+
 
             SetExits();
 
@@ -333,7 +338,7 @@ namespace MazeRunnerWPF
 
 
         // a test client
-     
+
 
         private string[,] ConvertAlgorithmMazeToRowColFormat(string[,] wallLocations)
         {
@@ -368,6 +373,7 @@ namespace MazeRunnerWPF
         {
             string[,] wallLocations = this.Draw();
             string[,] wallLocationsRCformat = this.ConvertAlgorithmMazeToRowColFormat(wallLocations);
+           
             SetUpMazeForGui(wallLocationsRCformat);
             Print2DArray(wallLocationsRCformat);
             return wallLocationsRCformat;
@@ -403,8 +409,8 @@ namespace MazeRunnerWPF
                         else
                         {
                             _QuestionsList.Add(_QuestionQueue.Dequeue());
-                            
-                            NorthQuestion[i, j] = _QuestionsList.Count-1;
+
+                            NorthQuestion[i, j] = _QuestionsList.Count - 1;
                         }
 
                     }
@@ -424,7 +430,7 @@ namespace MazeRunnerWPF
 
                             _QuestionsList.Add(_QuestionQueue.Dequeue());
 
-                         
+
 
                             SouthQuestion[i, j] = _QuestionsList.Count - 1; ;
                         }
@@ -444,9 +450,9 @@ namespace MazeRunnerWPF
                         else
                         {
                             _QuestionsList.Add(_QuestionQueue.Dequeue());
-                           
 
-                            EastQuestion[i, j] = _QuestionsList.Count - 1; 
+
+                            EastQuestion[i, j] = _QuestionsList.Count - 1;
                         }
 
                     }
@@ -464,7 +470,7 @@ namespace MazeRunnerWPF
                         else
                         {
                             _QuestionsList.Add(_QuestionQueue.Dequeue());
-                           
+
                             WestQuestion[i, j] = _QuestionsList.Count - 1;
                         }
 
@@ -518,5 +524,8 @@ namespace MazeRunnerWPF
                 Console.WriteLine();
             }
         }
+
+
+      
     }
 }

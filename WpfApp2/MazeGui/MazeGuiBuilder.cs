@@ -136,22 +136,27 @@ namespace MazeRunnerWPF.MazeGui
             mazeStruct.UnlockQuestion(questionId);
         }
 
-        public void ShuffleAllQuestions((int x, int y) location)
+        public void ShuffleAllQuestions((int y, int x) location)
         {
-            mazeStruct.ChangeAllQuestionAtLocation((location.y, location.x));
+            //mazeStruct.ChangeAllQuestionAtLocation((location.y, location.x));
+            mazeStruct.ChangeAllUnlockedQuestionsInMaze((location.x, location.y));
+            
         }
 
         public int GetQuestionId(int x, int y, CardinalDirs facingDirection)
         {
             (bool[,] walls, int[,] questions) refWalls = GetDirectionalWallInfo(facingDirection);
+            //return refWalls.questions[y, x];
             return refWalls.questions[y, x];
         }
 
-        public void LockDoorWhenQuestionAnsweredIncorrectly(int x, int y, CardinalDirs facingDirection)
+
+       /* public void LockDoorWhenQuestionAnsweredIncorrectly(int x, int y, CardinalDirs facingDirection)
         {
             (bool[,] _, int[,] questions) refWalls = GetDirectionalWallInfo(facingDirection);
             mazeStruct.QuestionAnsweredIncorrectly(x, y, refWalls.questions);
-        }
+        }*/
+
 
         private (bool[,], int[,]) GetDirectionalWallInfo(CardinalDirs direction)
         {

@@ -14,7 +14,45 @@ namespace MazeRunnerWPF
         private int[] hardMode = new int[] { 20, 70, 100 };
         private int[] legendaryMode = new int[] { 0, 10, 100 };
 
-        private int[] _IndexCounters; // keeps track of what questions have been already used from database.
+        private int [] _GameMode;
+        public int [] GameMode { get { return _GameMode; } }
+
+
+        public void SetGameMode(string[] questionArgs) {
+
+            if (questionArgs != null && questionArgs.Length > 0)
+            {
+                string args = string.Join("", questionArgs);
+                if (args.Contains("0"))
+                {
+                   _GameMode = _EasyMode;
+                    
+
+                }
+                else if (args.Contains("1"))
+                {
+                    _GameMode = _MediumMode;
+                   
+
+                }
+                else if (args.Contains("2"))
+                {
+                    _GameMode = _HardMode;
+                   
+
+                }
+
+            }
+
+
+
+        }
+
+        public int[] _IndexCounters; // keeps track of what questions have been already used from database.
+        private int[] _NumberOfQuestionsPerTable = new int[3]; //allows for resetting the IndexCounters to 0.
+        //private string _QuestionIndexTrackerFile = @"C:\Users\saffron\source\repos\MazeRunnerWPF\WpfApp2\QuestionDatabase\QuestionIndexTracker.txt";
+        private string _QuestionIndexTrackerFile = @"QuestionDatabase\QuestionIndexTracker.txt";
+
         string[] _Tables = new string[] { "EasyQuestions", "MediumQuestions", "HardQuestions" };
         private enum _EnumTable
         {
@@ -29,57 +67,136 @@ namespace MazeRunnerWPF
 
         public QuestionFactory()
         {
-            Random randomInt = new Random();
-            _IndexCounters = new int[]
-            {
-                randomInt.Next(10000) + 1,
-                randomInt.Next(10000) + 1,
-                randomInt.Next(10000) + 1
-            };
+
+            GetNumberOfQuestionsInDatabase();
+            LoadIndexCounters();
         }
 
-        public Queue<Question> GetQuestions(string[] questionArgs, int numberOfQuestionsToReturn)
+        private void GetNumberOfQuestionsInDatabase()
         {
-            
+            using (SQLiteConnection sql_conn = new SQLiteConnection(_Database))
+            {
+
+
+                Random randomInt = new Random();
+
+                sql_conn.Open();
+              
+                using (SQLiteCommand cmd = sql_conn.CreateCommand())
+                {
+
+                    for (int i = 0; i < _NumberOfQuestionsPerTable.Length; i++)
+                    {
+                        cmd.CommandText = $"select Count (*) from {_Tables[i]}";
+                        cmd.CommandType = System.Data.CommandType.Text;
+
+                        _NumberOfQuestionsPerTable[i] = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+
+                }
+            }
+        }
+
+        private void LoadIndexCounters()
+        {
+
+
+            if (File.Exists(_QuestionIndexTrackerFile))
+            {
+
+                string[] indexCountersString = File.ReadAllText(_QuestionIndexTrackerFile).Split(',');
+
+                _IndexCounters = new int[indexCountersString.Length];
+                for (int i = 0; i < indexCountersString.Length; i++)
+                {
+
+                    _IndexCounters[i] = Int32.Parse(indexCountersString[i]);
+
+                }
+
+
+
+            }
+            else
+            {
+                _IndexCounters = new int[] { 1, 1, 1 };
+            }
+
+
+        }
+        private void SaveIndexCounters()
+        {
+            string indexCountersAsString = string.Join(",", _IndexCounters);
+
+            File.WriteAllText(_QuestionIndexTrackerFile, indexCountersAsString);
+
+
+
+
+
+        }
+        // will return questions based on the game mode unless given params for a specific type of question
+        public Queue<Question> getQuestions( int numberOfQuestionsToReturn, params string[] questionArgs)
+
+        {
+
             bool getRandomQuestionsBasedOnLevel = false;
 
             int currentTableToGetFrom = 0;
 
-            //default level
-            int[] currentLevel = easyMode;
+            EnsureEnoughQuestionsRemainingInDatabase(numberOfQuestionsToReturn);
+
+
+            //use game mode unless there are params to just get a certain type of question
+            int[] currentLevel = _GameMode;
+
+
 
             if (questionArgs != null && questionArgs.Length > 0)
             {
                 string args = string.Join("", questionArgs);
+
                 if (args.Contains("e"))
                 {
                     currentTableToGetFrom = (int)_EnumTable.EasyQuestions;
 
 
                 }
-                if (args.Contains("m"))
+                else if (args.Contains("m"))
                 {
                     currentTableToGetFrom = (int)_EnumTable.MediumQuestions;
 
                 }
-                if (args.Contains("0"))
+                else if (args.Contains("h"))
                 {
-                    currentLevel = easyMode;
-                    getRandomQuestionsBasedOnLevel = true;
+                    currentTableToGetFrom = (int)_EnumTable.HardQuestions;
 
                 }
-                if (args.Contains("1"))
+                /* if (args.Contains("0"))
+                {
+
+                    currentLevel = _EasyMode;
+                   
+
+
+                }
+                else if (args.Contains("1"))
                 {
                     currentLevel = mediumMode;
                     getRandomQuestionsBasedOnLevel = true;
 
                 }
-                if (args.Contains("2"))
+                else if (args.Contains("2"))
                 {
-                    currentLevel = mediumMode;
+
+                    currentLevel = _HardMode;
+
                     getRandomQuestionsBasedOnLevel = true;
 
-                }
+                }*/
+            }
+            else {
+                getRandomQuestionsBasedOnLevel = true;
             }
 
 
@@ -110,7 +227,7 @@ namespace MazeRunnerWPF
                     {
 
                         // gets questions based on percentage of difficulty
-                        if (getRandomQuestionsBasedOnLevel == true)
+                        if (getRandomQuestionsBasedOnLevel == true&& _GameMode!=null)
                         {
                             int random = randomInt.Next(100) + 1;
 
@@ -131,9 +248,9 @@ namespace MazeRunnerWPF
 
                         }
 
-                        int count = GetQuestionCount(sql_conn, currentTableToGetFrom);
+                       /* int count = GetQuestionCount(sql_conn, currentTableToGetFrom);
                         while (_IndexCounters[currentTableToGetFrom] > count)
-                            _IndexCounters[currentTableToGetFrom] -= count;
+                            _IndexCounters[currentTableToGetFrom] -= count;*/
 
 
                         cmd.CommandText = $"select * from {_Tables[currentTableToGetFrom]} where ID=" + _IndexCounters[currentTableToGetFrom];
@@ -156,11 +273,11 @@ namespace MazeRunnerWPF
 
                             for (int j = 0; j < incorrectAnswers.Length; j++)
                             {
-                                string cleanedAnswer= Regex.Match(incorrectAnswers[j], pattern).ToString();
+                                string cleanedAnswer = Regex.Match(incorrectAnswers[j], pattern).ToString();
                                 incorrectAnswers[j] = cleanedAnswer;
-                            } 
-                          
-                                
+                            }
+
+
 
 
 
@@ -177,7 +294,21 @@ namespace MazeRunnerWPF
                 sql_conn.Close();
             }
 
+            SaveIndexCounters();
+
             return questions;
+        }
+
+        private void EnsureEnoughQuestionsRemainingInDatabase(int numberOfQuestionsToReturn)
+        {
+
+            for (int i = 0; i < _NumberOfQuestionsPerTable.Length; i++)
+            {
+                if (_IndexCounters[i] >= _NumberOfQuestionsPerTable[i] - numberOfQuestionsToReturn) {
+                    _IndexCounters[i] = 1;
+                }
+            }
+            
         }
 
         private int GetQuestionCount(SQLiteConnection sql_conn, int currentTableToGetFrom)
