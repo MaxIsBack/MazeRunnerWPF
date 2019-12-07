@@ -15,7 +15,7 @@ namespace MazeTesting
             MazeStructure maze = new MazeStructure(n);
             //maze.testDraw();
 
-            maze.testDraw();
+            maze.TestDraw();
 
 
 
@@ -26,7 +26,7 @@ namespace MazeTesting
         {
             int n = 3;
             MazeStructure maze = new MazeStructure(n);
-            maze.testDraw();
+            maze.TestDraw();
 
             //maze.testDraw();
 
@@ -64,7 +64,7 @@ namespace MazeTesting
             MazeStructure maze = new MazeStructure(n);
             //maze.testDraw();
 
-            maze.testDraw();
+            maze.TestDraw();
 
             for (int i = 1; i < maze.size; i++)
             {

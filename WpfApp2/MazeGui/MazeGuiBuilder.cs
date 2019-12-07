@@ -62,7 +62,7 @@ namespace MazeRunnerWPF.MazeGui
 
         public MazeGuiBuilder(int size, int difficulty)
         {
-            Controller.MazeController.createMaze(size, difficulty);
+            Controller.MazeController.CreateMaze(size, difficulty);
             mazeStruct = Controller.MazeController.getMaze();
         }
 
@@ -150,11 +150,13 @@ namespace MazeRunnerWPF.MazeGui
             return refWalls.questions[y, x];
         }
 
+
        /* public void LockDoorWhenQuestionAnsweredIncorrectly(int x, int y, CardinalDirs facingDirection)
         {
             (bool[,] _, int[,] questions) refWalls = GetDirectionalWallInfo(facingDirection);
             mazeStruct.QuestionAnsweredIncorrectly(x, y, refWalls.questions);
         }*/
+
 
         private (bool[,], int[,]) GetDirectionalWallInfo(CardinalDirs direction)
         {

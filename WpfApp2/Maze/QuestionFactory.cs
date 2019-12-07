@@ -9,10 +9,10 @@ namespace MazeRunnerWPF
 {
     public class QuestionFactory
     {
-        private int[] _EasyMode = new int[] { 70, 90, 100 };
-        private int[] _MediumMode = new int[] { 40, 85, 100 };
-        private int[] _HardMode = new int[] { 20, 70, 100 };
-        private int[] _LegendaryMode = new int[] { 0, 10, 100 };
+        private int[] easyMode = new int[] { 70, 90, 100 };
+        private int[] mediumMode = new int[] { 40, 85, 100 };
+        private int[] hardMode = new int[] { 20, 70, 100 };
+        private int[] legendaryMode = new int[] { 0, 10, 100 };
 
         private int [] _GameMode;
         public int [] GameMode { get { return _GameMode; } }
@@ -62,6 +62,7 @@ namespace MazeRunnerWPF
         }
 
         string _Database = @"Data Source=QuestionDatabase\QuestionsForMazeRunner.db; Version=3;";
+
 
 
         public QuestionFactory()
@@ -132,9 +133,11 @@ namespace MazeRunnerWPF
 
 
 
+
         }
         // will return questions based on the game mode unless given params for a specific type of question
         public Queue<Question> getQuestions( int numberOfQuestionsToReturn, params string[] questionArgs)
+
         {
 
             bool getRandomQuestionsBasedOnLevel = false;
@@ -171,19 +174,23 @@ namespace MazeRunnerWPF
                 }
                 /* if (args.Contains("0"))
                 {
+
                     currentLevel = _EasyMode;
                    
+
 
                 }
                 else if (args.Contains("1"))
                 {
-                    currentLevel = _MediumMode;
+                    currentLevel = mediumMode;
                     getRandomQuestionsBasedOnLevel = true;
 
                 }
                 else if (args.Contains("2"))
                 {
+
                     currentLevel = _HardMode;
+
                     getRandomQuestionsBasedOnLevel = true;
 
                 }*/

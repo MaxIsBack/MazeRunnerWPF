@@ -4,15 +4,15 @@ namespace MazeRunnerWPF
 {
     public class Question
     {
-        public int number;
+        private int number;
         private bool _Locked;
 
-        public string Difficulty { get; }
-        public string Category { get; }
-        public string Type { get; }
-        public string QuestionPrompt { get; }
-        public string CorrectAnswer { get; }
-        public string [] IncorrectAnswers { get; }
+        public string Difficulty { get; private set; }
+        public string Category { get; private set; }
+        public string Type { get; private set; }
+        public string QuestionPrompt { get; private set; }
+        public string CorrectAnswer { get; private set; }
+        public string [] IncorrectAnswers { get; private set; }
 
         public Question(string difficulty, string category, string type, string questionPrompt, string correctAnswer, string [] incorrectAnswers) {
             Difficulty = difficulty;

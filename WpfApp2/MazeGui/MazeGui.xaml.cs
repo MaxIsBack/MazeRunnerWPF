@@ -40,7 +40,7 @@ namespace MazeRunnerWPF.MazeGui
         {
             mazeBuilder = new MazeGuiBuilder(size, difficulty);
             currentLocation = mazeBuilder.GetEntranceLoc();
-            CurrentAngle = targetAngle = GetLookRotation();
+            currentAngle = targetAngle = GetLookRotation();
             currentDir = CardinalDirs.NORTH;
             BuildCurrentLocation();
         }
@@ -115,9 +115,12 @@ namespace MazeRunnerWPF.MazeGui
                 }
                 else
                 {
+
                     mazeBuilder.ShuffleAllQuestions(currentLocation);
 
+
                     BuildCurrentLocation();
+
                     acceptInput = true;
                     
                 }
@@ -227,7 +230,7 @@ namespace MazeRunnerWPF.MazeGui
         private void Turn(double angle)
         {
             targetAngle += angle;
-            CurrentAngle = GetLookRotation();
+            currentAngle = GetLookRotation();
             new Thread(new ThreadStart(TurnAnimateAsync)).Start();
         }
 
@@ -242,18 +245,18 @@ namespace MazeRunnerWPF.MazeGui
             return lookRotation.Angle;
         }
 
-        private double CurrentAngle;
+        private double currentAngle;
         private void TurnAnimateAsync()
         {
             int ticks = 30;
-            double turnDelta = (targetAngle - CurrentAngle) / ticks;
+            double turnDelta = (targetAngle - currentAngle) / ticks;
             for (int i = 0; i < ticks; i++)
             {
                 Thread.Sleep(THREAD_SLEEP);
-                CurrentAngle += turnDelta;
+                currentAngle += turnDelta;
                 Dispatcher.Invoke(
                     new UpdateSetLookRotation(this.SetLookRotation),
-                    new object[] { CurrentAngle }
+                    new object[] { currentAngle }
                 );
             }
 
