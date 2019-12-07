@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace MazeRunnerWPF
 {
+    [Serializable()]
     public class Maze
     {
 
@@ -56,6 +57,7 @@ namespace MazeRunnerWPF
             MazeQuestions = mazeStructure._QuestionsList;
 
             CopyMazeStructure(mazeStructure);
+            
 
             mazeStructure = null; // clean up memory.
 
@@ -89,14 +91,21 @@ namespace MazeRunnerWPF
 
         
 
-        public void ChangeQuestion( int QuestionIndex, params string[] questionArgs)
+        public void ChangeQuestion( int QuestionIndex)
         {
-            MazeQuestions[QuestionIndex] = _QuestionFactory.getQuestions(questionArgs, 1).Dequeue();
+            MazeQuestions[QuestionIndex] = _QuestionFactory.getQuestions(1).Dequeue();
+        }
+
+        //override for passing params to get a specific type of question
+        public void ChangeQuestion(int QuestionIndex, string[] questionArgs)
+        {
+            MazeQuestions[QuestionIndex] = _QuestionFactory.getQuestions(1, questionArgs).Dequeue();
         }
 
 
 
-        public void ChangeAllQuestionsInMaze((int x, int y) location, params string[] questionParams)
+        // method not used
+       /* public void ChangeAllQuestionsInMaze((int x, int y) location, params string[] questionParams)
         {
             Queue<Question> newQuestions = _QuestionFactory.getQuestions(questionParams, Size * Size * 4);
             MazeQuestions = new List<Question>();
@@ -177,9 +186,10 @@ namespace MazeRunnerWPF
                 }
 
             }
-        }
+        }*/
 
-        private void InitializeQuestionLocationArraysWithDefaultQuestionIndex()
+            //method not used currently
+       /* private void InitializeQuestionLocationArraysWithDefaultQuestionIndex()
         {
 
 
@@ -203,13 +213,14 @@ namespace MazeRunnerWPF
 
 
 
-        }
+        }*/
 
         public void QuestionAnsweredCorrectly(Question question)
         {
             question.Unlock();
         }
 
+        //method not used currently after refactor
       /*  public void QuestionAnsweredIncorrectly(int x, int y, int[,] questionList)
         {
             //questionList[y, x] = -1;
@@ -323,6 +334,9 @@ namespace MazeRunnerWPF
         public int[,] EastQuestionCounting { get; private set; }
         public int[,] SouthQuestionCounting { get; private set; }
         public int[,] WestQuestionCounting { get; private set; }
+        
+        //method not used currently would require major refactor in mazestructure to implement. Method is supposed to help
+        // the maze structure populate with exact number of questions required for maze, to limit database calls
         public int CountLockedQuestions()
         {
 

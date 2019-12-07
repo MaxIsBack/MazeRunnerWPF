@@ -14,8 +14,39 @@ namespace MazeRunnerWPF
         private int[] _HardMode = new int[] { 20, 70, 100 };
         private int[] _LegendaryMode = new int[] { 0, 10, 100 };
 
+        private int [] _GameMode;
+        public int [] GameMode { get { return _GameMode; } }
 
-        public int GameMode { get; set; }
+
+        public void SetGameMode(string[] questionArgs) {
+
+            if (questionArgs != null && questionArgs.Length > 0)
+            {
+                string args = string.Join("", questionArgs);
+                if (args.Contains("0"))
+                {
+                   _GameMode = _EasyMode;
+                    
+
+                }
+                else if (args.Contains("1"))
+                {
+                    _GameMode = _MediumMode;
+                   
+
+                }
+                else if (args.Contains("2"))
+                {
+                    _GameMode = _HardMode;
+                   
+
+                }
+
+            }
+
+
+
+        }
 
         public int[] _IndexCounters; // keeps track of what questions have been already used from database.
         private int[] _NumberOfQuestionsPerTable = new int[3]; //allows for resetting the IndexCounters to 0.
@@ -100,8 +131,8 @@ namespace MazeRunnerWPF
 
 
         }
-
-        public Queue<Question> getQuestions(string[] questionArgs, int numberOfQuestionsToReturn)
+        // will return questions based on the game mode unless given params for a specific type of question
+        public Queue<Question> getQuestions( int numberOfQuestionsToReturn, params string[] questionArgs)
         {
 
             bool getRandomQuestionsBasedOnLevel = false;
@@ -111,12 +142,15 @@ namespace MazeRunnerWPF
             EnsureEnoughQuestionsRemainingInDatabase(numberOfQuestionsToReturn);
 
 
-            //default level
-            int[] currentLevel = _EasyMode;
+            //use game mode unless there are params to just get a certain type of question
+            int[] currentLevel = _GameMode;
+
+
 
             if (questionArgs != null && questionArgs.Length > 0)
             {
                 string args = string.Join("", questionArgs);
+
                 if (args.Contains("e"))
                 {
                     currentTableToGetFrom = (int)_EnumTable.EasyQuestions;
@@ -133,10 +167,10 @@ namespace MazeRunnerWPF
                     currentTableToGetFrom = (int)_EnumTable.HardQuestions;
 
                 }
-                else if (args.Contains("0"))
+                /* if (args.Contains("0"))
                 {
                     currentLevel = _EasyMode;
-                    getRandomQuestionsBasedOnLevel = true;
+                   
 
                 }
                 else if (args.Contains("1"))
@@ -150,7 +184,10 @@ namespace MazeRunnerWPF
                     currentLevel = _HardMode;
                     getRandomQuestionsBasedOnLevel = true;
 
-                }
+                }*/
+            }
+            else {
+                getRandomQuestionsBasedOnLevel = true;
             }
 
 
@@ -181,7 +218,7 @@ namespace MazeRunnerWPF
                     {
 
                         // gets questions based on percentage of difficulty
-                        if (getRandomQuestionsBasedOnLevel == true)
+                        if (getRandomQuestionsBasedOnLevel == true&& _GameMode!=null)
                         {
                             int random = randomInt.Next(100) + 1;
 

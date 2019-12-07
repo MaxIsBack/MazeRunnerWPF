@@ -59,7 +59,8 @@ namespace MazeRunnerWPF
             this.size = size;
             /*StdDraw.setXscale(0, n+2);
             StdDraw.setYscale(0, n+2);*/
-            _QuestionQueue = questionFactory.getQuestions(questionArgs, size*size*3);
+            questionFactory.SetGameMode(questionArgs);
+            _QuestionQueue = questionFactory.getQuestions(size*size*3);
             testMaze = new string[size + 2, size + 2];
 
             Initialize();

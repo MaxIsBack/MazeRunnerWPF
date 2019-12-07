@@ -16,10 +16,12 @@ namespace MazeTesting
         {
 
             QuestionFactory q = new QuestionFactory();
-            string [] fakeArgs = new string[] {"1"};
+            string[] fakeArgs = new string[] { "0" };
+            q.SetGameMode(fakeArgs);
+           
 
             
-            Queue<Question> questions =q.getQuestions(fakeArgs, 20);
+            Queue<Question> questions =q.getQuestions(20);
 
             foreach(Question question in questions)
             {
@@ -34,6 +36,9 @@ namespace MazeTesting
         {
 
             QuestionFactory q = new QuestionFactory();
+            string[] fakeArgs = new string[] { "0" };
+            q.SetGameMode(fakeArgs);
+
             int easyOriginalCount = q._IndexCounters[0];
             int mediumOriginalCount = q._IndexCounters[1];
             int hardOriginalCount = q._IndexCounters[2];
@@ -44,7 +49,7 @@ namespace MazeTesting
 
             int numOfQuestions = 5;
             //easy questions
-            Queue<Question> questions = q.getQuestions(efakeArgs, numOfQuestions);
+            Queue<Question> questions = q.getQuestions( numOfQuestions, efakeArgs);
 
             QuestionFactory q2 = new QuestionFactory();
            
@@ -52,14 +57,14 @@ namespace MazeTesting
 
 
             //medium questions
-            Queue<Question> questionsM = q.getQuestions(mfakeArgs, numOfQuestions);
+            Queue<Question> questionsM = q.getQuestions( numOfQuestions, mfakeArgs);
 
             QuestionFactory qM = new QuestionFactory();
 
             Assert.IsTrue(qM._IndexCounters[1] == mediumOriginalCount + numOfQuestions);
 
             //hard questions
-            Queue<Question> questionsH = q.getQuestions(hfakeArgs, numOfQuestions);
+            Queue<Question> questionsH = q.getQuestions( numOfQuestions, hfakeArgs);
 
             QuestionFactory qH = new QuestionFactory();
 

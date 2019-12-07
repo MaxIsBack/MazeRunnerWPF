@@ -114,7 +114,7 @@ namespace MazeTesting
         {
             Maze maze = new Maze(3);
             (int x, int y) location1 = (0, 0);
-            (int x, int y) location2 = (0, 1);
+            //(int x, int y) location2 = (0, 1);
 
 
             maze.ChangeAllUnlockedQuestionsInMaze(location1);
