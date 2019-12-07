@@ -210,10 +210,11 @@ namespace MazeRunnerWPF
             question.Unlock();
         }
 
-        public void QuestionAnsweredIncorrectly(int x, int y, int[,] questionList)
+      /*  public void QuestionAnsweredIncorrectly(int x, int y, int[,] questionList)
         {
-            questionList[y, x] = -1;
-        }
+            //questionList[y, x] = -1;
+            questionList[x, y] = -1;
+        }*/
 
 
 
@@ -272,15 +273,180 @@ namespace MazeRunnerWPF
 
         }
 
+        public void ChangeAllUnlockedQuestionAtLocation((int x, int y) location)
+        {
+
+            if (NorthQuestion[location.x, location.y] != -1 && !MazeQuestions[NorthQuestion[location.x, location.y]].Locked()) { ChangeQuestion(NorthQuestion[location.x, location.y]); }
+
+            if (SouthQuestion[location.x, location.y] != -1 && !MazeQuestions[SouthQuestion[location.x, location.y]].Locked()) { ChangeQuestion(SouthQuestion[location.x, location.y]); }
+
+            if (WestQuestion[location.x, location.y] != -1 && !MazeQuestions[WestQuestion[location.x, location.y]].Locked()) { ChangeQuestion(WestQuestion[location.x, location.y]); }
+
+            if (EastQuestion[location.x, location.y] != -1 && !MazeQuestions[EastQuestion[location.x, location.y]].Locked()) { ChangeQuestion(EastQuestion[location.x, location.y]); }
+
+        }
+
         public bool ValidIndex(int index)
         {
             return index >= 0 && index < Size;
         }
 
-        public Question GetQuestion(int location) {
+        public Question GetQuestion(int index) {
 
-            return MazeQuestions[location];
+            return MazeQuestions[index];
         }
+
+
+
+
+        public void ChangeAllUnlockedQuestionsInMaze((int x, int y) location, params string[] questionParams)
+        {
+
+            ChangeAllQuestionAtLocation(location);
+
+            for (int x = 0; x < Size; x++)
+            {
+                for (int y = 0; y < Size; y++)
+                {
+
+                    ChangeAllUnlockedQuestionAtLocation((x, y));
+                    
+                }
+            }
+        }
+
+
+
+
+
+        public int[,] NorthQuestionCounting { get; private set; }     // contains the index that coresponds to the question in the Question List (MazeQuestions)
+        public int[,] EastQuestionCounting { get; private set; }
+        public int[,] SouthQuestionCounting { get; private set; }
+        public int[,] WestQuestionCounting { get; private set; }
+        public int CountLockedQuestions()
+        {
+
+            NorthQuestionCounting = new int[Size, Size];
+            EastQuestionCounting = new int[Size, Size];
+            SouthQuestionCounting = new int[Size, Size];
+            WestQuestionCounting = new int[Size, Size];
+
+
+            SetQuestionToDefault(Size);
+
+
+            int count = 0;
+            string[] questionArgs = { "e" };
+
+            for (int x = 0; x < Size; x++)
+            {
+                for (int y = 0; y < Size; y++)
+                {
+
+                    if (!NorthWall[x, y])
+
+                    {
+
+                        if (ValidIndex(x - 1) && SouthQuestionCounting[x - 1, y] != -1)
+                        {
+                            NorthQuestion[x, y] = SouthQuestion[x - 1, y];
+
+
+                        }
+                        else
+                        {
+                            
+                            NorthQuestion[x, y] = 1;
+                            count++;
+                        }
+
+                    }
+
+                    if (!SouthWall[x, y])
+
+                    {
+
+                        if (ValidIndex(x + 1) && NorthQuestionCounting[x + 1, y] != 0)
+                        {
+
+                            SouthQuestionCounting[x, y] = NorthQuestionCounting[x + 1, y];
+
+                        }
+                        else
+                        {
+                            // MazeQuestions.Add(newQuestions.Dequeue());
+                            SouthQuestionCounting[x, y] = 1;
+                            count++;
+                        }
+
+                    }
+
+                    if (!EastWall[x, y])
+
+                    {
+
+                        if (ValidIndex(y + 1) && WestQuestionCounting[x, y + 1] != 0)
+                        {
+
+                            EastQuestionCounting[x, y] = WestQuestionCounting[x, y + 1];
+
+                        }
+                        else
+                        {
+                            //MazeQuestions.Add(newQuestions.Dequeue());
+                            EastQuestionCounting[x, y] = 1;
+                            count++;
+                        }
+
+                    }
+
+                    if (WestWall[x, y])
+
+                    {
+
+                        if (ValidIndex(y - 1) && EastQuestionCounting[x, y - 1] != 0)
+                        {
+
+                            WestQuestionCounting[x, y] = EastQuestionCounting[x, y - 1];
+
+                        }
+                        else
+                        {
+
+                            //MazeQuestions.Add(newQuestions.Dequeue());
+                            WestQuestionCounting[x, y] = 1;
+                            count++;
+                        }
+
+                    }
+
+                }
+            }
+
+            Console.WriteLine($"Count= {count}");
+            return count;
+
+        }
+
+        private void SetQuestionToDefault(int size)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+
+                    NorthQuestionCounting[i, j] = 0;
+                    EastQuestionCounting[i, j] = 0;
+                    SouthQuestionCounting[i, j] = 0;
+                    WestQuestionCounting[i, j] = 0;
+                }
+
+            }
+
+        }
+
+
+      
 
 
 
@@ -298,5 +464,9 @@ namespace MazeRunnerWPF
         public const int South = 3;
         
     }
+
+
+
+   
 
 }

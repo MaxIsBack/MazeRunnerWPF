@@ -21,17 +21,17 @@ namespace MazeRunnerWPF
 
             List<string> answerChoices = PrepareAnswers(theQuestion, out correctAnswerPosition);
 
-            Console.WriteLine("Trebek is Asking you a question");
+           /* Console.WriteLine("Trebek is Asking you a question");
 
             Console.WriteLine(theQuestion.QuestionPrompt);
 
             foreach(string answer in answerChoices)
             {
                 Console.WriteLine(answer);
-            } 
+            } */
             // string input = Gui.getInput();
 
-            int input = Convert.ToInt32(Console.ReadLine());
+          /*  int input = Convert.ToInt32(Console.ReadLine());*/
 
             bool correctlyAnswered = false;
            
@@ -41,7 +41,7 @@ namespace MazeRunnerWPF
 
 
 
-            switch (input)
+           /* switch (input)
             {
                 case 0:
 
@@ -53,14 +53,14 @@ namespace MazeRunnerWPF
                 default:
                     Controller.MazeController.getMaze().ChangeQuestion(questionIndex);
                     break;
-            }
+            }*/
 
-
+/*
             if (correctlyAnswered)
             {
                 //Console.WriteLine("nice work");
             }
-
+*/
 
             return correctlyAnswered;
 

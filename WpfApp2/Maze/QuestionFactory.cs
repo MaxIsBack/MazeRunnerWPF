@@ -15,7 +15,7 @@ namespace MazeRunnerWPF
         private int[] _LegendaryMode = new int[] { 0, 10, 100 };
 
 
-
+        public int GameMode { get; set; }
 
         public int[] _IndexCounters; // keeps track of what questions have been already used from database.
         private int[] _NumberOfQuestionsPerTable = new int[3]; //allows for resetting the IndexCounters to 0.

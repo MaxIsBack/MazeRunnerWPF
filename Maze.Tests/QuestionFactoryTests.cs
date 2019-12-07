@@ -23,7 +23,7 @@ namespace MazeTesting
 
             foreach(Question question in questions)
             {
-                Console.WriteLine($"Category: {question.Category} | Difficulty: {question.Difficulty}");
+                Console.WriteLine($"Question: {question.QuestionPrompt} | Category: {question.Category} | Difficulty: {question.Difficulty}");
             }
 
         }

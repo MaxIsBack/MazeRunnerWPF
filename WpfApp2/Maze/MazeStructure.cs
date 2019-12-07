@@ -55,16 +55,18 @@ namespace MazeRunnerWPF
                 throw new ArgumentException("size must be more than 2", nameof(size));
             }
 
-            _QuestionQueue = questionFactory.getQuestions(questionArgs, (size * size * 4));
+
             this.size = size;
             /*StdDraw.setXscale(0, n+2);
             StdDraw.setYscale(0, n+2);*/
-
+            _QuestionQueue = questionFactory.getQuestions(questionArgs, size*size*3);
             testMaze = new string[size + 2, size + 2];
 
             Initialize();
             generate();
             getWalls();
+          
+
 
             setExits();
 
@@ -326,7 +328,7 @@ namespace MazeRunnerWPF
 
 
         // a test client
-     
+
 
         private string[,] ConvertAlgorithmMazeToRowColFormat(string[,] wallLocations)
         {
@@ -361,6 +363,7 @@ namespace MazeRunnerWPF
         {
             string[,] wallLocations = this.draw();
             string[,] wallLocationsRCformat = this.ConvertAlgorithmMazeToRowColFormat(wallLocations);
+           
             SetUpMazeForGui(wallLocationsRCformat);
             Print2DArray(wallLocationsRCformat);
             return wallLocationsRCformat;
@@ -396,8 +399,8 @@ namespace MazeRunnerWPF
                         else
                         {
                             _QuestionsList.Add(_QuestionQueue.Dequeue());
-                            
-                            NorthQuestion[i, j] = _QuestionsList.Count-1;
+
+                            NorthQuestion[i, j] = _QuestionsList.Count - 1;
                         }
 
                     }
@@ -417,7 +420,7 @@ namespace MazeRunnerWPF
 
                             _QuestionsList.Add(_QuestionQueue.Dequeue());
 
-                         
+
 
                             SouthQuestion[i, j] = _QuestionsList.Count - 1; ;
                         }
@@ -437,9 +440,9 @@ namespace MazeRunnerWPF
                         else
                         {
                             _QuestionsList.Add(_QuestionQueue.Dequeue());
-                           
 
-                            EastQuestion[i, j] = _QuestionsList.Count - 1; 
+
+                            EastQuestion[i, j] = _QuestionsList.Count - 1;
                         }
 
                     }
@@ -457,7 +460,7 @@ namespace MazeRunnerWPF
                         else
                         {
                             _QuestionsList.Add(_QuestionQueue.Dequeue());
-                           
+
                             WestQuestion[i, j] = _QuestionsList.Count - 1;
                         }
 
@@ -511,5 +514,135 @@ namespace MazeRunnerWPF
                 Console.WriteLine();
             }
         }
+
+
+
+
+/*
+        public int[,] NorthQuestionCounting { get; private set; }     // contains the index that coresponds to the question in the Question List (MazeQuestions)
+        public int[,] EastQuestionCounting { get; private set; }
+        public int[,] SouthQuestionCounting { get; private set; }
+        public int[,] WestQuestionCounting { get; private set; }
+        public int CountLockedQuestions()
+        {
+
+            NorthQuestionCounting = new int[size, size];
+            EastQuestionCounting = new int[size, size];
+            SouthQuestionCounting = new int[size, size];
+            WestQuestionCounting = new int[size, size];
+
+
+            SetQuestionToDefault(size);
+
+
+            int count = 0;
+
+            for (int x = 0; x < size; x++)
+            {
+                for (int y = 0; y < size; y++)
+                {
+
+                    if (!NorthWall[x, y])
+
+                    {
+
+                        if (ValidIndex(x - 1) && SouthQuestionCounting[x - 1, y] != 0)
+                        {
+                            NorthQuestionCounting[x, y] = SouthQuestionCounting[x - 1, y];
+
+
+                        }
+                        else
+                        {
+                            //MazeQuestions.Add(newQuestions.Dequeue());
+                            NorthQuestionCounting[x, y] = 1;
+                            count++;
+                        }
+
+                    }
+
+                    if (!SouthWall[x, y])
+
+                    {
+
+                        if (ValidIndex(x + 1) && NorthQuestionCounting[x + 1, y] != 0)
+                        {
+
+                            SouthQuestionCounting[x, y] = NorthQuestionCounting[x + 1, y];
+
+                        }
+                        else
+                        {
+                            // MazeQuestions.Add(newQuestions.Dequeue());
+                            SouthQuestionCounting[x, y] = 1;
+                            count++;
+                        }
+
+                    }
+
+                    if (!EastWall[x, y])
+
+                    {
+
+                        if (ValidIndex(y + 1) && WestQuestionCounting[x, y + 1] != 0)
+                        {
+
+                            EastQuestionCounting[x, y] = WestQuestionCounting[x, y + 1];
+
+                        }
+                        else
+                        {
+                            //MazeQuestions.Add(newQuestions.Dequeue());
+                            EastQuestionCounting[x, y] = 1;
+                            count++;
+                        }
+
+                    }
+
+                    if (WestWall[x, y])
+
+                    {
+
+                        if (ValidIndex(y - 1) && EastQuestionCounting[x, y - 1] != 0)
+                        {
+
+                            WestQuestionCounting[x, y] = EastQuestionCounting[x, y - 1];
+
+                        }
+                        else
+                        {
+
+                            //MazeQuestions.Add(newQuestions.Dequeue());
+                            WestQuestionCounting[x, y] = 1;
+                            count++;
+                        }
+
+                    }
+
+
+                }
+            }
+
+            Console.WriteLine($"Count= {count}");
+            return count;
+
+        }
+
+        private void SetQuestionToDefault(int size)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+
+                    NorthQuestionCounting[i, j] = 0;
+                    EastQuestionCounting[i, j] = 0;
+                    SouthQuestionCounting[i, j] = 0;
+                    WestQuestionCounting[i, j] = 0;
+                }
+
+            }
+
+        }*/
     }
 }
