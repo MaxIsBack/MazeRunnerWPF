@@ -14,8 +14,8 @@ namespace MazeRunnerWPF
         private int[] hardMode = new int[] { 20, 70, 100 };
         private int[] legendaryMode = new int[] { 0, 10, 100 };
 
-        private int [] _GameMode;
-        public int [] GameMode { get { return _GameMode; } }
+        private int [] gameMode;
+        public int [] GameMode { get { return gameMode; } }
 
 
         public void SetGameMode(string[] questionArgs) {
@@ -25,19 +25,19 @@ namespace MazeRunnerWPF
                 string args = string.Join("", questionArgs);
                 if (args.Contains("0"))
                 {
-                   _GameMode = _EasyMode;
+                   gameMode = easyMode;
                     
 
                 }
                 else if (args.Contains("1"))
                 {
-                    _GameMode = _MediumMode;
+                    gameMode = mediumMode;
                    
 
                 }
                 else if (args.Contains("2"))
                 {
-                    _GameMode = _HardMode;
+                    gameMode = hardMode;
                    
 
                 }
@@ -147,7 +147,7 @@ namespace MazeRunnerWPF
 
 
             //use game mode unless there are params to just get a certain type of question
-            int[] currentLevel = _GameMode;
+            int[] currentLevel = gameMode;
 
 
 
@@ -227,7 +227,7 @@ namespace MazeRunnerWPF
                     {
 
                         // gets questions based on percentage of difficulty
-                        if (getRandomQuestionsBasedOnLevel == true&& _GameMode!=null)
+                        if (getRandomQuestionsBasedOnLevel == true&& gameMode!=null)
                         {
                             int random = randomInt.Next(100) + 1;
 

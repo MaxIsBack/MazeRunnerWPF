@@ -65,8 +65,8 @@ namespace MazeRunnerWPF
 
             Initialize();
 
-            generate();
-            getWalls();
+            Generate();
+            GetWalls();
           
 
 
