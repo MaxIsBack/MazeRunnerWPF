@@ -46,7 +46,7 @@ namespace MazeRunnerWPF
 
         public int[] _IndexCounters; // keeps track of what questions have been already used from database.
         private int[] _NumberOfQuestionsPerTable = new int[3]; //allows for resetting the IndexCounters to 0.
-        //private string _QuestionIndexTrackerFile = @"C:\Users\saffron\source\repos\MazeRunnerWPF\WpfApp2\QuestionDatabase\QuestionIndexTracker.txt";
+
         private string _QuestionIndexTrackerFile = @"QuestionDatabase\QuestionIndexTracker.txt";
         string[] _Tables = new string[] { "EasyQuestions", "MediumQuestions", "HardQuestions" };
         private enum _EnumTable
