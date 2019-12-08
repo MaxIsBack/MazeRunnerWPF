@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,17 +43,21 @@ namespace MazeRunnerWPF.MazeGui
 
         private void btnStartGame2_Click(object sender, RoutedEventArgs e)
         {
-            //  if (SAVEGAME_WAS_FOUND) // TODO
+            //using hardcode for testing
+            string filePath = @"C:\Users\saffron\Desktop\mazeData.xml";
+            if (File.Exists(filePath))
             {
-                var window = Window.GetWindow(this);
-                if (MessageBox.Show(
-                    window,
-                    "Load previous save game?",
-                    "Saved Game Detected",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    // TODO: load savegame here
+                    var window = Window.GetWindow(this);
+                    if (MessageBox.Show(
+                        window,
+                        "Load previous save game?",
+                        "Saved Game Detected",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    {
+                        // TODO: load savegame here
+                    }
                 }
             }
             GuiMediator.Instance.ShowMazeGui(cbDifficulty.SelectedIndex);

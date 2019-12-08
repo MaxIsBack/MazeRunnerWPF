@@ -92,7 +92,8 @@ namespace MazeRunnerWPF.MazeGui
         {
             var window = Window.GetWindow(this);
             MessageBox.Show(window, "Game Saved! Click OK to continue.", "Game Saved", MessageBoxButton.OK, MessageBoxImage.Information);
-            // TODO: load game here!
+            mazeBuilder.SaveMaze();
+            
         }
 
         public void OnShown(object passingObj)
@@ -116,7 +117,7 @@ namespace MazeRunnerWPF.MazeGui
                 else
                 {
 
-                    mazeBuilder.ShuffleAllQuestions(currentLocation);
+                    mazeBuilder.ShuffleAllQuestions(questionId);
 
 
                     BuildCurrentLocation();
