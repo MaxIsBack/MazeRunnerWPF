@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,5 +33,31 @@ namespace MazeRunnerWPF.Controller
             return theMaze;
         }
 
+        internal static void SaveMaze(Maze mazeStruct)
+        {
+            string filePath = @"SavedGame\mazeData.xml";
+            // Opens a file and serializes the object into it in binary format.
+            Stream stream = File.Open(filePath, FileMode.Create);
+            BinaryFormatter formatter = new BinaryFormatter();
+
+          
+
+            formatter.Serialize(stream, mazeStruct);
+            stream.Close();
+        }
+
+        internal static Maze LoadMaze(Maze mazeStruct)
+        {
+            string filePath = @"SavedGame\mazeData.xml";
+             Stream stream = File.Open(filePath, FileMode.Open);
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            
+
+            theMaze = (Maze)formatter.Deserialize(stream);
+            stream.Close();
+
+            return theMaze;
+        }
     }
 }

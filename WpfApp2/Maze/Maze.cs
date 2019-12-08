@@ -25,16 +25,17 @@ namespace MazeRunnerWPF
         private (int x, int y) _EntranceCoordinates;
         private (int x, int y) _ExitCoordinates;
 
-        public (int x, int y) PlayerLocation { get;private set; }
+        public (int x, int y) PlayerLocation { get; private set; }
+        public MazeGui.CardinalDirs PlayerDirection { get; private set; }
         public bool[,] RoomDiscovered { get; private set; }
 
-        private QuestionFactory _QuestionFactory = new QuestionFactory();
+        private QuestionFactory _QuestionFactory;
 
         internal void UnlockQuestion(int questionIndex)
         {
             Question temp = MazeQuestions[questionIndex];
             temp.Unlock();
-            MazeQuestions[questionIndex]=temp;
+            MazeQuestions[questionIndex] = temp;
         }
 
         public List<Question> MazeQuestions { get; private set; } = new List<Question>();
@@ -42,7 +43,7 @@ namespace MazeRunnerWPF
 
 
 
-        private Random randomInt = new Random();
+        //private Random randomInt = new Random();
 
         public Maze(int size, params string[] questionArgs)
         {
@@ -54,10 +55,11 @@ namespace MazeRunnerWPF
             this.Size = size;
 
             MazeStructure mazeStructure = new MazeStructure(Size, questionArgs);
+            _QuestionFactory = mazeStructure.GetQuestionFactoryRef();
             MazeQuestions = mazeStructure._QuestionsList;
 
             CopyMazeStructure(mazeStructure);
-            
+
 
             mazeStructure = null; // clean up memory.
 
@@ -65,7 +67,7 @@ namespace MazeRunnerWPF
 
         }
 
-    
+
 
         //returns true if locked false if not
         internal bool QuestionStatus(int questionIndex)
@@ -90,14 +92,19 @@ namespace MazeRunnerWPF
         }
         public void SetPlayerLocation(int x, int y)
         {
-           if(x >= 0 && y>= 0)
+            if (x >= 0 && y >= 0)
             {
                 this.PlayerLocation = (x, y);
             }
         }
-        
 
-        public void ChangeQuestion( int QuestionIndex)
+        public void SetPlayerDirection(MazeGui.CardinalDirs direction)
+        {
+            PlayerDirection = direction;
+        }
+
+
+        public void ChangeQuestion(int QuestionIndex)
         {
 
             MazeQuestions[QuestionIndex] = _QuestionFactory.getQuestions(1).Dequeue();
@@ -113,115 +120,115 @@ namespace MazeRunnerWPF
 
 
         // method not used
-       /* public void ChangeAllQuestionsInMaze((int x, int y) location, params string[] questionParams)
-        {
-            Queue<Question> newQuestions = _QuestionFactory.GetQuestions(questionParams, Size * Size * 4);
-            MazeQuestions = new List<Question>();
+        /* public void ChangeAllQuestionsInMaze((int x, int y) location, params string[] questionParams)
+         {
+             Queue<Question> newQuestions = _QuestionFactory.GetQuestions(questionParams, Size * Size * 4);
+             MazeQuestions = new List<Question>();
 
-            InitializeQuestionLocationArraysWithDefaultQuestionIndex();
-
-
-
-            if (!NorthWall[location.x, location.y])
-
-            {
-
-                if (ValidIndex(location.x - 1) && SouthQuestion[location.x - 1, location.y] != -1)
-                {
-
-                    NorthQuestion[location.x, location.y] = SouthQuestion[location.x - 1, location.y];
-
-                }
-                else
-                {
-                    MazeQuestions.Add(newQuestions.Dequeue());
-                    NorthQuestion[location.x, location.y] = MazeQuestions.Count-1;
-                }
-
-            }
-
-            if (!SouthWall[location.x, location.y])
-
-            {
-
-                if (ValidIndex(location.x + 1) && NorthQuestion[location.x + 1, location.y] != -1)
-                {
-
-                    SouthQuestion[location.x, location.y] = NorthQuestion[location.x + 1, location.y];
-
-                }
-                else
-                {
-                    MazeQuestions.Add(newQuestions.Dequeue());
-                    SouthQuestion[location.x, location.y] = MazeQuestions.Count-1;
-                }
-
-            }
-
-            if (!EastWall[location.x, location.y])
-
-            {
-
-                if (ValidIndex(location.y + 1) && WestQuestion[location.x, location.y + 1] != -1)
-                {
-
-                    EastQuestion[location.x, location.y] = WestQuestion[location.x, location.y + 1];
-
-                }
-                else
-                {
-                    MazeQuestions.Add(newQuestions.Dequeue());
-                    EastQuestion[location.x, location.y] = MazeQuestions.Count-1;
-                }
-
-            }
-
-            if (WestWall[location.x, location.y])
-
-            {
-
-                if (ValidIndex(location.y - 1) && EastQuestion[location.x, location.y - 1] != -1)
-                {
-
-                    WestQuestion[location.x, location.y] = EastQuestion[location.x, location.y - 1];
-
-                }
-                else
-                {
-
-                    MazeQuestions.Add(newQuestions.Dequeue());
-                    WestQuestion[location.x, location.y] = MazeQuestions.Count-1;
-                }
-
-            }
-        }*/
-
-            //method not used currently
-       /* private void InitializeQuestionLocationArraysWithDefaultQuestionIndex()
-        {
-
-
-            NorthQuestion = new int[Size, Size];
-            EastQuestion = new int[Size, Size];
-            SouthQuestion = new int[Size, Size];
-            WestQuestion = new int[Size, Size];
-
-            for (int i = 0; i < Size; i++)
-            {
-                for (int j = 0; j < Size; j++)
-                {
-
-                    NorthQuestion[i, j] = -1;
-                    EastQuestion[i, j] = -1;
-                    SouthQuestion[i, j] = -1;
-                    WestQuestion[i, j] = -1;
-                }
-
-            }
+             InitializeQuestionLocationArraysWithDefaultQuestionIndex();
 
 
 
-        }*/
+             if (!NorthWall[location.x, location.y])
+
+             {
+
+                 if (ValidIndex(location.x - 1) && SouthQuestion[location.x - 1, location.y] != -1)
+                 {
+
+                     NorthQuestion[location.x, location.y] = SouthQuestion[location.x - 1, location.y];
+
+                 }
+                 else
+                 {
+                     MazeQuestions.Add(newQuestions.Dequeue());
+                     NorthQuestion[location.x, location.y] = MazeQuestions.Count-1;
+                 }
+
+             }
+
+             if (!SouthWall[location.x, location.y])
+
+             {
+
+                 if (ValidIndex(location.x + 1) && NorthQuestion[location.x + 1, location.y] != -1)
+                 {
+
+                     SouthQuestion[location.x, location.y] = NorthQuestion[location.x + 1, location.y];
+
+                 }
+                 else
+                 {
+                     MazeQuestions.Add(newQuestions.Dequeue());
+                     SouthQuestion[location.x, location.y] = MazeQuestions.Count-1;
+                 }
+
+             }
+
+             if (!EastWall[location.x, location.y])
+
+             {
+
+                 if (ValidIndex(location.y + 1) && WestQuestion[location.x, location.y + 1] != -1)
+                 {
+
+                     EastQuestion[location.x, location.y] = WestQuestion[location.x, location.y + 1];
+
+                 }
+                 else
+                 {
+                     MazeQuestions.Add(newQuestions.Dequeue());
+                     EastQuestion[location.x, location.y] = MazeQuestions.Count-1;
+                 }
+
+             }
+
+             if (WestWall[location.x, location.y])
+
+             {
+
+                 if (ValidIndex(location.y - 1) && EastQuestion[location.x, location.y - 1] != -1)
+                 {
+
+                     WestQuestion[location.x, location.y] = EastQuestion[location.x, location.y - 1];
+
+                 }
+                 else
+                 {
+
+                     MazeQuestions.Add(newQuestions.Dequeue());
+                     WestQuestion[location.x, location.y] = MazeQuestions.Count-1;
+                 }
+
+             }
+         }*/
+
+        //method not used currently
+        /* private void InitializeQuestionLocationArraysWithDefaultQuestionIndex()
+         {
+
+
+             NorthQuestion = new int[Size, Size];
+             EastQuestion = new int[Size, Size];
+             SouthQuestion = new int[Size, Size];
+             WestQuestion = new int[Size, Size];
+
+             for (int i = 0; i < Size; i++)
+             {
+                 for (int j = 0; j < Size; j++)
+                 {
+
+                     NorthQuestion[i, j] = -1;
+                     EastQuestion[i, j] = -1;
+                     SouthQuestion[i, j] = -1;
+                     WestQuestion[i, j] = -1;
+                 }
+
+             }
+
+
+
+         }*/
 
         public void QuestionAnsweredCorrectly(Question question)
         {
@@ -229,17 +236,18 @@ namespace MazeRunnerWPF
         }
 
         //method not used currently after refactor
-      /*  public void QuestionAnsweredIncorrectly(int x, int y, int[,] questionList)
-        {
-            //questionList[y, x] = -1;
-            questionList[x, y] = -1;
-        }*/
+        /*  public void QuestionAnsweredIncorrectly(int x, int y, int[,] questionList)
+          {
+              //questionList[y, x] = -1;
+              questionList[x, y] = -1;
+          }*/
 
 
 
 
         private void SetExits()
         {
+            Random randomInt = new Random();
             _EntranceCoordinates.x = randomInt.Next(Size / 2);
             _EntranceCoordinates.y = randomInt.Next(Size / 2);
 
@@ -260,6 +268,7 @@ namespace MazeRunnerWPF
             _ExitCoordinates.x = exitX;
             _ExitCoordinates.y = exitY;
 
+            SetPlayerLocation(_EntranceCoordinates.x, _EntranceCoordinates.y);
         }
 
         public (int x, int y) GetEntrance()
@@ -280,16 +289,16 @@ namespace MazeRunnerWPF
 
 
         //all locked questions in that room will be changed
-        public void ChangeAllQuestionAtLocation((int x, int y) location)
+        public void ChangeAllLockedQuestionAtLocation((int x, int y) location)
         {
 
-            if (NorthQuestion[location.x, location.y] != -1 && MazeQuestions[ NorthQuestion[location.x, location.y]].Locked()) { ChangeQuestion(NorthQuestion[location.x, location.y]); }
+            if (NorthQuestion[location.x, location.y] != -1 && MazeQuestions[NorthQuestion[location.x, location.y]].Locked()) { ChangeQuestion(NorthQuestion[location.x, location.y]); }
 
-            if (SouthQuestion[location.x, location.y] != -1 && MazeQuestions[ SouthQuestion[location.x, location.y]].Locked()) { ChangeQuestion(SouthQuestion[location.x, location.y]); }
+            if (SouthQuestion[location.x, location.y] != -1 && MazeQuestions[SouthQuestion[location.x, location.y]].Locked()) { ChangeQuestion(SouthQuestion[location.x, location.y]); }
 
-            if (WestQuestion[location.x, location.y] != -1 && MazeQuestions[ WestQuestion[location.x, location.y]].Locked()) { ChangeQuestion( WestQuestion[location.x, location.y]); }
+            if (WestQuestion[location.x, location.y] != -1 && MazeQuestions[WestQuestion[location.x, location.y]].Locked()) { ChangeQuestion(WestQuestion[location.x, location.y]); }
 
-            if (EastQuestion[location.x, location.y] != -1 && MazeQuestions[ EastQuestion[location.x, location.y]].Locked()) { ChangeQuestion( EastQuestion[location.x, location.y]); }
+            if (EastQuestion[location.x, location.y] != -1 && MazeQuestions[EastQuestion[location.x, location.y]].Locked()) { ChangeQuestion(EastQuestion[location.x, location.y]); }
 
         }
 
@@ -306,33 +315,54 @@ namespace MazeRunnerWPF
 
         }
 
+
+        public void ChangeAllUnlockedQuestions()
+        {
+
+            for (int i = 0; i < MazeQuestions.Count; i++)
+            {
+                if (!MazeQuestions[i].Locked()) {
+                    ChangeQuestion(i);
+                
+                }
+            }
+
+        }
+
         public bool ValidIndex(int index)
         {
             return index >= 0 && index < Size;
         }
 
-        public Question GetQuestion(int index) {
+        public Question GetQuestion(int index)
+        {
 
             return MazeQuestions[index];
         }
 
 
 
-
-        public void ChangeAllUnlockedQuestionsInMaze((int x, int y) location, params string[] questionParams)
+        
+        public void ResetUnlockedMazeQuestionsAndChangeWronglyAnsweredQuestion(int questionIndex, params string[] questionParams)
         {
 
-            ChangeAllQuestionAtLocation(location);
 
+            // changes the question that was gotten wrong that triggered the change
+
+           ChangeQuestion(questionIndex, questionParams);
+
+            ChangeAllUnlockedQuestions();
+
+/*
             for (int x = 0; x < Size; x++)
             {
                 for (int y = 0; y < Size; y++)
                 {
 
                     ChangeAllUnlockedQuestionAtLocation((x, y));
-                    
+
                 }
-            }
+            }*/
         }
 
 
@@ -343,7 +373,7 @@ namespace MazeRunnerWPF
         public int[,] EastQuestionCounting { get; private set; }
         public int[,] SouthQuestionCounting { get; private set; }
         public int[,] WestQuestionCounting { get; private set; }
-        
+
         //method not used currently would require major refactor in mazestructure to implement. Method is supposed to help
         // the maze structure populate with exact number of questions required for maze, to limit database calls
         public int CountLockedQuestions()
@@ -378,7 +408,7 @@ namespace MazeRunnerWPF
                         }
                         else
                         {
-                            
+
                             NorthQuestion[x, y] = 1;
                             count++;
                         }
@@ -469,7 +499,7 @@ namespace MazeRunnerWPF
         }
 
 
-      
+
 
 
 
@@ -485,11 +515,11 @@ namespace MazeRunnerWPF
         public const int West = 1;
         public const int North = 2;
         public const int South = 3;
-        
+
     }
 
 
 
-   
+
 
 }

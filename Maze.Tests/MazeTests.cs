@@ -2,6 +2,9 @@
 using MazeRunnerWPF;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
 
 namespace MazeTesting
 {
@@ -12,7 +15,7 @@ namespace MazeTesting
         [TestMethod]
         public void PrintTestMaze()
         {
-           
+
         }
 
         [TestMethod]
@@ -84,8 +87,8 @@ namespace MazeTesting
             (int x, int y) location2 = (0, 1);
 
 
-            maze.ChangeAllQuestionAtLocation(location1);
-            maze.ChangeAllQuestionAtLocation(location2);
+            maze.ChangeAllUnlockedQuestionAtLocation(location1);
+            maze.ChangeAllUnlockedQuestionAtLocation(location2);
 
 
             for (int i = 1; i < maze.Size; i++)
@@ -117,7 +120,7 @@ namespace MazeTesting
             //(int x, int y) location2 = (0, 1);
 
 
-            maze.ChangeAllUnlockedQuestionsInMaze(location1);
+            maze.ResetUnlockedMazeQuestionsAndChangeWronglyAnsweredQuestion(0);
             //maze.ChangeAllQuestionAtLocation(location2);
 
 
@@ -140,8 +143,42 @@ namespace MazeTesting
 
         }
 
+        [TestMethod]
+        public void Maze_SavesCorrectly()
+        {
+            Maze maze = new Maze(3);
+
+            Console.WriteLine($"Before serialization the object contains: size: {maze.Size}");
+
+            string filePath = @"C:\Users\saffron\Desktop\mazeData.xml";
+
+            // Opens a file and serializes the object into it in binary format.
+            Stream stream = File.Open(filePath, FileMode.Create);
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            //BinaryFormatter formatter = new BinaryFormatter();
+
+            formatter.Serialize(stream, maze);
+            stream.Close();
+
+            // Empties obj.
+            maze = null;
+
+            // Opens file "data.xml" and deserializes the object from it.
+            stream = File.Open(filePath, FileMode.Open);
+            formatter = new BinaryFormatter();
+
+            //formatter = new BinaryFormatter();
+
+            maze = (Maze)formatter.Deserialize(stream);
+            stream.Close();
+
+            Console.WriteLine("");
+            Console.WriteLine($"After deserialization the object contains: size: {maze.Size} ");
+            
 
 
+        }
 
     }
 }

@@ -66,9 +66,40 @@ namespace MazeRunnerWPF.MazeGui
             mazeStruct = Controller.MazeController.getMaze();
         }
 
-        public (int x, int y) GetEntranceLoc()
+        public MazeGuiBuilder()
         {
-            return mazeStruct.GetEntrance();
+          
+            mazeStruct = Controller.MazeController.LoadMaze(mazeStruct);
+        }
+
+        public void UpdatePlayerLoc((int x, int y) coords)
+        {
+            mazeStruct.SetPlayerLocation(coords.x, coords.y);
+        }
+
+        public (int x, int y) GetPlayerLoc()
+        {
+            return mazeStruct.PlayerLocation;
+        }
+
+        public void UpdatePlayerDir(CardinalDirs direction)
+        {
+            mazeStruct.SetPlayerDirection(direction);
+        }
+
+        public CardinalDirs GetPlayerDir()
+        {
+            return mazeStruct.PlayerDirection;
+        }
+
+        public void SaveMaze()
+        {
+            Controller.MazeController.SaveMaze(mazeStruct);
+        }
+
+        public void LoadMaze()
+        {
+            Controller.MazeController.LoadMaze(mazeStruct);
         }
 
         public (int x, int y) GetGoalLoc()
@@ -136,10 +167,10 @@ namespace MazeRunnerWPF.MazeGui
             mazeStruct.UnlockQuestion(questionId);
         }
 
-        public void ShuffleAllQuestions((int y, int x) location)
+        public void ShuffleAllQuestions(int questionIndex)
         {
             //mazeStruct.ChangeAllQuestionAtLocation((location.y, location.x));
-            mazeStruct.ChangeAllUnlockedQuestionsInMaze((location.x, location.y));
+            mazeStruct.ResetUnlockedMazeQuestionsAndChangeWronglyAnsweredQuestion(questionIndex);
             
         }
 
