@@ -44,23 +44,24 @@ namespace MazeRunnerWPF.MazeGui
         private void btnStartGame2_Click(object sender, RoutedEventArgs e)
         {
             //using hardcode for testing
-            string filePath = @"C:\Users\saffron\Desktop\mazeData.xml";
+            string filePath = @"SavedGame\mazeData.xml";
             if (File.Exists(filePath))
             {
+                var window = Window.GetWindow(this);
+                if (MessageBox.Show(
+                    window,
+                    "Load previous save game?",
+                    "Saved Game Detected",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    var window = Window.GetWindow(this);
-                    if (MessageBox.Show(
-                        window,
-                        "Load previous save game?",
-                        "Saved Game Detected",
-                        MessageBoxButton.YesNo,
-                        MessageBoxImage.Question) == MessageBoxResult.Yes)
-                    {
-                        // TODO: load savegame here
-                    }
+                    // Load savegame here
+                    GuiMediator.Instance.ShowMazeGui((false, -1));
+                    return;
                 }
             }
-            GuiMediator.Instance.ShowMazeGui(cbDifficulty.SelectedIndex);
+
+            GuiMediator.Instance.ShowMazeGui((true, cbDifficulty.SelectedIndex));
         }
     }
 }

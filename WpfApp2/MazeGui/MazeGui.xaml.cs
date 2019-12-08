@@ -2,6 +2,7 @@ using MazeRunnerWPF.Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,9 +40,18 @@ namespace MazeRunnerWPF.MazeGui
         private void SetupMaze(int size, int difficulty)
         {
             mazeBuilder = new MazeGuiBuilder(size, difficulty);
-            currentLocation = mazeBuilder.GetEntranceLoc();
+            currentLocation = mazeBuilder.GetPlayerLoc();
             currentAngle = targetAngle = GetLookRotation();
             currentDir = CardinalDirs.NORTH;
+            BuildCurrentLocation();
+        }
+
+        private void LoadMazeFromSaveFile()
+        {
+            mazeBuilder = new MazeGuiBuilder();
+            currentLocation = mazeBuilder.GetPlayerLoc();
+            currentDir = mazeBuilder.GetPlayerDir();
+            currentAngle = targetAngle = GetLookRotation(currentDir);
             BuildCurrentLocation();
         }
 
@@ -62,6 +72,7 @@ namespace MazeRunnerWPF.MazeGui
                     currentLocation.x--;
                     break;
             }
+            mazeBuilder.UpdatePlayerLoc(currentLocation);
         }
 
         private delegate void TriggerBuildCurrentLocation();
@@ -116,7 +127,7 @@ namespace MazeRunnerWPF.MazeGui
                 }
                 else
                 {
-
+                    SystemSounds.Beep.Play();
                     mazeBuilder.ShuffleAllQuestions(questionId);
 
 
@@ -129,7 +140,15 @@ namespace MazeRunnerWPF.MazeGui
             else if (isWaitingOnSetup)
             {
                 isWaitingOnSetup = false;
-                SetupMaze(4, (int)passingObj);
+                (bool newGame, int difficulty) parameters = ((bool, int))passingObj;
+                if (parameters.newGame)
+                {
+                    SetupMaze(4, parameters.difficulty);
+                }
+                else
+                {
+                    LoadMazeFromSaveFile();
+                }
             }
         }
 
@@ -180,6 +199,7 @@ namespace MazeRunnerWPF.MazeGui
             acceptInput = false;
 
             currentDir = CardinalDirsUtils.TurnLeft(currentDir);
+            mazeBuilder.UpdatePlayerDir(currentDir);
             UpdateIfCanMove();
             Turn(-90);
         }
@@ -190,6 +210,7 @@ namespace MazeRunnerWPF.MazeGui
             acceptInput = false;
 
             currentDir = CardinalDirsUtils.TurnRight(currentDir);
+            mazeBuilder.UpdatePlayerDir(currentDir);
             UpdateIfCanMove();
             Turn(90);
         }
@@ -239,6 +260,26 @@ namespace MazeRunnerWPF.MazeGui
         private void SetLookRotation(double angle)
         {
             lookRotation.Angle = angle;
+        }
+
+        private double GetLookRotation(CardinalDirs direction)
+        {
+            switch (currentDir)
+            {
+                case CardinalDirs.NORTH:
+                    SetLookRotation(0);
+                    break;
+                case CardinalDirs.SOUTH:
+                    SetLookRotation(180);
+                    break;
+                case CardinalDirs.EAST:
+                    SetLookRotation(90);
+                    break;
+                case CardinalDirs.WEST:
+                    SetLookRotation(270);
+                    break;
+            }
+            return GetLookRotation();
         }
 
         private double GetLookRotation()

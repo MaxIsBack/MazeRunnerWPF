@@ -26,9 +26,10 @@ namespace MazeRunnerWPF
         private (int x, int y) _ExitCoordinates;
 
         public (int x, int y) PlayerLocation { get; private set; }
+        public MazeGui.CardinalDirs PlayerDirection { get; private set; }
         public bool[,] RoomDiscovered { get; private set; }
 
-        private QuestionFactory _QuestionFactory = new QuestionFactory();
+        private QuestionFactory _QuestionFactory;
 
         internal void UnlockQuestion(int questionIndex)
         {
@@ -54,6 +55,7 @@ namespace MazeRunnerWPF
             this.Size = size;
 
             MazeStructure mazeStructure = new MazeStructure(Size, questionArgs);
+            _QuestionFactory = mazeStructure.GetQuestionFactoryRef();
             MazeQuestions = mazeStructure._QuestionsList;
 
             CopyMazeStructure(mazeStructure);
@@ -94,6 +96,11 @@ namespace MazeRunnerWPF
             {
                 this.PlayerLocation = (x, y);
             }
+        }
+
+        public void SetPlayerDirection(MazeGui.CardinalDirs direction)
+        {
+            PlayerDirection = direction;
         }
 
 
@@ -261,6 +268,7 @@ namespace MazeRunnerWPF
             _ExitCoordinates.x = exitX;
             _ExitCoordinates.y = exitY;
 
+            SetPlayerLocation(_EntranceCoordinates.x, _EntranceCoordinates.y);
         }
 
         public (int x, int y) GetEntrance()
