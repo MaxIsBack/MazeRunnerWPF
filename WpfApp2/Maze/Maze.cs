@@ -28,7 +28,7 @@ namespace MazeRunnerWPF
         public (int x, int y) PlayerLocation { get; private set; }
         public bool[,] RoomDiscovered { get; private set; }
 
-        private QuestionFactory _QuestionFactory = new QuestionFactory();
+        private QuestionFactory _QuestionFactory;
 
         internal void UnlockQuestion(int questionIndex)
         {
@@ -54,6 +54,7 @@ namespace MazeRunnerWPF
             this.Size = size;
 
             MazeStructure mazeStructure = new MazeStructure(Size, questionArgs);
+            _QuestionFactory = mazeStructure.GetQuestionFactoryRef();
             MazeQuestions = mazeStructure._QuestionsList;
 
             CopyMazeStructure(mazeStructure);
