@@ -35,7 +35,7 @@ namespace MazeRunnerWPF.Controller
 
         internal static void SaveMaze(Maze mazeStruct)
         {
-            string filePath = @"C:\Users\saffron\Desktop\mazeData.xml";
+            string filePath = @"SavedGame\mazeData.xml";
             // Opens a file and serializes the object into it in binary format.
             Stream stream = File.Open(filePath, FileMode.Create);
             BinaryFormatter formatter = new BinaryFormatter();
@@ -48,7 +48,7 @@ namespace MazeRunnerWPF.Controller
 
         internal static Maze LoadMaze(Maze mazeStruct)
         {
-            string filePath = @"C:\Users\saffron\Desktop\mazeData.xml";
+            string filePath = @"SavedGame\mazeData.xml";
              Stream stream = File.Open(filePath, FileMode.Open);
             BinaryFormatter formatter = new BinaryFormatter();
 

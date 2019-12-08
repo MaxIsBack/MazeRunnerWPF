@@ -72,9 +72,24 @@ namespace MazeRunnerWPF.MazeGui
             mazeStruct = Controller.MazeController.LoadMaze(mazeStruct);
         }
 
-        public (int x, int y) GetEntranceLoc()
+        public void UpdatePlayerLoc((int x, int y) coords)
         {
-            return mazeStruct.GetEntrance();
+            mazeStruct.SetPlayerLocation(coords.x, coords.y);
+        }
+
+        public (int x, int y) GetPlayerLoc()
+        {
+            return mazeStruct.PlayerLocation;
+        }
+
+        public void UpdatePlayerDir(CardinalDirs direction)
+        {
+            mazeStruct.SetPlayerDirection(direction);
+        }
+
+        public CardinalDirs GetPlayerDir()
+        {
+            return mazeStruct.PlayerDirection;
         }
 
         public void SaveMaze()
