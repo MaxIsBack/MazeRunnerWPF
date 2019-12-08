@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace MazeRunnerWPF
 {
+    [Serializable()]
     public class QuestionFactory
     {
         private int[] easyMode = new int[] { 70, 90, 100 };
@@ -26,31 +27,27 @@ namespace MazeRunnerWPF
                 if (args.Contains("0"))
                 {
                    gameMode = easyMode;
-                    
-
+ 
                 }
                 else if (args.Contains("1"))
                 {
                     gameMode = mediumMode;
-                   
 
                 }
                 else if (args.Contains("2"))
                 {
                     gameMode = hardMode;
-                   
-
+      
                 }
 
             }
-
-
 
         }
 
         public int[] _IndexCounters; // keeps track of what questions have been already used from database.
         private int[] _NumberOfQuestionsPerTable = new int[3]; //allows for resetting the IndexCounters to 0.
-        private string _QuestionIndexTrackerFile = @"C:\Users\saffron\source\repos\MazeRunnerWPF\WpfApp2\QuestionDatabase\QuestionIndexTracker.txt";
+        //private string _QuestionIndexTrackerFile = @"C:\Users\saffron\source\repos\MazeRunnerWPF\WpfApp2\QuestionDatabase\QuestionIndexTracker.txt";
+        private string _QuestionIndexTrackerFile = @"QuestionDatabase\QuestionIndexTracker.txt";
         string[] _Tables = new string[] { "EasyQuestions", "MediumQuestions", "HardQuestions" };
         private enum _EnumTable
         {

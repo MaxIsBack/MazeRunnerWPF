@@ -66,9 +66,25 @@ namespace MazeRunnerWPF.MazeGui
             mazeStruct = Controller.MazeController.getMaze();
         }
 
+        public MazeGuiBuilder()
+        {
+          
+            mazeStruct = Controller.MazeController.LoadMaze(mazeStruct);
+        }
+
         public (int x, int y) GetEntranceLoc()
         {
             return mazeStruct.GetEntrance();
+        }
+
+        public void SaveMaze()
+        {
+            Controller.MazeController.SaveMaze(mazeStruct);
+        }
+
+        public void LoadMaze()
+        {
+            Controller.MazeController.LoadMaze(mazeStruct);
         }
 
         public (int x, int y) GetGoalLoc()
@@ -136,10 +152,10 @@ namespace MazeRunnerWPF.MazeGui
             mazeStruct.UnlockQuestion(questionId);
         }
 
-        public void ShuffleAllQuestions((int y, int x) location)
+        public void ShuffleAllQuestions(int questionIndex)
         {
             //mazeStruct.ChangeAllQuestionAtLocation((location.y, location.x));
-            mazeStruct.ChangeAllUnlockedQuestionsInMaze((location.x, location.y));
+            mazeStruct.ResetUnlockedMazeQuestionsAndChangeWronglyAnsweredQuestion(questionIndex);
             
         }
 
