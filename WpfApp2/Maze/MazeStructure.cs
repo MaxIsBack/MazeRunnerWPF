@@ -75,6 +75,11 @@ namespace MazeRunnerWPF
 
         }
 
+        internal QuestionFactory GetQuestionFactoryRef()
+        {
+            return questionFactory;
+        }
+
         public int[] getEntrance()
         {
             return this.entranceCoodinates;

@@ -2,6 +2,7 @@
 
 namespace MazeRunnerWPF
 {
+    [Serializable()]
     public class Question
     {
         private int number;
