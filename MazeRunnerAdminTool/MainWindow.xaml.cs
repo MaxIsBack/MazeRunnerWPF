@@ -138,7 +138,13 @@ namespace MazeRunnerAdminTool
                 using (SQLiteCommand cmd = sql_conn.CreateCommand())
                 {
                     cmd.CommandText = $"insert into {_tabeName} (Type, Category, Difficulty, Question, CorrectAnswer, IncorrectAnswers) " +
-                        $"values ('{_type}','{_category}','{_difficulty}','{_question}','{_correctAns}','{_incorrectAns}')";
+                        $"values (@Type,@Category,@Difficulty,@Question,@CorrectAnswer,@IncorrectAnswers)";
+                    cmd.Parameters.AddWithValue("Type", _type);
+                    cmd.Parameters.AddWithValue("Category", _category);
+                    cmd.Parameters.AddWithValue("Difficulty", _difficulty);
+                    cmd.Parameters.AddWithValue("Question", _question);
+                    cmd.Parameters.AddWithValue("CorrectAnswer", _correctAns);
+                    cmd.Parameters.AddWithValue("IncorrectAnswers", _incorrectAns);
                     cmd.CommandType = System.Data.CommandType.Text;
 
                     int rows = 0;
