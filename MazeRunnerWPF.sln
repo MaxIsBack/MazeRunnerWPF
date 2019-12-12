@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeRunnerWPF", "WpfApp2\Ma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MazeTesting", "Maze.Tests\MazeTesting.csproj", "{36F28D8D-5C14-4E25-8D68-CF90F59CF28D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MazeRunnerAdminTool", "MazeRunnerAdminTool\MazeRunnerAdminTool.csproj", "{8D41F816-4E7A-4B3B-A425-2505FACB9A74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{36F28D8D-5C14-4E25-8D68-CF90F59CF28D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36F28D8D-5C14-4E25-8D68-CF90F59CF28D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36F28D8D-5C14-4E25-8D68-CF90F59CF28D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D41F816-4E7A-4B3B-A425-2505FACB9A74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D41F816-4E7A-4B3B-A425-2505FACB9A74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D41F816-4E7A-4B3B-A425-2505FACB9A74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D41F816-4E7A-4B3B-A425-2505FACB9A74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
